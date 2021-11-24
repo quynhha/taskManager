@@ -1,0 +1,425 @@
+---
+swagger: "2.0"
+info:
+  description: This is the API for Group Assignment 2
+  version: 1.0.0
+  title: G.API assignment
+  contact:
+    email: tnguyen5@wpi.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /CS3733val/G.API_demo/1.0.0
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: Operations available to regular users
+schemes:
+- https
+paths:
+  /projects:
+    get:
+      tags:
+      - admins
+      summary: list all the projects from the system
+      description: list all the projects from the system
+      operationId: listProjects
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Project'
+    post:
+      tags:
+      - users
+      operationId: createProject
+      parameters:
+      - in: body
+        name: project
+        description: a project to add to the system
+        required: true
+        schema:
+          $ref: '#/definitions/Project'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Project'
+        "400":
+          description: invalid input, object invalid
+  /projects/{projectid}:
+    get:
+      tags:
+      - users
+      summary: view a Project
+      description: take users to Project view
+      operationId: viewProject
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to view.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Project'
+        "403":
+          description: project doesn't exist
+    post:
+      tags:
+      - admins
+      summary: delete a project
+      description: delete a project
+      operationId: deleteProject
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to delete.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: project doesn't exist
+  /projects/{projectid}/archive:
+    put:
+      tags:
+      - admins
+      summary: archive a project
+      description: archive a project
+      operationId: archiveProject
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to archive.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: project doesn't exist
+  /projects/{projectid}/teams:
+    get:
+      tags:
+      - users
+      summary: get all teammates
+      description: view list of all teammates
+      operationId: viewTeam
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to view.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Teammate'
+        "403":
+          description: project doesn't exist
+  /projects/{projectid}/teammate:
+    post:
+      tags:
+      - users
+      summary: add a new Teammate to the project
+      description: add a new Teammate to the project
+      operationId: addTeammate
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to add member to.
+        required: true
+        type: string
+        format: uuid
+      - in: body
+        name: teammate
+        description: A teammate to add
+        required: true
+        schema:
+          $ref: '#/definitions/Teammate'
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/team/{teammateid}:
+    post:
+      tags:
+      - users
+      summary: delete a Teammate from selected the project
+      description: delete a Teammate from selected the project
+      operationId: removeTeammate
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to remove member from.
+        required: true
+        type: string
+        format: uuid
+      - name: teammateid
+        in: path
+        description: ID of member you want to remove.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/task:
+    post:
+      tags:
+      - users
+      summary: add a new Task to the project
+      description: add a new Task to the project
+      operationId: addTask
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to add member to.
+        required: true
+        type: string
+        format: uuid
+      - in: body
+        name: task
+        description: A task to add
+        required: true
+        schema:
+          $ref: '#/definitions/Task'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: project doesn't exist
+  /projects/{projectid}/task/{taskid}:
+    put:
+      tags:
+      - users
+      summary: decompose a Task in the project
+      description: decompose a new Task in the project
+      operationId: decomposeTask
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project
+        required: true
+        type: string
+        format: uuid
+      - name: taskid
+        in: path
+        description: ID of task you want to decompose.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/task/{taskid}/status:
+    put:
+      tags:
+      - users
+      summary: mark a Task in the project complete
+      description: mark a Task's progress
+      operationId: markTask
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project
+        required: true
+        type: string
+        format: uuid
+      - name: taskid
+        in: path
+        description: ID of task you want to decompose.
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/task/{taskid}/team:
+    post:
+      tags:
+      - users
+      summary: assign a member to a task
+      description: assign a Teammate
+      operationId: assignTeammate
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to add member to.
+        required: true
+        type: string
+        format: uuid
+      - name: taskid
+        in: path
+        description: ID of task you want to decompose.
+        required: true
+        type: string
+        format: uuid
+      - in: body
+        name: Teammate
+        description: A teammate to add
+        required: true
+        schema:
+          $ref: '#/definitions/Teammate'
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/task/{taskid}/team/{teammateid}:
+    post:
+      tags:
+      - users
+      summary: unassign a member to a task
+      description: unassign a Teammate
+      operationId: unassignTeammate
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to add member to.
+        required: true
+        type: string
+        format: uuid
+      - name: taskid
+        in: path
+        description: ID of task you want to decompose.
+        required: true
+        type: string
+        format: uuid
+      - name: teammateid
+        in: path
+        description: ID of the teammate .
+        required: true
+        type: string
+        format: uuid
+      responses:
+        "200":
+          description: OK
+  /projects/{projectid}/task/{taskid}/{name}:
+    post:
+      tags:
+      - users
+      summary: rename a task
+      description: rename a Task
+      operationId: renameTask
+      consumes:
+      - application/json
+      parameters:
+      - name: projectid
+        in: path
+        description: ID of project you want to add member to.
+        required: true
+        type: string
+        format: uuid
+      - name: taskid
+        in: path
+        description: ID of task you want to decompose.
+        required: true
+        type: string
+        format: uuid
+      - name: name
+        in: path
+        description: A name to rename
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+definitions:
+  Task:
+    type: object
+    required:
+    - name
+    properties:
+      id:
+        type: string
+        format: uuids
+      name:
+        type: string
+      status:
+        type: boolean
+      team:
+        type: array
+        items:
+          $ref: '#/definitions/Teammate'
+      tasks:
+        type: array
+        items:
+          $ref: '#/definitions/Task'
+  Teammate:
+    type: object
+    required:
+    - id
+    - name
+    properties:
+      id:
+        type: string
+        format: uuid
+      name:
+        type: string
+      project:
+        $ref: '#/definitions/Project'
+  Project:
+    required:
+    - name
+    - projectid
+    properties:
+      name:
+        type: string
+      projectid:
+        type: string
+        format: uuid
+      status:
+        type: integer
+        format: percentage
+      tasks:
+        type: array
+        items:
+          $ref: '#/definitions/Task'
+      team:
+        type: array
+        items:
+          $ref: '#/definitions/Teammate'

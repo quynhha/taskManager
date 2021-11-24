@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group View</title>
+    <style>
+        .func-btn{
+            display: flex;
+            justify-content: flex-end;
+            float: right;
+            
+        }
+        .view{
+            float: left;
+        }
+        .display{
+            float: none;
+            overflow: hidden;
+           
+            padding-top: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="btndiv">
+        <div class="view">
+            <button type="button" onclick="location.href='teamview.html'">ProjectView</button>
+        </div>
+        <div class="func-btn ">
+            <button type="button"> Remove Teammate</button>
+            <button type="button"> Add Teammate</button>
+        </div>
+    </div>
+    <div class="display">
+        <div class="teammate" style="float:left;">
+            <p>Teammates: </p>
+            <ol>
+                <li>Larry</li>
+                <li>Larry</li>
+                <li>Larry</li>
+                <li>Larry</li>
+            </ol>
+        </div>
+        
+    </div>
+</body>
+</html>

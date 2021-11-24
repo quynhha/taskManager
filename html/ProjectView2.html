@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project View</title>
+    <style>
+        .func-btn{
+         
+            
+            float: right;
+            
+        }
+        .view{
+            float: left;
+        }
+        .display{
+            float: none;
+            overflow: hidden;
+           
+            padding-top: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="btndiv">
+        <div class="view">
+            <button type="menu"> Team View</button>
+        </div>
+        <div class="func-btn ">
+            <button type="button"> Remove Teammates</button>
+            <button type="button"> Add Teammates</button>
+            <button type="button"> Add Task</button>
+        </div>
+    </div>
+    <div class="display">
+        <div class="teammate" style="float:left;">
+            <p>Teammates: </p>
+            <ol>
+                <li>Larry</li>
+                <li>Larry</li>
+                <li>Larry</li>
+                <li>Larry</li>
+            </ol>
+        </div>
+        <div class="proj-display" style="float: right;">
+            <p>Project Name</p>
+            <ol>
+            <li>Task A</li>
+                <ol>
+                    <li>Task 1</li>
+                        <ul>Larry</ul>
+                        <ul>Jom</ul>
+                    <li>Task 2</li>
+                </ol>
+            <li>Task B</li>
+            <li>Task C</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

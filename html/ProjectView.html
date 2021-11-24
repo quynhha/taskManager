@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project View</title>
+    <script type="text/javascript" src="../js/create.js"></script>
+    <script type="text/javascript" src="../js/api.js"></script>
+    <script type="text/javascript" src="../js/get_projectsList.js"></script>
+    <style>
+        .func-btn{
+         
+            
+            float: right;
+            
+        }
+        .view{
+            float: left;
+        }
+        .display{
+            float: none;
+            overflow: hidden;
+           
+            padding-top: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="btndiv">
+        <div class="view">
+            <button type="menu"> Team View</button>
+        </div>
+        <div class="func-btn ">
+            <form method="post" name="addProject">
+                <label for="fname">Project Name: </label>
+                <input name ="projectName"type="text" placeholder="Enter project's name">
+                <input type="button" value="Create Project" onclick="handleCreateFunction(this)"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
