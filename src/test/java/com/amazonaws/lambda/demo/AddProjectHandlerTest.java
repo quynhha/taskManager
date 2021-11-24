@@ -10,9 +10,7 @@ import com.amazonaws.lambda.demo.http.CreateProjectRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.google.gson.Gson;
 
-import edu.wpi.cs.heineman.demo.CreateConstantHandler;
-import edu.wpi.cs.heineman.demo.http.CreateConstantRequest;
-import edu.wpi.cs.heineman.demo.http.CreateProjectResponse;
+
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
