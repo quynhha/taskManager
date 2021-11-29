@@ -6,11 +6,12 @@ function processCreateResponse(result) {
   refreshConstantsList();
 }
 
-function handleCreateClick(e) {
+function handleCreateFunction(e) {
   var form = document.addProject;
  
   var data = {};
   data["name"] = form.projectName.value;
+  console.log(form.projectName.value);
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
