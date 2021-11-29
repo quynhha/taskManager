@@ -11,5 +11,10 @@ public class Project {
 		this.name = name;
 		this.id = UUID.randomUUID();
 	}
-
+	
+	public Project(String name, UUID id) {
+		this.name = name;
+		this.id = id;
+	}
+	
 }

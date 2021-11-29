@@ -29,4 +29,6 @@ public class CreateProjectRequest {
 	public String toString() {
 		return "CreateProject(" + name + "," + id + ")";
 	}
+	
+	public CreateProjectRequest() {}
 }
