@@ -21,7 +21,7 @@ public class ListProjectsHandlerTest extends LambdaTest {
         
         boolean hasE = false;
         for (Project p : resp.list) {
-        	System.out.println("found constant " + p);
+        	System.out.println("found project " + p);
         	if (p.name.equals("e")) { hasE = true; }
         }
         Assert.assertTrue("e Needs to exist in the constants table (from tutorial) for this test case to work.", hasE);
