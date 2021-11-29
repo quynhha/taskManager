@@ -1,12 +1,16 @@
 package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
+
+import edu.wpi.cs.heineman.demo.model.Constant;
 
 public class ProjectsDAO {
 	
@@ -64,10 +68,6 @@ public class ProjectsDAO {
 		}
 		
 
-	public List<Project> getAllProjects() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	private Project generateProject(ResultSet resultSet) throws SQLException {
 		String name = resultSet.getString("name");
@@ -77,4 +77,25 @@ public class ProjectsDAO {
 		
 	}
 
+	public List<Project> getAllProjects() throws Exception {
+	// TODO Auto-generated method stub	
+		List<Project> allProjects = new ArrayList<>();
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM " + tblName + ";";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Project p = generateProject(resultSet);
+                allProjects.add(p);
+            }
+            resultSet.close();
+            statement.close();
+            return allProjects;
+
+        } catch (Exception e) {
+            throw new Exception("Failed in getting projects: " + e.getMessage());
+        }
+    }
+    
 }
