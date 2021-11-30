@@ -46,8 +46,6 @@ public class DatabaseUtil {
 		}
 		
 		dbUsername = System.getenv("dbUsername");
-		System.out.println("System.getenv('dbUsername') = ");
-	      System.out.println(System.getenv("dbUsername"));
 		if (dbUsername == null) {
 			System.err.println("Environment variable dbUsername is not set!");
 		}

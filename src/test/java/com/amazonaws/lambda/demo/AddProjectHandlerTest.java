@@ -19,15 +19,16 @@ import com.google.gson.Gson;
  */
 public class AddProjectHandlerTest extends LambdaTest{
 
-	void testSuccessInput(String incoming) throws IOException {
+	
+	 void testSuccessInput(String incoming) throws IOException {
     	CreateProjectHandler handler = new CreateProjectHandler();
     	CreateProjectRequest req = new Gson().fromJson(incoming, CreateProjectRequest.class);
        
-        com.amazonaws.lambda.demo.http.CreateProjectResponse resp = handler.handleRequest(req, createContext("create"));
+        CreateProjectResponse resp = handler.handleRequest(req, createContext("create"));
         Assert.assertEquals(200, resp.httpCode);
     }
 	
-	void testFailInput(String incoming, int failureCode) throws IOException {
+	 void testFailInput(String incoming, int failureCode) throws IOException {
 		CreateProjectHandler handler = new CreateProjectHandler();
 		CreateProjectRequest req = new Gson().fromJson(incoming, CreateProjectRequest.class);
 
@@ -52,16 +53,5 @@ public class AddProjectHandlerTest extends LambdaTest{
         }
     }
     
-    
-    @Test
-    public void testGarbageInput() {
-    	String SAMPLE_INPUT_STRING = "{\"sdsd\": \"e3\", \"hgfgdfgdfg\": \"this is not a project\"}";
-        
-        try {
-        	testFailInput(SAMPLE_INPUT_STRING, 400);
-        } catch (IOException ioe) {
-        	Assert.fail("Invalid:" + ioe.getMessage());
-        }
-    }
-    
+
 }
