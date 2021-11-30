@@ -11,6 +11,7 @@ import java.util.UUID;
 import com.amazonaws.lambda.demo.model.Project;
 
 
+
 public class ProjectsDAO {
 	
 	java.sql.Connection conn;
@@ -52,7 +53,19 @@ public class ProjectsDAO {
 	public boolean addProject(Project project) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement ps;// = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
+			
+			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
+	            ps.setString(1, project.name);
+	            ResultSet resultSet = ps.executeQuery();
+	            
+	            // already present?
+	            while (resultSet.next()) {
+	                Project c = generateProject(resultSet);
+	                resultSet.close();
+	                return false;
+	            }
+	            
+			 // = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
 			
 			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (projectName, projectID) values(?,?);");
 	            ps.setString(1,  project.name); // fix
@@ -70,7 +83,7 @@ public class ProjectsDAO {
 
 	
 	private Project generateProject(ResultSet resultSet) throws SQLException {
-		String name = resultSet.getString("name");
+		String name = resultSet.getString("projectName");
 		int id = resultSet.getInt("projectID");
 				
 		return new Project(name, id);
