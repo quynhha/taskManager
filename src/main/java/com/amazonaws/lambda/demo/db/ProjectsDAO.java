@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
 
-import edu.wpi.cs.heineman.demo.model.Constant;
 
 public class ProjectsDAO {
 	
@@ -82,7 +81,7 @@ public class ProjectsDAO {
 		List<Project> allProjects = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tblName + ";";
+            String query = "SELECT * FROM " + tb1name + ";";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {

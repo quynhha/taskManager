@@ -24,7 +24,7 @@ public class DatabaseUtil {
 	public final static String rdsMySqlDatabasePort = "3306";
 	public final static String multiQueries = "?allowMultiQueries=true";
 	   
-	public final static String dbName = "calc";           // Whatever Schema you created in tutorial.
+	public final static String dbName = "projectmanagerdb";           // Whatever Schema you created in tutorial.
 	public final static String testingName = "tmp";       // used for testing (also default created)
 	
 	// pooled across all usages.
@@ -46,6 +46,8 @@ public class DatabaseUtil {
 		}
 		
 		dbUsername = System.getenv("dbUsername");
+		System.out.println("System.getenv('dbUsername') = ");
+	      System.out.println(System.getenv("dbUsername"));
 		if (dbUsername == null) {
 			System.err.println("Environment variable dbUsername is not set!");
 		}
