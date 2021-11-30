@@ -30,7 +30,7 @@ public class ProjectsDAO {
 		
 		try {
 			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE id=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectID=?;");
 			ps.setString(1,  id);
 			ResultSet resultSet = ps.executeQuery();
 			
@@ -52,11 +52,12 @@ public class ProjectsDAO {
 	public boolean addProject(Project project) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE name = ?;");
+			PreparedStatement ps;// = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
 			
-			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (name,id) values(?,?);");
+			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (projectName, projectID) values(?,?);");
 	            ps.setString(1,  project.name); // fix
-	            ps.setString(2,  project.id.toString()); 
+	            ps.setInt(2,  project.id); 
+	            System.out.println();
 	            ps.execute();
 	            return true;
 			}
@@ -70,9 +71,9 @@ public class ProjectsDAO {
 	
 	private Project generateProject(ResultSet resultSet) throws SQLException {
 		String name = resultSet.getString("name");
-		String id = resultSet.getString("projectID");
+		int id = resultSet.getInt("projectID");
 				
-		return new Project(name, UUID.fromString(id));
+		return new Project(name, id);
 		
 	}
 

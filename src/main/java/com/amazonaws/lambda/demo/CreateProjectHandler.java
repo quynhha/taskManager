@@ -48,7 +48,7 @@ public class CreateProjectHandler implements RequestHandler<CreateProjectRequest
 					response = new CreateProjectResponse(req.name);
 			} 
 			else {
-					response = new CreateProjectResponse(req.name, 422);
+					response = new CreateProjectResponse(req.name, 400);
 			}
 			
 		} catch (Exception e) {
