@@ -63,7 +63,7 @@ public class ProjectsDAO {
 		catch (Exception e){
             throw new Exception("Failed to insert project: " + e.getMessage());
 
-		}
+			}
 		}
 		
 
