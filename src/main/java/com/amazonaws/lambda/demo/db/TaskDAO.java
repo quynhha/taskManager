@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
+import com.amazonaws.lambda.demo.model.Task;
 
 
 
-public class ProjectsDAO {
+public class TaskDAO {
 	
 	java.sql.Connection conn;
 	
-	final String tb1name = "Project";
+	final String tb1name = "Task";
 	
-	public ProjectsDAO() {
+	public TaskDAO() {
 		try {
 			conn = DatabaseUtil.connect();
 		} catch (Exception e) {
@@ -27,94 +28,94 @@ public class ProjectsDAO {
 		
 	}
 
-	public Project getProject(String id) throws Exception{
+	public Task getTask(String id) throws Exception{
 		
 		try {
-			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName=?;");
+			Task task = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE TaskName=?;");
 			ps.setString(1,  id);
 			ResultSet resultSet = ps.executeQuery();
 			
 			  while (resultSet.next()) {
-	                project = generateProject(resultSet);
+	                task = generateTask(resultSet);
 	            }
 			resultSet.close();
 			ps.close();
-			return project;
+			return task;
 			  
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting project: " + e.getMessage());
+			throw new Exception("Failed in getting task: " + e.getMessage());
 		}
 		
 	}
 
-	public boolean addProject(Project project) throws Exception {
+	public boolean addTask(Task task) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			
-			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
-	            ps.setString(1, project.name);
+			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE taskName = ?;");
+	            ps.setString(1, task.name);
 	            ResultSet resultSet = ps.executeQuery();
 	            
 	            // already present?
 	            while (resultSet.next()) {
-	                Project c = generateProject(resultSet);
+	                Task c = generateTask(resultSet);
 	                resultSet.close();
 	                return false;
 	            }
 	            
 			 // = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
 			
-			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (projectName, projectID) values(?,?);");
-	            ps.setString(1,  project.name); // fix
-	            ps.setInt(2,  project.id); 
+			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (taskName, taskID) values(?,?);");
+	            ps.setString(1,  task.name); // fix
+	            ps.setInt(2,  task.id); 
 	            System.out.println();
 	            ps.execute();
 	            return true;
 			}
 		catch (Exception e){
-            throw new Exception("Failed to insert project: " + e.getMessage());
+            throw new Exception("Failed to insert task: " + e.getMessage());
 
 			}
 		}
 		
 
 	
-	private Project generateProject(ResultSet resultSet) throws SQLException {
-		String name = resultSet.getString("projectName");
-		int id = resultSet.getInt("projectID");
+	private Task generateTask(ResultSet resultSet) throws SQLException {
+		String name = resultSet.getString("taskName");
+		int id = resultSet.getInt("taskID");
 				
-		return new Project(name, id);
+		return new Task(name, id);
 		
 	}
 
-	public List<Project> getAllProjects() throws Exception {
+	public List<Task> getAllTasks() throws Exception {
 	// TODO Auto-generated method stub	
-		List<Project> allProjects = new ArrayList<>();
+		List<Task> allProjects = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT * FROM " + tb1name + ";";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                Project p = generateProject(resultSet);
-                allProjects.add(p);
+                Task t = generateTask(resultSet);
+                allProjects.add(t);
             }
             resultSet.close();
             statement.close();
             return allProjects;
 
         } catch (Exception e) {
-            throw new Exception("Failed in getting projects: " + e.getMessage());
+            throw new Exception("Failed in getting tasks: " + e.getMessage());
         }
     }
 	
-	public boolean deleteProject(String name) throws Exception {
+	public boolean deletetask(String name) throws Exception {
 		try {
-			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName=?;");
+			Task task = null;
+			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE taskName=?;");
 			ps.setString(1,  name);
 			int deleteCode = ps.executeUpdate();
 			return deleteCode != 0;
@@ -122,7 +123,7 @@ public class ProjectsDAO {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed to delete project: " + e.getMessage());
+			throw new Exception("Failed to delete task: " + e.getMessage());
 		}
 		
 		
