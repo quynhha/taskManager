@@ -110,5 +110,22 @@ public class ProjectsDAO {
             throw new Exception("Failed in getting projects: " + e.getMessage());
         }
     }
+	
+	public boolean deleteProject(String name) throws Exception {
+		try {
+			Project project = null;
+			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName=?;");
+			ps.setString(1,  name);
+			int deleteCode = ps.executeUpdate();
+			return deleteCode != 0;
+			  
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+		
+	}
     
 }
