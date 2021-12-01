@@ -24,7 +24,7 @@ public class CreateProjectHandler implements RequestHandler<CreateProjectRequest
 	 * @throws Exception 
 	 */
 	boolean createProject(String name) throws Exception { 
-		if (logger != null) { logger.log("in createConstant"); }
+		if (logger != null) { logger.log("in createProject"); }
 		ProjectsDAO dao = new ProjectsDAO();
 		
 		// check if present
