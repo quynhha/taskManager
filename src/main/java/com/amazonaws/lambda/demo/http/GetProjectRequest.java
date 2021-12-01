@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class GetProjectRequest {
 	public String name; 
-	public UUID id;
 	
 	public String getName() {
 		return name;
@@ -14,20 +13,14 @@ public class GetProjectRequest {
 		this.name = name;
 	}
 
-	public UUID getID() {
-		return id;
-	}
-	public void setID(UUID id) {
-		this.id = id; 
-	}
 	
-	public GetProjectRequest(String n , UUID id) {
+	public GetProjectRequest(String n) {
 		this.name = n; 
-		this.id = id;
+		
 	}
 	
 	public String toString() {
-		return "CreateProject(" + name + "," + id + ")";
+		return "GetProject(" + name + ")";
 	}
 	
 	public GetProjectRequest() {}

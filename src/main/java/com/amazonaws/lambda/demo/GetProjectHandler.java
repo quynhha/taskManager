@@ -40,21 +40,28 @@ public class GetProjectHandler implements RequestHandler<GetProjectRequest, GetP
 		return project;
 	}
 	
+	List<Project> getProjects() throws Exception{
+		logger.log("get all Projects");
+		ProjectsDAO dao = new ProjectsDAO();
+		
+		return dao.getAllProjects();
+	}
+	
 	public GetProjectResponse handleRequest(GetProjectRequest req, Context context)  {
 		logger = context.getLogger();
 		logger.log(req.toString());
 
-		GetProjectResponse response;
+		GetProjectResponse response = null;
 		try {
-			if (getProject(req.name) != null) {
-					response = new GetProjectResponse(req.);
-			} 
-			else {
-					response = new GetProjectResponse(req.name, 400);
+			List<Project> list = getProjects();
+			for (Project c : list) {
+				if (c.name == req.getName()) {
+					response = new GetProjectResponse(200, "Successfully got project!");
+				}
 			}
 			
 		} catch (Exception e) {
-			response = new GetProjectResponse("Unable to get Project" + req.name + "(" + e.getMessage() + ")", 400);
+			response = new GetProjectResponse(400, "Unable to get Project" + req.name + "(" + e.getMessage() + ")");
 		}
 
 		return response;
