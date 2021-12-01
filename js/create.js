@@ -3,7 +3,7 @@ function processCreateResponse(result) {
   // contents dynamically via javascript
   console.log("result:" + result);
 
-  refreshConstantsList();
+  refreshProjectsList();
 }
 
 function handleCreateFunction(e) {
@@ -39,4 +39,7 @@ function handleCreateFunction(e) {
       processCreateResponse("N/A");
     }
   };
+  var d1 = document.getElementById('name');
+  d1.insertAdjacentHTML('afterend', '<div id="two">two</div>');
+
 }
