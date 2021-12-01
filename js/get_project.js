@@ -2,8 +2,14 @@ function processGetResponse(result) {
     // Can grab any DIV or SPAN HTML element and can then manipulate its
     // contents dynamically via javascript
     console.log("get project:" + result);
-  
-    refreshConstantsList();
+    refreshProjectsList();
+
+    var form = document.getProject;
+   
+    var data = {};
+    data["name"] = form.projectName.value;
+    console.log(form.projectName.value);
+
 
     var display = document.getElementById('getProjDisplay');
 
@@ -14,14 +20,20 @@ function processGetResponse(result) {
     var projectJson = js.list[i];
     console.log(projectJson);
     
+  
+
     var pname = projectJson["name"];
     var pid = projectJson["id"];
 
-   
-    output = output + "<div id=\"const" + pname + "\"><b>" + pname + ": ID - </b>  " + pid +  " <br></div>";
-
+    if(pname == form.projectName.value){
+      output = output + "<div id=\"const" + pname + "\"> Project Name: <b>" + pname + "</b> <br> Project ID : <b>" + pid +  "</b> <br> </div>";
+      //display.innerHTML = "<div id=\"const" + pname + "\"><b>" + pname + ": ID - </b>  " + pid +  " <br></div>";
+    }
+    
+    }
     display.innerHTML = output;
-  }
+  
+    
 }
 
   function requestGet(val){
@@ -40,7 +52,7 @@ function processGetResponse(result) {
     var js = JSON.stringify(data);
     console.log("JS:" + js);
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", get_url + "/" + name, true);
+    xhr.open("GET", list_url, true);
   
     
   
