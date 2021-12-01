@@ -4,7 +4,25 @@ function processGetResponse(result) {
     console.log("get project:" + result);
   
     refreshConstantsList();
+
+    var display = document.getElementById('getProjDisplay');
+
+    var js = JSON.parse(result);
+  
+    var output = "";
+    for (var i = 0; i < js.list.length; i++) {
+    var projectJson = js.list[i];
+    console.log(projectJson);
+    
+    var pname = projectJson["name"];
+    var pid = projectJson["id"];
+
+   
+    output = output + "<div id=\"const" + pname + "\"><b>" + pname + ": ID - </b>  " + pid +  " <br></div>";
+
+    display.innerHTML = output;
   }
+}
 
   function requestGet(val){
     if(confirm("Request to get this project:" + val)){
@@ -33,7 +51,7 @@ function processGetResponse(result) {
       if (xhr.readyState == XMLHttpRequest.DONE) {
            if (xhr.status == 200) {
             console.log ("XHR:" + xhr.responseText);
-            processCreateResponse(xhr.responseText);
+            processGetResponse(xhr.responseText);
            } else {
                console.log("actual:" + xhr.responseText)
                 var js = JSON.parse(xhr.responseText);

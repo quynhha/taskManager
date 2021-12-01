@@ -50,4 +50,3 @@ function processListResponse(result) {
   // Update computation result
   projList.innerHTML = output;
 }
-

@@ -39,7 +39,5 @@ function handleCreateFunction(e) {
       processCreateResponse("N/A");
     }
   };
-  var d1 = document.getElementById('name');
-  d1.insertAdjacentHTML('afterend', '<div id="two">two</div>');
 
 }
