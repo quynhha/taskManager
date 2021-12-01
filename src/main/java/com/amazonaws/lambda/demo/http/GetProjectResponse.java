@@ -11,13 +11,20 @@ public class GetProjectResponse {
 	public final Project project;
 	public final List<Project> projectList;
 	
-	public GetProjectResponse (Project p, List<Project> pr , int code) {
+	public GetProjectResponse (Project p, List<Project> pr , int code, String s) {
 		this.project = p;
-		this.response = "";
+		this.response = s;
 		this.httpCode = code;
 		this.projectList = pr;
 	}
 	
+	
+	public GetProjectResponse (Project p, List<Project> pr) {
+		this.project = p;
+		this.response = "";
+		this.httpCode = 200;
+		this.projectList = pr;
+	}
 	// 200 means success
 	public GetProjectResponse (int code, String errorMessage) {
 		this.project = new Project();

@@ -18,23 +18,23 @@ public class GetProjectHandlerTest extends LambdaTest {
 	public void testGetProject() throws IOException {
 		 	GetProjectHandler handler = new GetProjectHandler();
 
-		 	String var = "a";
+		 	String var = "Project";
 		 	GetProjectRequest req = new GetProjectRequest(var);
 		 	
 	        GetProjectResponse resp = handler.handleRequest(req, createContext("list"));
 	    	System.out.println("Hello World");
-
+	    	
 	        boolean hasE = false;
+	        System.out.println(resp.projectList);
 	        for (Project p : resp.projectList) {
-	        	//.out.println("Hello World");
-	        	System.out.println(hasE);
+	        	
 	        	if (p.name.equals("Project")) { hasE = true; }
-	        	System.out.println(hasE);
+	        	
 	        }
 	        
 	        
 	        Assert.assertTrue("There needs to be a project gotten.", hasE);
-	        Assert.assertEquals(200, resp.response);
+	        Assert.assertEquals(200, resp.httpCode);
 	    }
 
     

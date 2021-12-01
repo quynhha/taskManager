@@ -52,11 +52,15 @@ public class GetProjectHandler implements RequestHandler<GetProjectRequest, GetP
 		logger.log(req.toString());
 
 		GetProjectResponse response = null;
+		List<Project> list;
 		try {
-			List<Project> list = getProjects();
+			 list = getProjects();
+			 System.out.println(list);
+			 System.out.println(req.getName());
 			for (Project c : list) {
-				if (c.name == req.getName()) {
-					response = new GetProjectResponse(200, "Successfully got project!");
+				System.out.println(c.name);
+				if (c.name.equals(req.getName())) {
+					response = new GetProjectResponse(c,list,200, "Successfully got project!");
 				}
 			}
 			
