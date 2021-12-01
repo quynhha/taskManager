@@ -31,7 +31,7 @@ public class ProjectsDAO {
 		
 		try {
 			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectID=?;");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName=?;");
 			ps.setString(1,  id);
 			ResultSet resultSet = ps.executeQuery();
 			

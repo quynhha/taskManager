@@ -23,4 +23,12 @@ public class Project {
 		this.id = id;
 	}
 	
+	public Project() {
+		Random r = new Random();
+
+		this.name = r.toString();
+		
+		this.id = r.nextInt(10000000);
+	}
+	
 }
