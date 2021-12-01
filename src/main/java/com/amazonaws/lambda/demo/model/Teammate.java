@@ -2,6 +2,13 @@ package com.amazonaws.lambda.demo.model;
 
 import java.util.Random;
 import java.util.UUID;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.events.S3Event;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 /*
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -39,19 +46,16 @@ public class Teammate {
 		
 		this.id = r.nextInt(10000000);
 	}
-}
-	
-	/*
-    private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
-    public Teammate() {}
+    private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     // Test purpose only.
     Teammate(AmazonS3 s3) {
         this.s3 = s3;
+		this.name = "";
+		this.id = 0;
     }
 
-    @Override
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
@@ -72,4 +76,3 @@ public class Teammate {
         }
     }
 }
-	*/

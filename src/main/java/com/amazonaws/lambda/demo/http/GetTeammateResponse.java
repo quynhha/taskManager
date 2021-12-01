@@ -27,12 +27,23 @@ public class GetTeammateResponse {
 		//this.teammateList = tm;
 	}
 	
+	public GetTeammateResponse(String s) {
+		this.response = "";
+		this.httpCode = 0;
+		this.teammateName = "";
+	}
 	
-	public GetTeammateResponse (String m) {
-		this.teammateName = m;
+	public GetTeammateResponse(String s, int code) {
+		this.response = "";
+		this.httpCode = 0;
+		this.teammateName = "";
+	}
+	
+	public GetTeammateResponse (AmazonS3 s3) {
 		this.response = "";
 		this.httpCode = 200;
 		//this.teammateList = tm;
+		this.teammateName = "";
 	}
 	// 200 means success
 	/*
@@ -48,8 +59,11 @@ public class GetTeammateResponse {
 		return "Teammate" + teammateName + ")";
 	}
 	
+	
+	  public String handleRequest(S3Event event, Context context) {
+		  return "";
+	  }
 }
-
 
 /*
 public class GetTeammateResponse implements RequestHandler<S3Event, String> {

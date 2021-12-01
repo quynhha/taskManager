@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
@@ -62,7 +62,7 @@ public class GetTeammateRequestTest {
         GetTeammateRequest handler = new GetTeammateRequest(s3Client);
         Context ctx = createContext();
 
-        String output = handler.handleRequest(event, ctx);
+       String output = handler.handleRequest(event, ctx);
 
         // TODO: validate output here if needed.
         Assert.assertEquals(CONTENT_TYPE, output);

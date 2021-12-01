@@ -21,21 +21,12 @@ public class GetTeammateRequest {
 		this.name = name;
 	}
 
-	
-	public GetTeammateRequest(String n) {
-		this.name = n; 
-		
-	}
-	
 	public String toString() {
 		return "GetTeammate(" + name + ")";
 	}
-	
-	public GetTeammateRequest() {}
-}
 
 	
-/*
+
     private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     public GetTeammateRequest() {}
@@ -45,7 +36,6 @@ public class GetTeammateRequest {
         this.s3 = s3;
     }
 
-    @Override
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
@@ -66,4 +56,3 @@ public class GetTeammateRequest {
         }
     }
 }
-	*/
