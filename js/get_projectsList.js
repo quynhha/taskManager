@@ -1,8 +1,8 @@
 /**
- * Refresh constant list from server
+ * Refresh project list from server
  *
  *    GET list_url
- *    RESPONSE  list of [name, value, system] constants 
+ *    RESPONSE  list of [name, id] projects 
  */
 function refreshProjectsList() {
    var xhr = new XMLHttpRequest();
@@ -25,7 +25,7 @@ function refreshProjectsList() {
 /**
  * Respond to server JSON object.
  *
- * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+ * Replace the contents of 'projList' with a <br>-separated list of name, id  pairs.
  */
 function processListResponse(result) {
   console.log("res:" + result);
@@ -42,7 +42,7 @@ function processListResponse(result) {
     var pid = projectJson["id"];
 
    
-    output = output + "<div id=\"const" + pname + "\"><b>" + pname + ":</b> = " + pid + "(<a href='javaScript:requestDelete(\"" + cname + "\")'><img src='deleteIcon.png'></img></a>) <br></div>";
+    output = output + "<div id=\"const" + pname + "\"><b>" + pname + ": ID - </b>  " + pid +  " <br></div>";
     
   }
 

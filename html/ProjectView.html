@@ -8,6 +8,7 @@
     <script type="text/javascript" src="../js/create.js"></script>
     <script type="text/javascript" src="../js/api.js"></script>
     <script type="text/javascript" src="../js/get_projectsList.js"></script>
+    <script type="text/javascript" src="../js/get_project.js"></script>
     <style>
         .func-btn{
          
@@ -38,7 +39,14 @@
                 <input name ="projectName"type="text" placeholder="Enter project's name">
                 <input type="button" value="Create Project" onclick="handleCreateFunction(this)"/>
             </form>
+        
+            <form method="get" name="getProject">
+                <label for="fname">Project Name: </label>
+                <input name ="projectName"type="text" placeholder="Enter project's name">
+                <input type="button" value="Get Project" onclick="processGet(this)"/>
+            </form>
         </div>
     </div>
+    <div id="getProjDisplay"></div>
 </body>
 </html>
