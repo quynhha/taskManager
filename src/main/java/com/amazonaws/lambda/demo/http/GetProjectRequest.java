@@ -1,7 +1,5 @@
 package com.amazonaws.lambda.demo.http;
 
-import java.util.UUID;
-
 public class GetProjectRequest {
 	public String name; 
 	
