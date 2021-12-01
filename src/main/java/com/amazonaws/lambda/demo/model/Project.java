@@ -9,7 +9,7 @@ public class Project {
 	
 	public Project(String name) {
 		if(name == null) {
-			this.name = "NoName";
+			this.name = null;
 		}
 		else {
 		this.name = name;
