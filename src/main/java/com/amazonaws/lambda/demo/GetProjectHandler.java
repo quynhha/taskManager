@@ -47,7 +47,7 @@ public class GetProjectHandler implements RequestHandler<GetProjectRequest, GetP
 		GetProjectResponse response;
 		try {
 			if (getProject(req.name) != null) {
-					response = new GetProjectResponse(req.name);
+					response = new GetProjectResponse(req.);
 			} 
 			else {
 					response = new GetProjectResponse(req.name, 400);
