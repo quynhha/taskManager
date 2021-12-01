@@ -2,12 +2,11 @@ package com.amazonaws.lambda.demo;
 
 import java.util.List;
 
-import com.amazonaws.lambda.demo.db.ProjectsDAO;
+
 import com.amazonaws.lambda.demo.db.TaskDAO;
-import com.amazonaws.lambda.demo.http.ListProjectsRequest;
-import com.amazonaws.lambda.demo.http.ListProjectsResponse;
+
 import com.amazonaws.lambda.demo.http.ListTaskResponse;
-import com.amazonaws.lambda.demo.model.Project;
+
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
