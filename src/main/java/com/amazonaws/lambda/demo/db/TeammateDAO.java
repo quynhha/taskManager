@@ -114,7 +114,7 @@ public class TeammateDAO {
         }
     }
 	
-	public boolean deleteTeammate(String name) throws Exception {
+	public boolean removeTeammate(String name) throws Exception {
 		try {
 			Teammate teammate = null;
 			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE teammateName=?;");
