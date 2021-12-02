@@ -21,6 +21,7 @@ public class TeammateDAO {
 	
 	java.sql.Connection conn;
 	final String tb1name = "Teammate";
+	private AmazonS3 s3;
 	
 	public TeammateDAO() {
 		try {
@@ -29,7 +30,7 @@ public class TeammateDAO {
 			conn = null;
 		}
 	}
-	
+
 	public Teammate getTeammate(String id) throws Exception{
 		
 		try {
@@ -128,19 +129,17 @@ public class TeammateDAO {
 			throw new Exception("Failed to delete teammate: " + e.getMessage());
 		}	
 	}   
-}
 
     //private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     //public TeammateDAO() {}
-/*
+
     // Test purpose only.
-    TeammateDAO(AmazonS3 s3) {
+    public TeammateDAO(AmazonS3 s3) {
         this.s3 = s3;
     }
 
 		
-    @Override
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
@@ -161,4 +160,3 @@ public class TeammateDAO {
         }
     }
 }
-		*/

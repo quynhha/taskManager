@@ -1,9 +1,12 @@
 package com.amazonaws.lambda.demo;
 
-import com.amazonaws.lambda.demo.db.ProjectsDAO;
-import com.amazonaws.lambda.demo.http.CreateProjectRequest;
-import com.amazonaws.lambda.demo.http.CreateProjectResponse;
-import com.amazonaws.lambda.demo.model.Project;
+
+import com.amazonaws.lambda.demo.db.TaskDAO;
+
+import com.amazonaws.lambda.demo.http.CreateTaskRequest;
+import com.amazonaws.lambda.demo.http.CreateTaskResponse;
+
+import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -29,7 +32,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 		
 		// check if present
 		Task exist = dao.getTask(name);
-		Task project = new Task(name);
+		Task task = new Task(name);
 		if (exist == null) {
 			return dao.addTask(task);
 		} else {
@@ -44,7 +47,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 
 		CreateTaskResponse response;
 		try {
-			if (createProject(req.name)) {
+			if (createTask(req.name)) {
 					response = new CreateTaskResponse(req.name);
 			} 
 			else {
@@ -52,7 +55,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 			}
 			
 		} catch (Exception e) {
-			response = new CreateProjectResponse("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", 400);
+			response = new CreateTaskResponse("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;

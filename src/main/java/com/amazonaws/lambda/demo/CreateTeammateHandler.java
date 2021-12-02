@@ -24,7 +24,7 @@ public class CreateTeammateHandler implements RequestHandler<GetTeammateRequest,
 	
 	// To access S3 storage
 	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
+	private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 	
 	public static final String REAL_BUCKET = "teammate/";
 	
@@ -68,11 +68,6 @@ public class CreateTeammateHandler implements RequestHandler<GetTeammateRequest,
 		return response;
 	}
 
-}
-
-
-	/*
-	private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     public CreateTeammateHandler() {}
 
@@ -81,7 +76,6 @@ public class CreateTeammateHandler implements RequestHandler<GetTeammateRequest,
         this.s3 = s3;
     }
 
-    @Override
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
@@ -102,4 +96,3 @@ public class CreateTeammateHandler implements RequestHandler<GetTeammateRequest,
         }
     }
 }
-*/
