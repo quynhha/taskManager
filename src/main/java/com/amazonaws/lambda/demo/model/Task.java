@@ -6,9 +6,9 @@ public class Task {
 
 	public final String name; 
 	public final int id;
-	public final int projectID;
+	public final String projectName;
 	
-	public Task(String name, int projectID) {
+	public Task(String name, String projectName) {
 		if(name == null) {
 			this.name = null;
 		}
@@ -17,13 +17,13 @@ public class Task {
 		}
 		Random r = new Random();
 		this.id = r.nextInt(10000000);
-		this.projectID = projectID;
+		this.projectName = projectName;
 	}
 	
-	public Task(String name, int id, int projectID) {
+	public Task(String name, int id, String projectName) {
 		this.name = name;
 		this.id = id;
-		this.projectID = projectID;
+		this.projectName = projectName;
 	}
 	
 	public Task() {
@@ -32,7 +32,7 @@ public class Task {
 		this.name = r.toString();
 		
 		this.id = r.nextInt(10000000);
-		this.projectID = new Project().id;
+		this.projectName = new Project().name;
 	}
 	
 }
