@@ -91,17 +91,19 @@ public class TaskDAO {
 		
 	}
 
-	public List<Task> getAllTasks() throws Exception {
+	public List<Task> getAllTasks(Project project) throws Exception {
 	// TODO Auto-generated method stub	
 		List<Task> allTasks = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + ";";
+            String query = "SELECT * FROM " + tb1name + "ORDER BY taskID;";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                Task t = generateTask(resultSet);
-                allTasks.add(t);
+            		Task t = generateTask(resultSet);
+            		if(t.projectID == project.id) { 
+            			allTasks.add(t);
+            	}
             }
             resultSet.close();
             statement.close();
@@ -109,23 +111,8 @@ public class TaskDAO {
         } catch (Exception e) {
             throw new Exception("Failed in getting tasks: " + e.getMessage());
         }
+		return allTasks;
     }
 	
-	public boolean deleteTask(String name) throws Exception {
-		try {
-			Task task = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE taskName=?;");
-			ps.setString(1,  name);
-			int deleteCode = ps.executeUpdate();
-			return deleteCode != 0;
-			  
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed to delete task: " + e.getMessage());
-		}
-		
-		
-	}
     
 }
