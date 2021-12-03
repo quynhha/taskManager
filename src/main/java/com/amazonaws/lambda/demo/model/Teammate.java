@@ -42,6 +42,7 @@ public class Teammate {
 		this.id = r.nextInt(10000000);
 	}
 
+
     private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     // Test purpose only.
