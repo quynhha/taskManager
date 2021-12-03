@@ -27,12 +27,12 @@ public class ProjectsDAO {
 		
 	}
 
-	public Project getProject(String id) throws Exception{
+	public Project getProject(String name) throws Exception{
 		
 		try {
 			Project project = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName=?;");
-			ps.setString(1,  id);
+			ps.setString(1,  name);
 			ResultSet resultSet = ps.executeQuery();
 			
 			  while (resultSet.next()) {
