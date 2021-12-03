@@ -1,5 +1,6 @@
 package com.amazonaws.lambda.demo;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.amazonaws.lambda.demo.db.ProjectsDAO;
@@ -34,24 +35,28 @@ public class DeleteProjectHandler implements RequestHandler<DeleteProjectRequest
 		Project exist = dao.getProject(name);
 		
 		if(exist != null ) {
-			result = true; 
-		} else {
 			result = false; 
+		} else {
+			result = true; 
 		}
 		return result;
 	}
 	
 	
 	
-	public DeleteProjectResponse handleRequest(DeleteProjectRequest req, Context context)  {
+	public DeleteProjectResponse handleRequest(DeleteProjectRequest req, Context context){
 		logger = context.getLogger();
 		logger.log(req.toString());
 
 		DeleteProjectResponse response = null;
-		Boolean foundDeletedProject = false;
+
 		try {
 			 if(deleteProject(req.name)) {
 				 response = new DeleteProjectResponse(req.name);
+				 
+			 }
+			 else {
+				 response = new DeleteProjectResponse( req.name, 400);
 			 }
 			
 			
@@ -61,8 +66,5 @@ public class DeleteProjectHandler implements RequestHandler<DeleteProjectRequest
 
 		return response;
 	}
-
-
-
 	
 }
