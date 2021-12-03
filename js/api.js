@@ -6,3 +6,4 @@ var list_url   = base_url + "projects";    // GET
 var create_url = base_url + "projects";    // POST
 
 var get_url = base_url + "projects"; //GET with {projectname}
+var delete_url = base_url + "projects"; //GET with {projectname}
