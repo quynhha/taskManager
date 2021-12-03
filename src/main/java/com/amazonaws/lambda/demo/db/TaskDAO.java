@@ -93,7 +93,7 @@ public class TaskDAO {
 
 	public List<Task> getAllTasks() throws Exception {
 	// TODO Auto-generated method stub	
-		List<Task> allProjects = new ArrayList<>();
+		List<Task> allTasks = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT * FROM " + tb1name + ";";
@@ -101,18 +101,17 @@ public class TaskDAO {
 
             while (resultSet.next()) {
                 Task t = generateTask(resultSet);
-                allProjects.add(t);
+                allTasks.add(t);
             }
             resultSet.close();
             statement.close();
-            return allProjects;
 
         } catch (Exception e) {
             throw new Exception("Failed in getting tasks: " + e.getMessage());
         }
     }
 	
-	public boolean deletetask(String name) throws Exception {
+	public boolean deleteTask(String name) throws Exception {
 		try {
 			Task task = null;
 			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE taskName=?;");
