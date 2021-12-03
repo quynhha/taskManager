@@ -34,7 +34,13 @@
             <button type="menu"> Admin View</button>
         </div>
         <div class="func-btn ">
-            <button type="button"> Delete Project</button>
+            
+            <form method="post" name="deleteProject">
+                <label for="fname">Project Name: </label>
+                <input name ="projectName"type="text" placeholder="Enter project's name">
+                <input type="button" value="Delete Project" onclick="requestDelete(this)"/>
+            </form>
+
             <button type="button"> Archive Project</button>
             <button type="button" onclick="refreshProjectsList()">List Projects </button>
         </div>
@@ -48,6 +54,10 @@
             <p>Project Name</p>
             
         </div>
+    <div id="project-anno">
+        
+    </div>
+    
     </div>
 </body>
 </html>
