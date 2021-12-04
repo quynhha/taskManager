@@ -90,7 +90,7 @@ public class TeammateDAO {
 		String name = resultSet.getString("teammateName");
 		int id = resultSet.getInt("teammateID");
 				
-		return new Teammate(name, id);
+		return new Teammate(name);
 		
 	}
 

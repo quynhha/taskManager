@@ -13,7 +13,7 @@ public class Teammate {
 	
 	public final String name; 
 	public final int id;
-	public final Project projectName;
+	public Project projectName;
 	
 	public Teammate(String name, Project projectName) {
 		if(name == null) {
@@ -34,10 +34,10 @@ public class Teammate {
 		this.projectName = projectName;
 	}
 	
-	public Teammate() {
+	public Teammate(String name) {
 		Random r = new Random();
 
-		this.name = r.toString();
+		this.name = name;
 		
 		this.id = r.nextInt(10000000);
 	}
