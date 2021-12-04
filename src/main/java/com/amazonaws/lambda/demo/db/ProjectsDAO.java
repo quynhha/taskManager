@@ -127,5 +127,25 @@ public class ProjectsDAO {
 		
 		
 	}
+	
+	public void updateNumberOfTasks(String name, int numTasks) throws Exception{
+		
+		try {
+			Project project = null;
+			PreparedStatement ps = conn.prepareStatement("Update " + tb1name + "Set numberOfTasks" + numTasks +" WHERE projectName=?;");
+			//UPDATE Project SET projectName ='aa' WHERE projectID='2843248';
+
+			ps.setString(1,  name);
+			ps.setInt(2,  numTasks);
+
+			ps.executeUpdate();
+			  
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+	}
     
 }

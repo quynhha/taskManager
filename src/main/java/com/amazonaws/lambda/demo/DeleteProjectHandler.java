@@ -6,8 +6,6 @@ import java.util.List;
 import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.lambda.demo.http.DeleteProjectRequest;
 import com.amazonaws.lambda.demo.http.DeleteProjectResponse;
-import com.amazonaws.lambda.demo.http.GetProjectRequest;
-import com.amazonaws.lambda.demo.http.GetProjectResponse;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;

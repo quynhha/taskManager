@@ -9,7 +9,6 @@ import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.lambda.demo.http.CreateProjectRequest;
 import com.amazonaws.lambda.demo.http.DeleteProjectRequest;
 import com.amazonaws.lambda.demo.http.DeleteProjectResponse;
-import com.amazonaws.lambda.demo.http.RemoveTeammateRequest;
 import com.amazonaws.lambda.demo.model.Project;
 import com.google.gson.Gson;
 

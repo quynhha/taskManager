@@ -13,9 +13,9 @@ public class Teammate {
 	
 	public final String name; 
 	public final int id;
-	public final Project projectName;
+	public final String projectName;
 	
-	public Teammate(String name, Project projectName) {
+	public Teammate(String name, String projectName) {
 		if(name == null) {
 			this.name = null;
 			this.projectName = null;
@@ -28,7 +28,7 @@ public class Teammate {
 		this.id = r.nextInt(10000000);
 	}
 	
-	public Teammate(String name, int id, Project projectName) {
+	public Teammate(String name, int id, String projectName) {
 		this.name = name;
 		this.id = id;
 		this.projectName = projectName;
@@ -40,17 +40,13 @@ public class Teammate {
 		this.name = r.toString();
 		
 		this.id = r.nextInt(10000000);
+		
+		this.projectName = new Project().name;
 	}
 
 
     private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
-    // Test purpose only.
-    Teammate(AmazonS3 s3) {
-        this.s3 = s3;
-		this.name = "";
-		this.id = 0;
-    }
 
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);

@@ -7,6 +7,10 @@ public class DeleteProjectRequest {
 		this.name = name;
 	}
 	
+	public DeleteProjectRequest() {
+		this.name = "";
+	}
+	
 	public String getName() {
 		return name;
 	}

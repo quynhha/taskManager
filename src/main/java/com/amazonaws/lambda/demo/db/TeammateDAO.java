@@ -89,12 +89,14 @@ public class TeammateDAO {
 	private Teammate generateTeammate(ResultSet resultSet) throws SQLException {
 		String name = resultSet.getString("teammateName");
 		int id = resultSet.getInt("teammateID");
-				
-		return new Teammate(name, id);
+		String project = resultSet.getString("projectName");
+		Teammate teammate = new Teammate(name,id,project);
+		
+		return teammate;
 		
 	}
 
-	public List<Teammate> getAllTeammates() throws Exception {
+	public List<Teammate> getAllTeammates(String project) throws Exception {
 	// TODO Auto-generated method stub	
 		List<Teammate> allTeammates = new ArrayList<>();
         try {
@@ -104,7 +106,8 @@ public class TeammateDAO {
 
             while (resultSet.next()) {
                 Teammate m = generateTeammate(resultSet);
-                allTeammates.add(m);
+                if(m.projectName == project)
+                	allTeammates.add(m);
             }
             resultSet.close();
             statement.close();
