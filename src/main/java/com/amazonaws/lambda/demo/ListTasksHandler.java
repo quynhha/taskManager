@@ -31,7 +31,7 @@ public class ListTasksHandler implements RequestHandler<Object, ListTasksRespons
 		logger.log("get all tasks");
 		TaskDAO dao = new TaskDAO();
 		
-		return dao.getAllTasks();
+		return dao.getAllTasks(null);
 	}
 	
 	@Override
