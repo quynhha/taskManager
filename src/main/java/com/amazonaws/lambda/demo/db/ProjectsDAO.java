@@ -10,8 +10,6 @@ import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
 
-import utils.DatabaseUtil;
-
 
 
 public class ProjectsDAO {
