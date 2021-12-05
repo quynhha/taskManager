@@ -41,6 +41,7 @@ public class DeleteProjectHandlerTest extends LambdaTest{
         Assert.assertEquals(failCode, resp.httpCode);
     }
     
+    
     @Test
     public void testDeleteProjectSucccess() {
         
