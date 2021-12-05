@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.demo;
+package com.amazonaws.lambda.demo.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -6,9 +6,7 @@ import java.io.InputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.amazonaws.lambda.demo.utils.ParseJSON;
-
-public class TestUtils {
+public class ParseJSONTest {
 
     @Test
     public void test() throws Exception {
