@@ -13,7 +13,11 @@ public class Teammate {
 	
 	public final String name; 
 	public final int id;
+<<<<<<< Updated upstream
 	public Project projectName;
+=======
+	//Project
+>>>>>>> Stashed changes
 	
 	public Teammate(String name, Project projectName) {
 		if(name == null) {

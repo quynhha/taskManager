@@ -117,8 +117,11 @@ public class ProjectsDAO {
 			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName=?;");
 			ps.setString(1,  name);
 			int deleteCode = ps.executeUpdate();
-			return deleteCode != 0;
-			  
+			System.out.println(deleteCode);
+			if (deleteCode == 0)
+					return true;
+			else
+					return false;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
