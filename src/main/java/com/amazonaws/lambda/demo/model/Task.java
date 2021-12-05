@@ -11,12 +11,9 @@ public class Task {
 
 	public final String name; 
 	public final int id;
-<<<<<<< Updated upstream
 	public final String projectName;
 	public final int order;
-=======
 	//Needs a taskorder number
->>>>>>> Stashed changes
 	
 	public Task(String name, String projectName) throws Exception {
 		if(name == null) {
