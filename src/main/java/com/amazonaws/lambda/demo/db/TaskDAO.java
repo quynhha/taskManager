@@ -85,11 +85,12 @@ public class TaskDAO {
 		
 
 	
-	private Task generateTask(ResultSet resultSet) throws SQLException {
+	private Task generateTask(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("taskName");
 		int id = resultSet.getInt("taskID");
+		String projectName = resultSet.getString("projectName");
 				
-		return new Task(name, id);
+		return new Task(name, projectName);
 		
 	}
 
@@ -103,7 +104,7 @@ public class TaskDAO {
 
             while (resultSet.next()) {
             		Task t = generateTask(resultSet);
-            		if(t.projectID == project.id) { 
+            		if(t.projectName == project.name) { 
             			allTasks.add(t);
             	}
             }

@@ -129,5 +129,35 @@ public class ProjectsDAO {
 		
 		
 	}
+	
+	public int getNumberOfTasks(String projectName) throws Exception {
+		try {
+			Statement statement = conn.createStatement();
+            String query = "Select numberOfTasks FROM " + tb1name + " WHERE projectName="+ projectName+ ";";
+            ResultSet resultSet = statement.executeQuery(query);
+       
+            
+            while (resultSet.next()) {
+                Project p = generateProject(resultSet);
+                return p.numTasks;
+            }
+           return -1;
+			  
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+	}
+	
+	public void incrementNumberOfTasks(String projectName) throws Exception{
+		int newNumOfTasks = this.getNumberOfTasks(projectName) + 1;
+		
+		PreparedStatement ps = conn.prepareStatement("Update" + tb1name + "Set numberOfTasks="+ newNumOfTasks + " WHERE projectName=? + ;");
+
+		ps.setString(1,  projectName);
+		int deleteCode = ps.executeUpdate();
+	}
     
 }
