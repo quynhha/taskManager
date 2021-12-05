@@ -32,6 +32,7 @@ public class ListTasksHandler implements RequestHandler<ListTasksRequest, ListTa
 		TaskDAO dao = new TaskDAO();
 		
 		return dao.getAllTasks(projectName);
+
 	}
 	
 	@Override

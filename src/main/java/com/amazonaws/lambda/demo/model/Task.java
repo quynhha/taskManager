@@ -13,6 +13,8 @@ public class Task {
 	public final int id;
 	public final String projectName;
 	public final int order;
+
+
 	//Needs a taskorder number
 	
 	public Task(String name, String projectName) throws Exception {
