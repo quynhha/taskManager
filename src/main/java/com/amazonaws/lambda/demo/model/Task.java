@@ -15,6 +15,7 @@ public class Task {
 	public final int order;
 
 
+	//Needs a taskorder number
 	
 	public Task(String name, String projectName) throws Exception {
 		if(name == null) {

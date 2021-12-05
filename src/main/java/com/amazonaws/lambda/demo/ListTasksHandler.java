@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.amazonaws.lambda.demo.db.TaskDAO;
 
-import com.amazonaws.lambda.demo.http.ListTaskResponse;
 import com.amazonaws.lambda.demo.http.ListTasksResponse;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.services.lambda.runtime.Context;
