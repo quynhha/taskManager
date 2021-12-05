@@ -48,7 +48,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 
         CreateTaskResponse response;
         try {
-            if (createTask(req.name, )) {
+            if (createTask(req.name,)) {
                     response = new CreateTaskResponse(req.name);
             } 
             else {

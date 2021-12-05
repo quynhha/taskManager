@@ -95,12 +95,13 @@ public class TaskDAO {
 		
 	}
 
-	public List<Task> getAllTasks(Project project) throws Exception {
+	public List<Task> getAllTasks(String projectName) throws Exception {
 	// TODO Auto-generated method stub	
 		List<Task> allTasks = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + "ORDER BY order;";
+            String query = "SELECT * FROM " + tb1name+ "where projectname ="+ projectName + "ORDER BY order;";
+            
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
