@@ -2,26 +2,16 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import com.amazonaws.lambda.demo.model.Project;
-import com.amazonaws.lambda.demo.model.Teammate;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+
+import java.sql.ResultSetMetaData;
 
 public class TeammateDAO {
 	
-	java.sql.Connection conn;
-	final String tb1name = "Teammate";
-	private AmazonS3 s3;
+	public java.sql.Connection conn;
 	
 	public TeammateDAO() {
 		try {
@@ -29,134 +19,53 @@ public class TeammateDAO {
 		} catch (Exception e) {
 			conn = null;
 		}
-	}
-
-	public Teammate getTeammate(String id) throws Exception{
-		
-		try {
-			Teammate teammate = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName=?;");
-			ps.setString(1,  id);
-			ResultSet resultSet = ps.executeQuery();
-			
-			  while (resultSet.next()) {
-	                teammate = generateTeammate(resultSet);
-	            }
-			resultSet.close();
-			ps.close();
-			return teammate;
-			  
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in getting teammate: " + e.getMessage());
-		}
 		
 	}
 
-	public boolean addTeammate(Teammate teammate) throws Exception {
-		// TODO Auto-generated method stub
+	public int searchForTeammate(String teammateName, String projectName) throws Exception {
+		  int teammateID = 0;
+		  try {
+			  PreparedStatement ps = 
+		       conn.prepareStatement("SELECT teammateId FROM projectdb.Teammate where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
+		      ResultSet resultSet = ps.executeQuery();	
+		      while (resultSet.next()) {
+		        	teammateID = resultSet.getInt("teammateId");
+		      }
+		      resultSet.close();
+		      ps.close();
+	      } catch (Exception e) {
+	    	  throw new Exception("Something went wrong: " + e.getMessage());
+	      }
+	      return teammateID;
+	}
+	
+	public int addTeammateToProject(String teammateName, String projectName) throws Exception {
 		try {
-			
-			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName = ?;");
-	            ps.setString(1, teammate.name);
-	            ResultSet resultSet = ps.executeQuery();
-	            
-	            // already present?
-	            while (resultSet.next()) {
-	                Teammate t = generateTeammate(resultSet);
-	                resultSet.close();
-	                return false;
-	            }
-	            
-			 // = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName = ?;");
-			
-			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (teammateName, teammateID) values(?,?);");
-	            ps.setString(1,  teammate.name); // fix
-	            ps.setInt(2,  teammate.id); 
-	            System.out.println();
+			if (searchForTeammate(teammateName, projectName) == 0) {
+				PreparedStatement ps = conn.prepareStatement("Insert into projectdb.Teammate (teammateName, projectName) values(?, ?);");
+	            ps.setString(1,  teammateName); 
+	            ps.setNString(2, projectName);
 	            ps.execute();
-	            return true;
+	            ps.close();
+	         } else {
+	        	 return 0;
+	         }
 			}
 		catch (Exception e){
-            throw new Exception("Failed to add teammate: " + e.getMessage());
-
-			}
+            throw new Exception("Failed to add teammate to project: " + e.getMessage());
 		}
-		
+			return searchForTeammate(teammateName, projectName);
+		}
 
-	
-	private Teammate generateTeammate(ResultSet resultSet) throws SQLException {
-		String name = resultSet.getString("teammateName");
-		int id = resultSet.getInt("teammateID");
-				
-		return new Teammate(name);
-		
-	}
-
-	public List<Teammate> getAllTeammates() throws Exception {
-	// TODO Auto-generated method stub	
-		List<Teammate> allTeammates = new ArrayList<>();
-        try {
-            Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + ";";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                Teammate m = generateTeammate(resultSet);
-                allTeammates.add(m);
-            }
-            resultSet.close();
-            statement.close();
-            return allTeammates;
-
-        } catch (Exception e) {
-            throw new Exception("Failed in getting teammates: " + e.getMessage());
-        }
-    }
-	
-	public boolean removeTeammate(String name) throws Exception {
+	public boolean deleteTeammateFromProject(String teammateName, String projectName) throws Exception {
 		try {
-			Teammate teammate = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE teammateName=?;");
-			ps.setString(1,  name);
-			int deleteCode = ps.executeUpdate();
-			return deleteCode != 0;
-			  
+			PreparedStatement ps = 
+				conn.prepareStatement("delete from projectdb.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
+				ps.execute();
+				ps.close();
+			return true;
+		} catch (Exception ex) {
+			throw new Exception("Failed to delete teammate." + ex.getMessage());
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed to delete teammate: " + e.getMessage());
-		}	
-	}   
-
-    //private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
-
-    //public TeammateDAO() {}
-
-    // Test purpose only.
-    public TeammateDAO(AmazonS3 s3) {
-        this.s3 = s3;
-    }
-
-		
-    public String handleRequest(S3Event event, Context context) {
-        context.getLogger().log("Received event: " + event);
-
-        // Get the object from the event and show its content type
-        String bucket = event.getRecords().get(0).getS3().getBucket().getName();
-        String key = event.getRecords().get(0).getS3().getObject().getKey();
-        try {
-            S3Object response = s3.getObject(new GetObjectRequest(bucket, key));
-            String contentType = response.getObjectMetadata().getContentType();
-            context.getLogger().log("CONTENT TYPE: " + contentType);
-            return contentType;
-        } catch (Exception e) {
-            e.printStackTrace();
-            context.getLogger().log(String.format(
-                "Error getting object %s from bucket %s. Make sure they exist and"
-                + " your bucket is in the same region as this function.", key, bucket));
-            throw e;
-        }
-    }
+	}
 }
