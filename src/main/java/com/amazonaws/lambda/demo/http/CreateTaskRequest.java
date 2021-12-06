@@ -22,9 +22,10 @@ public class CreateTaskRequest {
 		this.id = id; 
 	}
 	
-	public CreateTaskRequest(String n , UUID id) {
+	public CreateTaskRequest(String n , UUID id, String projectname) {
 		this.name = n; 
 		this.id = id;
+		this.projectName = projectname;
 	}
 	
 	public String toString() {

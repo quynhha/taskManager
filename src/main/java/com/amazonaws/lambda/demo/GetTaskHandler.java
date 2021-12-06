@@ -48,7 +48,7 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 		logger.log("get all Projects");
 		TaskDAO dao = new TaskDAO();
 		
-		return dao.getAllTasks(null));
+		return dao.getAllTasks(null);
 	}
 	
 	public GetTaskResponse handleRequest(GetTaskRequest req, Context context)  {

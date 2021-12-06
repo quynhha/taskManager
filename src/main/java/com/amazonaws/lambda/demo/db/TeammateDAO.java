@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+import com.amazonaws.lambda.demo.db.DatabaseUtil;
 
 import java.sql.ResultSetMetaData;
 

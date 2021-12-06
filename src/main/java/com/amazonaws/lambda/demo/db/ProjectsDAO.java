@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
-import com.amazonaws.lambda.demo.utils.DatabaseUtil;
 
 
 
@@ -31,17 +30,13 @@ public class ProjectsDAO {
 	public Project getProject(String name) throws Exception{
 		
 		try {
-			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName=?;");
-			ps.setString(1,  name);
-			ResultSet resultSet = ps.executeQuery();
-			
-			  while (resultSet.next()) {
-	                project = generateProject(resultSet);
-	            }
-			resultSet.close();
-			ps.close();
-			return project;
+			List<Project> ProjectList1 = getAllProjects();
+			for(Project p : ProjectList1) {
+				if(p.name.equals(name)) {
+					return p;
+				}
+			}
+			return null;
 			  
 		}
 		catch (Exception e) {
@@ -115,7 +110,7 @@ public class ProjectsDAO {
 	public boolean deleteProject(String name) throws Exception {
 		try {
 			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName=?;");
+			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName = ?;");
 			ps.setString(1,  name);
 			int deleteCode = ps.executeUpdate();
 			System.out.println(deleteCode);
@@ -135,14 +130,29 @@ public class ProjectsDAO {
 	public int getNumberOfTasks(String projectName) throws Exception {
 		try {
 			Statement statement = conn.createStatement();
-            String query = "Select numberOfTasks FROM " + tb1name + " WHERE projectName="+ projectName+ ";";
-            ResultSet resultSet = statement.executeQuery(query);
-       
+            //String query = "Select * FROM " + tb1name + " WHERE projectName="+ projectName+ ";";
+			//PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectame=?;");
+			//System.out.println(projectName);
+            //ps.setString(1,  projectName);
+///////////////////////////////////////////////////////////////////// Select * FROM Project WHERE projectName="Project";
+           // ResultSet resultSet = ps.executeQuery();
+			
             
-            while (resultSet.next()) {
-                Project p = generateProject(resultSet);
-                return p.numTasks;
-            }
+           // while (resultSet.next()) {
+            //    Project p = generateProject(resultSet);
+             //   return p.numTasks;
+            //}
+            //resultSet.close();
+            //ps.close();
+			
+			List<Project> ProjectList = getAllProjects();
+			for(Project p : ProjectList) {
+				if(p.name == projectName) {
+					
+					return p.numTasks;
+				}
+			}
+			
            return -1;
 			  
 		}
@@ -156,9 +166,11 @@ public class ProjectsDAO {
 	public void incrementNumberOfTasks(String projectName) throws Exception{
 		int newNumOfTasks = this.getNumberOfTasks(projectName) + 1;
 		
-		PreparedStatement ps = conn.prepareStatement("Update" + tb1name + "Set numberOfTasks="+ newNumOfTasks + " WHERE projectName=? + ;");
-
-		ps.setString(1,  projectName);
+		PreparedStatement ps = conn.prepareStatement("Update ? Set numberOfTasks = ? WHERE projectName= ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setString(1,  tb1name);
+		ps.setInt(2,  newNumOfTasks);
+		ps.setNString(3, projectName);
 		int deleteCode = ps.executeUpdate();
 	}
     

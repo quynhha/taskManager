@@ -1,31 +1,24 @@
 package com.amazonaws.lambda.demo;
 
-import java.util.List;
+import static org.junit.Assert.*;
+
+import java.util.UUID;
 
 import org.junit.Test;
 
 import com.amazonaws.lambda.demo.db.TaskDAO;
 import com.amazonaws.lambda.demo.model.Task;
 
-public class TestAddTask {
+public class TestAddTask2 {
 
 	@Test
 	public void testATask() throws Exception {
 		TaskDAO taskdao = new TaskDAO();
 		//TaskDAO  object= new TaskDAO();
-		Task task = new Task("Task03", "47be12e7-8c88-4120-ad61-f42ba538ca93");
+		Task task = new Task("Task00", "Project");
 		taskdao.addTask(task);
-		assert(true);
+		assert(false);
 	}
-	
-	@Test
-	public void testListTask() throws Exception {
-		TaskDAO taskdao = new TaskDAO();
-		//TaskDAO  object= new TaskDAO();
-		List<Task> tasks = taskdao.getAllTasks("47be12e7-8c88-4120-ad61-f42ba538ca93");
-		assert(true);
-	}
-	
 	
 	//@Test
 	public void testANonUniqueProject() {

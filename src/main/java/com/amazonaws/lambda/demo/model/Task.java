@@ -27,20 +27,22 @@ public class Task {
 		
 		ProjectsDAO projectdao = new ProjectsDAO();
 		
-		order = projectdao.getNumberOfTasks(projectName);
+		Project order = projectdao.getProject(projectName);
+		this.order = order.numTasks;
 		
-		projectdao.incrementNumberOfTasks(projectName);
+		//projectdao.incrementNumberOfTasks(projectName);
 		
 		
 		 
 		
 	}
 	
-	/*public Task(String name, int id, String projectName) {
+	public Task(String name, int id, String projectName) {
 		this.name = name;
 		this.id = id;
 		this.projectName = projectName;
-	}*/
+		this.order = 0;
+	}
 	
 	public Task() {
 		Random r = new Random();

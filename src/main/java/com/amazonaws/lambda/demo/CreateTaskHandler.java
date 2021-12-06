@@ -56,7 +56,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
             }
 
         } catch (Exception e) {
-            response = new CreateTaskResponse("Unable to create constant: " + req.name + "(" + e.getMessage() + ")", 400);
+            response = new CreateTaskResponse("Unable to create task: " + req.name + "(" + e.getMessage() + ")", 400);
         }
 
         return response;
