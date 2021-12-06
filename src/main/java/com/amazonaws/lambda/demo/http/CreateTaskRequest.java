@@ -5,6 +5,7 @@ import java.util.UUID;
 public class CreateTaskRequest {
 	public String name; 
 	public UUID id;
+	public String projectName;
 	
 	public String getName() {
 		return name;

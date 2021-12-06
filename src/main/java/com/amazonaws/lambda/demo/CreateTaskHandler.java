@@ -26,14 +26,14 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
      * 
      * @throws Exception 
      */
-    boolean createTask(String name, int id) throws Exception { 
+    boolean createTask(String name, String projectName) throws Exception { 
         if (logger != null) { logger.log("in createTask"); }
         TaskDAO dao = new TaskDAO();
 
         // check if present
         Task exist = dao.getTask(name);
 
-        Task task = new Task(name, id);
+        Task task = new Task(name, projectName);
         if (exist == null) {
             return dao.addTask(task);
         } else {
@@ -48,7 +48,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 
         CreateTaskResponse response;
         try {
-            if (createTask(req.name, 0)) {
+            if (createTask(req.name, req.projectName)) {
                     response = new CreateTaskResponse(req.name);
             } 
             else {

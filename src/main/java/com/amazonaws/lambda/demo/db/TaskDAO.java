@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
+import com.amazonaws.lambda.demo.utils.DatabaseUtil;
 
 
 
@@ -69,9 +70,10 @@ public class TaskDAO {
 	            
 			 // = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName = ?;");
 			
-			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (taskName, taskID) values(?,?);");
+			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (taskName, taskID, Order) values(?,?,?);");
 	            ps.setString(1,  task.name); // fix
 	            ps.setInt(2,  task.id); 
+	            ps.setInt(3, task.order);
 	            System.out.println();
 	            ps.execute();
 	            return true;
@@ -93,12 +95,13 @@ public class TaskDAO {
 		
 	}
 
-	public List<Task> getAllTasks(Project project) throws Exception {
+	public List<Task> getAllTasks(String projectName) throws Exception {
 	// TODO Auto-generated method stub	
 		List<Task> allTasks = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + "ORDER BY taskID;";
+            String query = "SELECT * FROM " + tb1name+ "where projectname ="+ projectName + "ORDER BY order;";
+            
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
