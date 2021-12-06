@@ -2,12 +2,6 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.amazonaws.lambda.demo.db.DatabaseUtil;
-
-import java.sql.ResultSetMetaData;
 
 public class TeammateDAO {
 	
@@ -26,10 +20,10 @@ public class TeammateDAO {
 		  int teammateID = 0;
 		  try {
 			  PreparedStatement ps = 
-		       conn.prepareStatement("SELECT teammateId FROM projectdb.Teammate where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
+		       conn.prepareStatement("SELECT teammateID FROM sys.Teammate where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
 		      ResultSet resultSet = ps.executeQuery();	
 		      while (resultSet.next()) {
-		        	teammateID = resultSet.getInt("teammateId");
+		        	teammateID = resultSet.getInt("teammateID");
 		      }
 		      resultSet.close();
 		      ps.close();
@@ -42,9 +36,9 @@ public class TeammateDAO {
 	public int addTeammateToProject(String teammateName, String projectName) throws Exception {
 		try {
 			if (searchForTeammate(teammateName, projectName) == 0) {
-				PreparedStatement ps = conn.prepareStatement("Insert into projectdb.Teammate (teammateName, projectName) values(?, ?);");
+				PreparedStatement ps = conn.prepareStatement("Insert into sys.Teammate (teammateName, projectName) values(?, ?);");
 	            ps.setString(1,  teammateName); 
-	            ps.setNString(2, projectName);
+	            ps.setString(2, projectName);
 	            ps.execute();
 	            ps.close();
 	         } else {
@@ -60,7 +54,7 @@ public class TeammateDAO {
 	public boolean deleteTeammateFromProject(String teammateName, String projectName) throws Exception {
 		try {
 			PreparedStatement ps = 
-				conn.prepareStatement("delete from projectdb.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
+				conn.prepareStatement("delete from sys.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
 				ps.execute();
 				ps.close();
 			return true;

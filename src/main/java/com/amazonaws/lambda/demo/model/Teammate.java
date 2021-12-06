@@ -1,7 +1,6 @@
 package com.amazonaws.lambda.demo.model;
 
 import java.util.Random;
-import java.util.UUID;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3;
