@@ -1,6 +1,8 @@
 package com.amazonaws.lambda.demo.model;
 
 import java.util.Random;
+
+import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3;
@@ -33,6 +35,17 @@ public class Teammate {
 		this.projectName = projectName;
 	}
 	
+	public Teammate(String name, String projectName) throws Exception {
+		Random r = new Random();
+		ProjectsDAO projectsDAO = new ProjectsDAO();
+		
+//		this.name = name;
+		this.projectName = projectsDAO.getProject(projectName);
+		this.id = r.nextInt(10000000);
+//		this.id = 9099;
+		this.name=  name;
+		}
+	
 	public Teammate(String name) {
 		Random r = new Random();
 
@@ -41,7 +54,7 @@ public class Teammate {
 		this.id = r.nextInt(10000000);
 	}
 
-
+/*
     private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
 
     // Test purpose only.
@@ -49,8 +62,8 @@ public class Teammate {
         this.s3 = s3;
 		this.name = "";
 		this.id = 0;
-    }
-
+    }*/
+/*
     public String handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
@@ -69,5 +82,5 @@ public class Teammate {
                 + " your bucket is in the same region as this function.", key, bucket));
             throw e;
         }
-    }
+    }*/
 }

@@ -2,6 +2,13 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.amazonaws.lambda.demo.model.Project;
+import com.amazonaws.lambda.demo.model.Task;
+import com.amazonaws.lambda.demo.model.Teammate;
 
 public class TeammateDAO {
 	
@@ -62,4 +69,44 @@ public class TeammateDAO {
 			throw new Exception("Failed to delete teammate." + ex.getMessage());
 		}
 	}
+	
+	
+	private Teammate generateTeammate(ResultSet resultSet) throws Exception {
+		String name = resultSet.getString("teammateName");
+		String projectName = resultSet.getString("projectName");
+//		
+//		ProjectsDAO projectsDAO = new ProjectsDAO();
+//		Project project = projectsDAO.getProject(projectName);
+//		
+//		
+		return new Teammate(name, projectName);
+		
+	}
+	
+	public List<Teammate> getAllTeammate(String projectName) throws Exception {
+	// TODO Auto-generated method stub	
+		List<Teammate> allTeammate = new ArrayList<>();
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM sys.Teammate;";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
+            //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+            		//Teammate t = new Teammate(resultSet.getString("teammateName"), resultSet.getString("projectName"));
+            		Teammate t = generateTeammate(resultSet);
+            		if(t.projectName.name.equals(projectName)) {
+                		System.out.println(t.name);
+            			allTeammate.add(t);
+            	}
+            }
+            resultSet.close();
+            statement.close();
+
+        } catch (Exception e) {
+            throw new Exception("Failed in getting tasks: " + e.getMessage());
+        }
+		return allTeammate;
+    }
+
 }
