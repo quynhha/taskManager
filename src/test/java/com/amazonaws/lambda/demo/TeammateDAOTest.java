@@ -14,12 +14,12 @@ public class TeammateDAOTest {
         Assert.assertFalse(dao.conn.isClosed());
 
         //Test Search
-        Assert.assertNotEquals(dao.addTeammateToProject("Akim", "Test"), 0);
+        Assert.assertNotEquals(dao.addTeammateToProject("Razan", "Test"), 0);
 
         //Test Search For Team-mate
-        Assert.assertNotEquals(dao.searchForTeammate("Akim", "Test"), 0);
+        Assert.assertNotEquals(dao.searchForTeammate("Razan", "Test"), 0);
 
         //Test Delete Team-mate
-        Assert.assertTrue(dao.deleteTeammateFromProject("Akim", "Test"));
+        Assert.assertTrue(dao.deleteTeammateFromProject("Razan", "Test"));
     }
 }

@@ -59,7 +59,7 @@ public class TeammateDAOTest {
 
     @Test
     public void testTeammateDAO() {
-        TeammateDAO handler = new TeammateDAO(s3Client);
+        TeammateDAO handler = new TeammateDAO();
         Context ctx = createContext();
 
         String output = handler.handleRequest(event, ctx);

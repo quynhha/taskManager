@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
-import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+import com.amazonaws.lambda.demo.utils.DatabaseUtilX;
 
 
 
@@ -23,7 +23,7 @@ public class TaskDAO {
 	
 	public TaskDAO() {
 		try {
-			conn = DatabaseUtil.connect();
+			conn = DatabaseUtilX.connect();
 		} catch (Exception e) {
 			conn = null;
 		}
