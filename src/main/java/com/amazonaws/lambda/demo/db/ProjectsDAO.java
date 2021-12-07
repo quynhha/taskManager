@@ -147,7 +147,7 @@ public class ProjectsDAO {
 			
 			List<Project> ProjectList = getAllProjects();
 			for(Project p : ProjectList) {
-				if(p.name == projectName) {
+				if(p.name.equals(projectName)) {
 					
 					return p.numTasks;
 				}
@@ -164,14 +164,15 @@ public class ProjectsDAO {
 	}
 	
 	public void incrementNumberOfTasks(String projectName) throws Exception{
-		int newNumOfTasks = this.getNumberOfTasks(projectName) + 1;
 		
-		PreparedStatement ps = conn.prepareStatement("Update ? Set numberOfTasks = ? WHERE projectName= ?;");
+		int newNumOfTasks = this.getNumberOfTasks(projectName) + 1;
+				
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set numberOfTasks = ? WHERE projectName = ?;");
 		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
-		ps.setString(1,  tb1name);
-		ps.setInt(2,  newNumOfTasks);
-		ps.setNString(3, projectName);
-		int deleteCode = ps.executeUpdate();
+		ps.setInt(1,  newNumOfTasks);
+		ps.setString(2, projectName);
+		int num = ps.executeUpdate();
+	ps.close();
 	}
     
 }

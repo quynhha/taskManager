@@ -96,7 +96,7 @@ public class TaskDAO {
 		List<Task> allTasks = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + "ORDER by order2";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
+            String query = "SELECT * FROM " + tb1name+ " ORDER BY order2";// + "ORDER by order2";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
             //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
             ResultSet resultSet = statement.executeQuery(query);
 
