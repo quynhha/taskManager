@@ -28,7 +28,7 @@ import com.amazonaws.services.s3.model.S3Object;
 
 
 
-public abstract class RenameTaskHandler implements RequestHandler<RenameTaskRequest, RenameTaskResponse> {
+public class RenameTaskHandler implements RequestHandler<RenameTaskRequest, RenameTaskResponse> {
 	public LambdaLogger logger;
 
 	@SuppressWarnings("unused")

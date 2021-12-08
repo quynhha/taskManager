@@ -2,15 +2,20 @@ package com.amazonaws.lambda.demo;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import org.junit.Test;
 
 import com.amazonaws.lambda.demo.db.TaskDAO;
+import com.amazonaws.lambda.demo.http.ArchiveProjectRequest;
+import com.amazonaws.lambda.demo.http.ArchiveProjectResponse;
+import com.amazonaws.lambda.demo.http.RenameTaskRequest;
+import com.amazonaws.lambda.demo.http.RenameTaskResponse;
 import com.amazonaws.lambda.demo.model.Task;
 
 import org.junit.Assert;
-public class RenameTaskTest {
+public class RenameTaskTest extends LambdaTest {
 /*
 	@Test
 	public void test() {
@@ -58,15 +63,32 @@ public class RenameTaskTest {
 			fail ("Error:" + e.getMessage());
 		}}*/
 	
+	
+	/*
 	@Test
-	public void testFailToUpdate() throws Exception {
+	public void testRenameTaskDAO() throws Exception {
 		TaskDAO dao = new TaskDAO();
-		String name = "A";
+		String name = "B";
 		Task c4 = dao.getTask(name, "0");
 		
-		dao.RenameTask(name, "0", "B");
+		dao.RenameTask(name, "0", "A");
 		assert(true);
 
-	}
+	}*/
+	
+	@Test
+	public void testRenameTask() throws IOException {
+		 	RenameTaskHandler handler = new RenameTaskHandler();
+
+		 	String newName = "TestRenameTask0";
+		 	String ProjectName = "TestRenameTask";
+		 	String taskName = "TestRenameTask1";
+		 	RenameTaskRequest req = new RenameTaskRequest(taskName, ProjectName, newName);
+		 	
+	        RenameTaskResponse resp = handler.handleRequest(req, createContext("list"));
+	    	
+	       
+	        Assert.assertEquals(200, resp.httpCode);
+	    }
 
 }
