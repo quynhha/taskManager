@@ -14,7 +14,7 @@ public class RenameTaskRequest {
 	}
 	
 	public String toString() {
-		return "Rename this Project: " + name + "."; 
+		return "Rename this task: " + name + "."; 
 	}
 	
 }
