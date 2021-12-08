@@ -30,7 +30,7 @@ public class Task {
 		Project order = projectdao.getProject(projectName);
 		this.order = order.numTasks;
 		
-		//projectdao.incrementNumberOfTasks(projectName);
+		projectdao.incrementNumberOfTasks(projectName);
 		
 		
 		 

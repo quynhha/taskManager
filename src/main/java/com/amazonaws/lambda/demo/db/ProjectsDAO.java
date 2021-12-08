@@ -81,8 +81,9 @@ public class ProjectsDAO {
 	private Project generateProject(ResultSet resultSet) throws SQLException {
 		String name = resultSet.getString("projectName");
 		int id = resultSet.getInt("projectID");
+		int numberOfTasks = resultSet.getInt("numberOfTasks");
 				
-		return new Project(name, id);
+		return new Project(name, id, numberOfTasks);
 		
 	}
 
@@ -129,32 +130,11 @@ public class ProjectsDAO {
 	
 	public int getNumberOfTasks(String projectName) throws Exception {
 		try {
-			Statement statement = conn.createStatement();
-            //String query = "Select * FROM " + tb1name + " WHERE projectName="+ projectName+ ";";
-			//PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectame=?;");
-			//System.out.println(projectName);
-            //ps.setString(1,  projectName);
-///////////////////////////////////////////////////////////////////// Select * FROM Project WHERE projectName="Project";
-           // ResultSet resultSet = ps.executeQuery();
-			
-            
-           // while (resultSet.next()) {
-            //    Project p = generateProject(resultSet);
-             //   return p.numTasks;
-            //}
-            //resultSet.close();
-            //ps.close();
-			
-			List<Project> ProjectList = getAllProjects();
-			for(Project p : ProjectList) {
-				if(p.name.equals(projectName)) {
-					
-					return p.numTasks;
-				}
-			}
-			
-           return -1;
-			  
+				Project p = getProject(projectName);
+				System.out.println(p.name);
+				System.out.println(p.getNumTask());
+
+				return p.getNumTask();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -164,15 +144,28 @@ public class ProjectsDAO {
 	}
 	
 	public void incrementNumberOfTasks(String projectName) throws Exception{
+		//int currentNumTasks = this.getProject(projectName).numTasks ++;
+		//System.out.println("Tasks from local object:" + currentNumTasks );
+		//currentNumTasks++;
 		
-		int newNumOfTasks = this.getNumberOfTasks(projectName) + 1;
-				
+		
+		int newNumOfTasks = this.getNumberOfTasks(projectName);
+		//System.out.println(newNumOfTasks);
+		newNumOfTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setNumTask(newNumOfTasks);
+		System.out.println(p.getNumTask());
+
+		
 		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set numberOfTasks = ? WHERE projectName = ?;");
 		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
 		ps.setInt(1,  newNumOfTasks);
 		ps.setString(2, projectName);
+		
 		int num = ps.executeUpdate();
-	ps.close();
+		ps.close();
 	}
     
 }

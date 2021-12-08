@@ -27,6 +27,21 @@ public class Project {
 
 	}
 	
+	public Project(String name, int id, int numTasks) {
+		this.name = name;
+		this.id = id;
+		this.numTasks = numTasks;
+
+	}
+	
+	public int getNumTask() {
+		return this.numTasks;
+	}
+	
+	public void setNumTask(int numTasks) {
+		this.numTasks = numTasks;
+	}
+	
 	public Project() {
 		Random r = new Random();
 
