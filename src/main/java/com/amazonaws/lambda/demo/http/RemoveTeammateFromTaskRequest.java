@@ -3,9 +3,18 @@ package com.amazonaws.lambda.demo.http;
 public class RemoveTeammateFromTaskRequest {
 	public String name; 
 	public String project;
+	public String task;
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getTask() {
+		return this.task;
+	}
+	
+	public void setTask(String project) {
+		this.project = task;
 	}
 	
 	public String getProject() {
@@ -20,9 +29,9 @@ public class RemoveTeammateFromTaskRequest {
 		this.name = name;
 	}
 	
-	public RemoveTeammateFromTaskRequest(String n , String p) {
+	public RemoveTeammateFromTaskRequest(String n , String t) {
 		this.name = n; 
-		this.project = p;
+		this.task = t;
 	}
 	
 	public String toString() {

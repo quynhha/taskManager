@@ -10,7 +10,7 @@ public class TeammateTask {
 	public final String name; 
 	public final int id;
 	public Project projectName;
-	private Task taskName;
+	public Task taskName;
 	
 	public TeammateTask(String name, Project projectName, Task taskName) {
 		if(name == null) {

@@ -5,9 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.amazonaws.lambda.demo.model.Project;
-import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.TeammateTask;
 
 
@@ -28,7 +25,7 @@ public class TeammateTaskDAO {
 		  int teammateID = 0;
 		  try {
 			  PreparedStatement ps = 
-		       conn.prepareStatement("SELECT teammateID FROM sys.Teammate where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
+		       conn.prepareStatement("SELECT teammateID FROM sys.TeammateTask where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
 		      ResultSet resultSet = ps.executeQuery();	
 		      while (resultSet.next()) {
 		        	teammateID = resultSet.getInt("teammateID");
@@ -41,51 +38,13 @@ public class TeammateTaskDAO {
 	      return teammateID;
 	}
 	
-	
-	private TeammateTask generateTeammate(ResultSet resultSet) throws Exception {
-		String name = resultSet.getString("teammateName");
-		String projectName = resultSet.getString("projectName");
-//		
-//		ProjectsDAO projectsDAO = new ProjectsDAO();
-//		Project project = projectsDAO.getProject(projectName);
-//		
-//		
-		return new TeammateTask(name, projectName);
-		
-	}
-	
-	public List<TeammateTask> getAllTeammate(String projectName) throws Exception {
-	// TODO Auto-generated method stub	
-		List<TeammateTask> allTeammate = new ArrayList<>();
-        try {
-            Statement statement = conn.createStatement();
-            String query = "SELECT * FROM sys.Teammate;";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
-            //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
-            ResultSet resultSet = statement.executeQuery(query);
 
-            while (resultSet.next()) {
-            		//Teammate t = new Teammate(resultSet.getString("teammateName"), resultSet.getString("projectName"));
-            		TeammateTask t = generateTeammate(resultSet);
-            		if(t.projectName.name.equals(projectName)) {
-                		System.out.println(t.name);
-            			allTeammate.add(t);
-            	}
-            }
-            resultSet.close();
-            statement.close();
-
-        } catch (Exception e) {
-            throw new Exception("Failed in getting tasks: " + e.getMessage());
-        }
-		return allTeammate;
-    }
-
-	public int addTeammateToTask(String teammateName, String taskName, String projectName) throws Exception{
+	public int addTeammateToTask(String teammateName, String taskName) throws Exception{
 		try {
-			if (searchForTeammate(teammateName, projectName) == 0) {
-				PreparedStatement ps = conn.prepareStatement("Insert into sys.Teammate (teammateName, projectName) values(?, ?);");
+			if (searchForTeammate(teammateName, taskName) == 0) {
+				PreparedStatement ps = conn.prepareStatement("Insert into sys.TeammateTask (teammateName, taskName) values(?, ?);");
 	            ps.setString(1,  teammateName); 
-	            ps.setString(2, projectName);
+	            ps.setString(2, taskName);
 	            ps.execute();
 	            ps.close();
 	         } else {
@@ -95,13 +54,13 @@ public class TeammateTaskDAO {
 		catch (Exception e){
             throw new Exception("Failed to add teammate to task: " + e.getMessage());
 		}
-			return searchForTeammate(teammateName, projectName);
+			return searchForTeammate(teammateName, taskName);
 		}
 	
-	public boolean removeTeammateFromTask(String teammateName, String projectName, String taskName) throws Exception {
+	public boolean removeTeammateFromTask(String teammateName, String taskName) throws Exception {
 		try {
 			PreparedStatement ps = 
-				conn.prepareStatement("delete from sys.Teammate where taskName = '" + projectName + "' and teammateName = '" + teammateName + "';");
+				conn.prepareStatement("delete from sys.TeammateTask where taskName = '" + taskName + "' and teammateName = '" + teammateName + "';");
 				ps.execute();
 				ps.close();
 			return true;
