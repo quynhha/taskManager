@@ -152,7 +152,20 @@ public class TaskDAO {
 			ps.close();
 			return true;
 		}
-	    
+	  public boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
+			
+			if(this.getTask(taskName, projectName) == null) {
+				return false;
+			}
+			Task p = getTask(taskName, projectName);
+			PreparedStatement ps = conn.prepareStatement("UPDATE " + tb1name + " SET Complete = 0 WHERE taskName = ? and projectName = ?;");
+			ps.setString(1,  taskName);
+			ps.setString(2, projectName);
+	
+			int num = ps.executeUpdate();
+			ps.close();
+			return true;
+		}
 	
     
 }
