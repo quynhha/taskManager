@@ -21,11 +21,11 @@ public class TeammateTaskDAO {
 		
 	}
 
-	public int searchForTeammate(String teammateName, String projectName) throws Exception {
+	public int searchForTeammate(String teammateName, String taskName, String projectName) throws Exception {
 		  int teammateID = 0;
 		  try {
 			  PreparedStatement ps = 
-		       conn.prepareStatement("SELECT teammateID FROM sys.TeammateTask where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
+		       conn.prepareStatement("SELECT teammateName FROM sys.TeammateTask where teammateName = '" + teammateName + "'  and taskName = '\" + taskName + \"' and projectName = '\" + projectName + \"';");	    
 		      ResultSet resultSet = ps.executeQuery();	
 		      while (resultSet.next()) {
 		        	teammateID = resultSet.getInt("teammateID");
@@ -39,12 +39,13 @@ public class TeammateTaskDAO {
 	}
 	
 
-	public int addTeammateToTask(String teammateName, String taskName) throws Exception{
+	public int addTeammateToTask(String teammateName, String taskName, String projectName) throws Exception{
 		try {
-			if (searchForTeammate(teammateName, taskName) == 0) {
-				PreparedStatement ps = conn.prepareStatement("Insert into sys.TeammateTask (teammateName, taskName) values(?, ?);");
+			if (searchForTeammate(teammateName, taskName, projectName) == 0) {
+				PreparedStatement ps = conn.prepareStatement("Insert into sys.TeammateTask (teammateName, taskName, projectName) values(?, ?, ?);");
 	            ps.setString(1,  teammateName); 
 	            ps.setString(2, taskName);
+	            ps.setString(3, projectName);
 	            ps.execute();
 	            ps.close();
 	         } else {
@@ -54,10 +55,10 @@ public class TeammateTaskDAO {
 		catch (Exception e){
             throw new Exception("Failed to add teammate to task: " + e.getMessage());
 		}
-			return searchForTeammate(teammateName, taskName);
+			return searchForTeammate(teammateName, taskName, projectName);
 		}
 	
-	public boolean removeTeammateFromTask(String teammateName, String taskName) throws Exception {
+	public boolean removeTeammateFromTask(String teammateName, String taskName, String projectName) throws Exception {
 		try {
 			PreparedStatement ps = 
 				conn.prepareStatement("delete from sys.TeammateTask where taskName = '" + taskName + "' and teammateName = '" + teammateName + "';");
