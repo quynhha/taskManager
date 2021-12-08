@@ -108,5 +108,16 @@ public class TeammateDAO {
         }
 		return allTeammate;
     }
+	public Teammate getTeammate(String teammatename, String projectName) throws Exception {
+		List<Teammate> allTeammate = getAllTeammate(projectName);
+				for(Teammate t : allTeammate) {
+					if(teammatename.equals(t.name)) {
+						return t;
+					}
+				}
+			return null;
+	}
+	
+	
 
 }

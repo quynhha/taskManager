@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 
 
 
+@SuppressWarnings("unused")
 public class RenameTaskResponse {
 	public final String response;
 	public final int httpCode;
