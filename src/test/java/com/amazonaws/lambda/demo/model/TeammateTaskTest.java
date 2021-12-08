@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
@@ -24,7 +24,7 @@ import com.amazonaws.services.s3.model.S3Object;
  * A simple test harness for locally invoking your Lambda function handler.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TeammateTest {
+public class TeammateTaskTest {
 
     private final String CONTENT_TYPE = "image/jpeg";
     private S3Event event;
@@ -58,8 +58,8 @@ public class TeammateTest {
     }
 
     @Test
-    public void testTeammate() {
-        Teammate handler = new Teammate(s3Client);
+    public void testTeammateTask() {
+        TeammateTask handler = new TeammateTask(s3Client);
         Context ctx = createContext();
 
         String output = handler.handleRequest(event, ctx);

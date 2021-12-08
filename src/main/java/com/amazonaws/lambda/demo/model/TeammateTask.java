@@ -3,50 +3,51 @@ package com.amazonaws.lambda.demo.model;
 import java.util.Random;
 
 import com.amazonaws.lambda.demo.db.ProjectsDAO;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.lambda.demo.db.TaskDAO;
 
-public class Teammate {
+public class TeammateTask {
 	
 	public final String name; 
 	public final int id;
 	public Project projectName;
+	private Task taskName;
 	
-	public Teammate(String name, Project projectName) {
+	public TeammateTask(String name, Project projectName, Task taskName) {
 		if(name == null) {
 			this.name = null;
 			this.projectName = null;
+			this.taskName = null;
 		}
 		else {
 		this.name = name;
 		this.projectName = projectName;
+		this.taskName = taskName;
 		}
 		Random r = new Random();
 		this.id = r.nextInt(10000000);
 	}
 	
-	public Teammate(String name, int id, Project projectName) {
+	public TeammateTask(String name, int id, Project projectName, Task taskName) {
 		this.name = name;
 		this.id = id;
 		this.projectName = projectName;
+		this.taskName = taskName;
 	}
 	
-	public Teammate(String name, String projectName) throws Exception {
+	public TeammateTask(String name, String projectName, String taskName) throws Exception {
 		Random r = new Random();
 		ProjectsDAO projectsDAO = new ProjectsDAO();
+		TaskDAO taskDAO = new TaskDAO();
 		
 //		this.name = name;
 		this.projectName = projectsDAO.getProject(projectName);
+		this.taskName = taskDAO.getTask(taskName);
 		this.id = r.nextInt(10000000);
 //		this.id = 9099;
 		this.name=  name;
 		}
 	
-	public Teammate(String name) {
+	public TeammateTask(String name) {
 		Random r = new Random();
 
 		this.name = name;
