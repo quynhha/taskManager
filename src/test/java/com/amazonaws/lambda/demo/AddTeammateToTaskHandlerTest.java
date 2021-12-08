@@ -63,7 +63,7 @@ public class AddTeammateToTaskHandlerTest extends LambdaTest {
         @Test
 		  public void addTeammateToTaskTest() throws Exception{
 			   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-			   teammateTaskDAO.addTeammateToTask("Razan", "Task1", "Test");
+			   teammateTaskDAO.addTeammateToTask("Razan", "Task2", "Project");
 			   assert true;
 		  }
    

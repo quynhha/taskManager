@@ -22,12 +22,12 @@ public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTas
 	 * 
 	 * @throws Exception 
 	 */
-	boolean addTeammateToTask(String teammateName, String taskName) throws Exception { 
+	boolean addTeammateToTask(String teammateName, String taskName, String projectName) throws Exception { 
 		if (logger != null) { logger.log("in createProject"); }
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
 		// check if present
-		if (dao.addTeammateToTask(teammateName, taskName) != 0) {
+		if (dao.addTeammateToTask(teammateName, taskName, projectName) != 0) {
 			return true;
 		} else {
 			return false;
@@ -42,7 +42,7 @@ public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTas
 
 		AddTeammateToTaskResponse response;
 		try {
-			if (addTeammateToTask(req.name, req.task)) {
+			if (addTeammateToTask(req.name, req.task, req.project)) {
 					response = new AddTeammateToTaskResponse(req.name);
 			} 
 			else {

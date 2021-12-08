@@ -3,6 +3,7 @@ package com.amazonaws.lambda.demo.http;
 public class AddTeammateToTaskRequest {
 	public String name; 
 	public String task;
+	public String project;
 	
 	public String getName() {
 		return name;
