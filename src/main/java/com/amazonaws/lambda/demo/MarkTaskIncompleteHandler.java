@@ -25,7 +25,7 @@ public class MarkTaskIncompleteHandler implements RequestHandler<MarkTaskIncompl
 	
 	
 	boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
-		logger.log("MarkTaskComplete");
+		logger.log("MarkTaskIncomplete");
 		TaskDAO dao = new TaskDAO();
 		
 		return dao.MarkTaskIncomplete(taskName, projectName);
@@ -36,7 +36,7 @@ public class MarkTaskIncompleteHandler implements RequestHandler<MarkTaskIncompl
 	@Override
 	public MarkTaskIncompleteResponse handleRequest(MarkTaskIncompleteRequest req, Context context)  {
 		logger = context.getLogger();
-		logger.log("Loading Java Lambda handler to list all constants");
+		logger.log("Marked Task Incomplete");
 
 		MarkTaskIncompleteResponse response;
 		try {
