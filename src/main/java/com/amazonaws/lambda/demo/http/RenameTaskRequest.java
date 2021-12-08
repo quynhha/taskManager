@@ -21,4 +21,10 @@ public class RenameTaskRequest {
 		return "Rename this Task: " + taskName + "."; 
 	}
 	
+	public RenameTaskRequest() {
+		this.taskName = "";
+		this.newName = "";
+		this.projectName = "";
+	}
+	
 }

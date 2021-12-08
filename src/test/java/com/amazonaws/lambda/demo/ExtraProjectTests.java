@@ -40,9 +40,8 @@ class ExtraProjectTests {
 
 	@Test
 	public void testArchiveProject() throws Exception{
-		ProjectsDAO dao = new ProjectsDAO();
-		dao.archiveProject("2228ae6d-8f8b-4fff-a435-f54cbeb1efe3");
-		System.out.println(dao.getProject("2228ae6d-8f8b-4fff-a435-f54cbeb1efe3").archived);
+		TaskDAO dao = new TaskDAO();
+		dao.MarkTaskComplete("TestRenameTask0", "TestRenameTask");
 		assert(true);
 	}
 }

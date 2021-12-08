@@ -38,7 +38,7 @@ public class MarkTaskCompleteHandler implements RequestHandler<MarkTaskCompleteR
 		try {
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
-//			boolean markedComplete = MarkTaskComplete(req.taskName, req.projectName);
+			boolean markedComplete = MarkTaskComplete(req.taskName, req.projectName);
 
 			
 			response = new MarkTaskCompleteResponse(200,"TaskMarkedComplete");
