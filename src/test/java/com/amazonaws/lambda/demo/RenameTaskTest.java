@@ -11,7 +11,7 @@ import com.amazonaws.lambda.demo.model.Task;
 
 import org.junit.Assert;
 public class RenameTaskTest {
-
+/*
 	@Test
 	public void test() {
 		try {
@@ -56,8 +56,17 @@ public class RenameTaskTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail ("Error:" + e.getMessage());
-		}
+		}}*/
+	
+	@Test
+	public void testFailToUpdate() throws Exception {
+		TaskDAO dao = new TaskDAO();
+		String name = "A";
+		Task c4 = dao.getTask(name, "0");
 		
+		dao.RenameTask(name, "0", "B");
+		assert(true);
+
 	}
 
 }

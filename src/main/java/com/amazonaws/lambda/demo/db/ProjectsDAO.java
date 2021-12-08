@@ -82,8 +82,9 @@ public class ProjectsDAO {
 		String name = resultSet.getString("projectName");
 		int id = resultSet.getInt("projectID");
 		int numberOfTasks = resultSet.getInt("numberOfTasks");
-				
-		return new Project(name, id, numberOfTasks);
+		int status = resultSet.getInt("status");
+		
+		return new Project(name, id, numberOfTasks,status);
 		
 	}
 
@@ -166,6 +167,20 @@ public class ProjectsDAO {
 		
 		int num = ps.executeUpdate();
 		ps.close();
+	}
+	
+	public boolean archiveProject(String projectName) throws Exception{
+		
+		if(this.getProject(projectName) == null) {
+			return false;
+		}
+		Project p = getProject(projectName);
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set status = 1 WHERE projectName = ?;");
+		ps.setString(1,  projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+		return true;
 	}
     
 }

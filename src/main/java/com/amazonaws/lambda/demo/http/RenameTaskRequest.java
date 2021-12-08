@@ -3,18 +3,22 @@ package com.amazonaws.lambda.demo.http;
 
 
 public class RenameTaskRequest {
-	public final String name;
+	public final String taskName;
+	public final String projectName;
+	public final String newName;
 	
-	public RenameTaskRequest(String name) {
-		this.name = name;
+	public RenameTaskRequest(String taskName, String projectName, String newName) {
+		this.taskName = taskName;
+		this.newName = newName;
+		this.projectName = projectName;
 	}
 	
-	public String getName() {
+	/*public String getName() {
 		return name;
-	}
+	}*/
 	
 	public String toString() {
-		return "Rename this Project: " + name + "."; 
+		return "Rename this Task: " + taskName + "."; 
 	}
 	
 }

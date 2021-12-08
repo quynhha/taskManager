@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.amazonaws.lambda.demo.model.Task;
 
-import edu.wpi.cs.heineman.demo.model.Constant;
 
 
 
@@ -27,20 +26,23 @@ public class TaskDAO {
 		
 	}
 
-	public Task getTask(String id) throws Exception{
+	public Task getTask(String taskName, String projectName ) throws Exception{
 		
 		try {
 			Task task = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE TaskName=?;");
-			ps.setString(1,  id);
+			ps.setString(1,  taskName);
 			ResultSet resultSet = ps.executeQuery();
 			
 			  while (resultSet.next()) {
 	                task = generateTask(resultSet);
+	                if(task.projectName.equals(projectName)) {
+	                	return task;
+	                }
 	            }
 			resultSet.close();
 			ps.close();
-			return task;
+			return null;
 			  
 		}
 		catch (Exception e) {
@@ -117,12 +119,15 @@ public class TaskDAO {
         }
 		return allTasks;
     }
-	  public boolean RenameTask(Task task) throws Exception {
+	  public boolean RenameTask(String taskName, String projectName, String newName) throws Exception {
 	        try {
-	        	String query = "UPDATE " + tb1name + " SET taskName=? WHERE taskName=?;";
+	        	Task t = getTask(taskName, projectName);
+	        	String query = "UPDATE " + tb1name + " SET taskName=? WHERE taskName=? AND projectName=?;";
 	        	PreparedStatement ps = conn.prepareStatement(query);
-	            ps.setString(1, task.name);
-	            ps.setString(2, task.name);
+	            ps.setString(1, newName);
+	            ps.setString(2, taskName);
+	            ps.setString(3, projectName);
+
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
 	            
