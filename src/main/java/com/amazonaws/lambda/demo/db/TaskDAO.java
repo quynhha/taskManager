@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.amazonaws.lambda.demo.model.Task;
 
+import edu.wpi.cs.heineman.demo.model.Constant;
+
 
 
 public class TaskDAO {
@@ -115,6 +117,21 @@ public class TaskDAO {
         }
 		return allTasks;
     }
+	  public boolean RenameTask(Task task) throws Exception {
+	        try {
+	        	String query = "UPDATE " + tb1name + " SET taskName=? WHERE taskName=?;";
+	        	PreparedStatement ps = conn.prepareStatement(query);
+	            ps.setString(1, task.name);
+	            ps.setString(2, task.name);
+	            int numAffected = ps.executeUpdate();
+	            ps.close();
+	            
+	            return (numAffected == 1);
+	        } catch (Exception e) {
+	            throw new Exception("Failed to update report: " + e.getMessage());
+	        }
+	    }
+	    
 	
     
 }
