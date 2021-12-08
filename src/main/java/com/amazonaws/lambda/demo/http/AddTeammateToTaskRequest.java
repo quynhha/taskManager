@@ -13,22 +13,32 @@ public class AddTeammateToTaskRequest {
 		return this.task;
 	}
 	
+	public String getProject() {
+		return project;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	public void setTask(String task) {
 		this.task = task;
 	}
 	
-	public AddTeammateToTaskRequest(String n , String t) {
-		this.name = n; 
-		this.task = t;
+	public void setProject(String project) {
+		this.project = project;
+	}
+	
+	public AddTeammateToTaskRequest(String name, String task, String project) {
+		this.name = name; 
+		this.task = task;
+		this.project = project;
 	}
 	
 	public String toString() {
-		return "Add Teammate(" + name + "," + name + ")";
+		return "Add Teammate(" + this.name + ", " + this.task + ", " + this.project + ")";
 	}
 	
-	public AddTeammateToTaskRequest() {}
+	public AddTeammateToTaskRequest() {
+		
+	}
 }

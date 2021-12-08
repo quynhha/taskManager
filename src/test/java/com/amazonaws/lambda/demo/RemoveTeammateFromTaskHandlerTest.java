@@ -3,6 +3,8 @@ package com.amazonaws.lambda.demo;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskRequest;
 import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskResponse;
 import com.google.gson.Gson;
@@ -12,16 +14,26 @@ import com.google.gson.Gson;
  * A simple test harness for locally invoking your Lambda function handler.
  */
 public class RemoveTeammateFromTaskHandlerTest extends LambdaTest {
-
+	 
+	/*
+	@Test
+	  public void removeTeammateFromTaskTest() throws Exception{
+		   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
+		   teammateTaskDAO.removeTeammateFromTask("Razan", "Task2", "Project");
+		   assert true;
+	  }  
+	
+	*/
+	
 	 void testSuccessRemoveTeammateFromTask(String input) throws IOException {
 		 	RemoveTeammateFromTaskHandler handler = new RemoveTeammateFromTaskHandler(); 
 		 	RemoveTeammateFromTaskRequest req = new Gson().fromJson(input, RemoveTeammateFromTaskRequest.class);
 	    	
-		 	RemoveTeammateFromTaskResponse resp = handler.handleRequest(req, createContext("add to task"));
+		 	RemoveTeammateFromTaskResponse resp = handler.handleRequest(req, createContext("remove from task"));
 	    	Assert.assertEquals(200, resp.httpCode );
 	    		
 	    }
-
+	 
 	    void testFailRemoveTeammateFromTask(String input, int failCode) throws IOException {
 	    	RemoveTeammateFromTaskHandler handler = new RemoveTeammateFromTaskHandler(); 
 	    	RemoveTeammateFromTaskRequest req = new Gson().fromJson(input, RemoveTeammateFromTaskRequest.class);
@@ -46,28 +58,12 @@ public class RemoveTeammateFromTaskHandlerTest extends LambdaTest {
         	RemoveTeammateFromTaskResponse resp = handler.handleRequest(req, createContext("create"));
             Assert.assertEquals(failureCode, resp.httpCode);
        }
-/*
-
-  @Test
-  public void removeTeammateTest() throws Exception{
-	   TeammateDAO teammateDAO = new TeammateDAO();
-	   teammateDAO.deleteTeammateFromProject("value1", "value3");
-	   assert true;
-  }
-
-       // NOTE: this proliferates large number of constants! Be mindful
-       @Test
-       public void testShouldBeOk() {
-
-           RemoveTeammateRequest ccr = new RemoveTeammateRequest("Test", "Razan");
-           String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
-
-           try {
-               testSuccessInput(SAMPLE_INPUT_STRING);
-           } catch (IOException ioe) {
-               Assert.fail("Invalid:" + ioe.getMessage());
-           }
-       }
-       */
-   
+        
+        @Test
+		  public void removeTeammateFromTaskTest() throws Exception{
+			   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
+			   teammateTaskDAO.removeTeammateFromTask("Razan", "Task2", "Project");
+			   assert true;
+		  }
+       
 }

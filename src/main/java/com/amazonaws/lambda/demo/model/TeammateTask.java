@@ -41,7 +41,7 @@ public class TeammateTask {
 		
 //		this.name = name;
 		this.projectName = projectsDAO.getProject(projectName);
-		this.taskName = taskDAO.getTask(taskName);
+		this.taskName = taskDAO.getTask(taskName, projectName);
 		this.id = r.nextInt(10000000);
 //		this.id = 9099;
 		this.name=  name;

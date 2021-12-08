@@ -22,20 +22,23 @@ public class TeammateTaskDAO {
 	}
 
 	public int searchForTeammate(String teammateName, String taskName, String projectName) throws Exception {
-		  int teammateID = 0;
+		  String teammate = null;
 		  try {
 			  PreparedStatement ps = 
-		       conn.prepareStatement("SELECT teammateName FROM sys.TeammateTask where teammateName = '" + teammateName + "'  and taskName = '\" + taskName + \"' and projectName = '\" + projectName + \"';");	    
+		       conn.prepareStatement("SELECT teammateName FROM sys.TeammateTask where teammateName = '" + teammateName + "'  and taskName = '" + taskName + "' and projectName = '" + projectName + "';");	    
 		      ResultSet resultSet = ps.executeQuery();	
 		      while (resultSet.next()) {
-		        	teammateID = resultSet.getInt("teammateID");
+		        	teammate = resultSet.getString("teammateName");
 		      }
 		      resultSet.close();
 		      ps.close();
 	      } catch (Exception e) {
 	    	  throw new Exception("Something went wrong: " + e.getMessage());
 	      }
-	      return teammateID;
+	      if (teammate == null) 
+	    	  return 0;
+	      else
+	    	  return 1;
 	}
 	
 
@@ -53,7 +56,7 @@ public class TeammateTaskDAO {
 	         }
 			}
 		catch (Exception e){
-            throw new Exception("Failed to add teammate to task: " + e.getMessage());
+            throw new Exception("Failed to add teammate to task: " + e);
 		}
 			return searchForTeammate(teammateName, taskName, projectName);
 		}
@@ -61,7 +64,7 @@ public class TeammateTaskDAO {
 	public boolean removeTeammateFromTask(String teammateName, String taskName, String projectName) throws Exception {
 		try {
 			PreparedStatement ps = 
-				conn.prepareStatement("delete from sys.TeammateTask where taskName = '" + taskName + "' and teammateName = '" + teammateName + "';");
+				conn.prepareStatement("delete from sys.TeammateTask where teammateName = '" + teammateName + "' and taskName = '" + taskName + "' and projectName = '" + projectName + "';");
 				ps.execute();
 				ps.close();
 			return true;

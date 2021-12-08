@@ -22,12 +22,12 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 	 * 
 	 * @throws Exception 
 	 */
-	boolean removeTeammate(String teammateName, String taskName) throws Exception { 
+	boolean removeTeammate(String teammateName, String taskName, String projectName) throws Exception { 
 		if (logger != null) { logger.log("in createProject"); }
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
 		// check if present
-		if (dao.removeTeammateFromTask(teammateName, taskName) == false) {
+		if (dao.removeTeammateFromTask(teammateName, taskName, projectName) == false) {
 			return false;
 		} else {
 			return true;
@@ -42,7 +42,7 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 
 		RemoveTeammateFromTaskResponse response;
 		try {
-			if (removeTeammate(req.name, req.task)) {
+			if (removeTeammate(req.name, req.task, req.project)) {
 					response = new RemoveTeammateFromTaskResponse(req.name);
 			} 
 			else {

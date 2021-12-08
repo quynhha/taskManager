@@ -39,7 +39,7 @@ public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTas
 	public AddTeammateToTaskResponse handleRequest(AddTeammateToTaskRequest req, Context context)  {
 		logger = context.getLogger();
 		logger.log(req.toString());
-
+        
 		AddTeammateToTaskResponse response;
 		try {
 			if (addTeammateToTask(req.name, req.task, req.project)) {

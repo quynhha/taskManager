@@ -26,7 +26,7 @@ public class AddTeammateRequest {
 	}
 	
 	public String toString() {
-		return "Add Teammate(" + name + "," + name + ")";
+		return "Add Teammate(" + name + "," + name + ", " + name + ")";
 	}
 	
 	public AddTeammateRequest() {}
