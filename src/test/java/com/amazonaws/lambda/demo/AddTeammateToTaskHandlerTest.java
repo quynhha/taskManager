@@ -1,9 +1,10 @@
 package com.amazonaws.lambda.demo;
 
-
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.http.AddTeammateToTaskRequest;
 import com.amazonaws.lambda.demo.http.AddTeammateToTaskResponse;
 import com.google.gson.Gson;
@@ -47,15 +48,15 @@ public class AddTeammateToTaskHandlerTest extends LambdaTest {
         	AddTeammateToTaskResponse resp = handler.handleRequest(req, createContext("create"));
             Assert.assertEquals(failureCode, resp.httpCode);
        }
-/*
 
   @Test
-  public void removeTeammateTest() throws Exception{
-	   TeammateDAO teammateDAO = new TeammateDAO();
-	   teammateDAO.deleteTeammateFromProject("value1", "value3");
+  public void addTeammateToTaskTest() throws Exception{
+	   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
+	   teammateTaskDAO.addTeammateToTask("value1", "value3");
 	   assert true;
   }
 
+  /*
        // NOTE: this proliferates large number of constants! Be mindful
        @Test
        public void testShouldBeOk() {

@@ -1,6 +1,6 @@
 package com.amazonaws.lambda.demo;
 
-import com.amazonaws.lambda.demo.db.TeammateDAO;
+import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskRequest;
 import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskResponse;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -22,12 +22,12 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 	 * 
 	 * @throws Exception 
 	 */
-	boolean removeTeammate(String teammateName, String projectName) throws Exception { 
+	boolean removeTeammate(String teammateName, String taskName) throws Exception { 
 		if (logger != null) { logger.log("in createProject"); }
-		TeammateDAO dao = new TeammateDAO();
+		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
 		// check if present
-		if (dao.deleteTeammateFromProject(teammateName, projectName) == false) {
+		if (dao.removeTeammateFromTask(teammateName, taskName) == false) {
 			return false;
 		} else {
 			return true;
@@ -42,7 +42,7 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 
 		RemoveTeammateFromTaskResponse response;
 		try {
-			if (removeTeammate(req.name, req.project)) {
+			if (removeTeammate(req.name, req.task)) {
 					response = new RemoveTeammateFromTaskResponse(req.name);
 			} 
 			else {
