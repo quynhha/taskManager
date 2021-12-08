@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.amazonaws.lambda.demo.http.ListProjectsResponse;
+import com.amazonaws.lambda.demo.http.ListTasksRequest;
 import com.amazonaws.lambda.demo.http.ListTasksResponse;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
@@ -19,12 +20,12 @@ public class ListTasksHandlerTest extends LambdaTest {
     public void testGetList() throws IOException {
     	ListTasksHandler handler = new ListTasksHandler();
 
-        ListTasksResponse resp = handler.handleRequest(null, createContext("list"));
+        ListTasksResponse resp = handler.handleRequest(new ListTasksRequest("Project3"), createContext("list"));
         
         boolean hasE = false;
         for (Task p : resp.list) {
         	System.out.println("found task " + p);
-        	if (p.name.equals("Task")) { hasE = true; }
+        	if (p.name.equals("Task0")) { hasE = true; }
         }
         Assert.assertTrue("e Needs to exist in the constants table (from tutorial) for this test case to work.", hasE);
         Assert.assertEquals(200, resp.statusCode);
