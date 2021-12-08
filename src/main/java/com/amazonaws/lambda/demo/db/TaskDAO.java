@@ -12,6 +12,7 @@ import com.amazonaws.lambda.demo.model.Task;
 
 
 
+@SuppressWarnings("unused")
 public class TaskDAO {
 	
 	java.sql.Connection conn;
