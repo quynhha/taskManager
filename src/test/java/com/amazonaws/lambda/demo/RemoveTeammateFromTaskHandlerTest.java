@@ -19,7 +19,7 @@ public class RemoveTeammateFromTaskHandlerTest extends LambdaTest {
 	@Test
 	  public void removeTeammateFromTaskTest() throws Exception{
 		   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-		   teammateTaskDAO.removeTeammateFromTask("Razan", "Task2", "Project");
+		   teammateTaskDAO.removeTeammateFromTask("Artwell", "Go Jogging", "Workout");
 		   assert true;
 	  }  
 	
@@ -62,7 +62,7 @@ public class RemoveTeammateFromTaskHandlerTest extends LambdaTest {
         @Test
 		  public void removeTeammateFromTaskTest() throws Exception{
 			   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-			   teammateTaskDAO.removeTeammateFromTask("Razan", "Task2", "Project");
+			   teammateTaskDAO.removeTeammateFromTask("Artwell", "Go Jogging", "Workout");
 			   assert true;
 		  }
        

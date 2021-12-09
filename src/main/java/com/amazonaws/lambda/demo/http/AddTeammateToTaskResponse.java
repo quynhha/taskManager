@@ -9,14 +9,8 @@ public class AddTeammateToTaskResponse {
 		this.httpCode = code;
 	}
 	
-	// 200 means success
-	public AddTeammateToTaskResponse (String s) {
-		this.response = s;
-		this.httpCode = 200;
-	}
-	
 	public String toString() {
-		return "Response(" + response + ")";
+		return "Response(" + this.response + ")";
 	}
 	
 }

@@ -1,12 +1,12 @@
 package com.amazonaws.lambda.demo.http;
 
 public class AddTeammateToTaskRequest {
-	public String name; 
-	public String task;
-	public String project;
+	private String name; 
+	private String task;
+	private String project;
 	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public String getTask() {
@@ -28,17 +28,9 @@ public class AddTeammateToTaskRequest {
 		this.project = project;
 	}
 	
-	public AddTeammateToTaskRequest(String name, String task, String project) {
-		this.name = name; 
-		this.task = task;
-		this.project = project;
-	}
-	
+	@Override
 	public String toString() {
-		return "Add Teammate(" + this.name + ", " + this.task + ", " + this.project + ")";
+		return "Add Teammate Task (" + this.name + ", " + this.task + ", " + this.project + ")";
 	}
-	
-	public AddTeammateToTaskRequest() {
-		
-	}
+
 }

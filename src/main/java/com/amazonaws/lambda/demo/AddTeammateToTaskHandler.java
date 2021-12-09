@@ -11,19 +11,9 @@ import com.amazonaws.services.s3.AmazonS3;
 public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTaskRequest, AddTeammateToTaskResponse> {
 
 	LambdaLogger logger;
-	
-	// To access S3 storage
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-	
-	public static final String REAL_BUCKET = "project/";
-	
-	/** Store into RDS.
-	 * 
-	 * @throws Exception 
-	 */
+
 	boolean addTeammateToTask(String teammateName, String taskName, String projectName) throws Exception { 
-		if (logger != null) { logger.log("in createProject"); }
+		if (logger != null) { logger.log(" in addTeamMateToTask"); }
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
 		// check if present
@@ -42,15 +32,15 @@ public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTas
         
 		AddTeammateToTaskResponse response;
 		try {
-			if (addTeammateToTask(req.name, req.task, req.project)) {
-					response = new AddTeammateToTaskResponse(req.name);
+			if (addTeammateToTask(req.getName(), req.getTask(), req.getProject())) {
+					response = new AddTeammateToTaskResponse(req.getName(), 200);
 			} 
 			else {
-					response = new AddTeammateToTaskResponse(req.name, 400);
+					response = new AddTeammateToTaskResponse(req.getName(), 400);
 			}
 			
 		} catch (Exception e) {
-			response = new AddTeammateToTaskResponse("Unable to add teammate to task: " + req.name + "(" + e.getMessage() + ")", 400);
+			response = new AddTeammateToTaskResponse("Unable to add teammate to task: " + req.getName() + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;

@@ -76,24 +76,4 @@ public class TeammateTaskDAO {
 		}
 	}
 	
-	public boolean getTasksByTeammate(String teammateName, String projectName) throws Exception {
-		PreparedStatement ps = conn.prepareStatement("Select * from " + tb1name + " where teammateName = ? and projectName = ?;");
-        Statement statement = conn.createStatement(); 
-		ps.setString(1,  teammateName); // fix
-         ps.setString(2, projectName);
-         ps.executeQuery();
-         ResultSet resultSet = statement.executeQuery(query);
-
-
-         while (resultSet.next()) {
-         		Task t = generateTask(resultSet);
-         		if(t.projectName.contentEquals(projectName)) {
-             		System.out.println(t.name);
-         			allTasks.add(t);
-         	}
-         }
-         resultSet.close();
-         statement.close();
-
-	}
 }
