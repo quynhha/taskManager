@@ -2,6 +2,7 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+<<<<<<< Updated upstream
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,10 @@ import java.util.List;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
+=======
+
+import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+>>>>>>> Stashed changes
 
 public class TeammateDAO {
 	
