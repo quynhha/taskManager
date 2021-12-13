@@ -58,7 +58,11 @@ public class GetPercentageCompleteHandler implements RequestHandler<GetPercentag
 			int percentageComplete = GetPercentageComplete(req.projectName);
 
 			
+<<<<<<< Updated upstream
 			response = new GetPercentageCompleteResponse(200, null, percentageComplete);
+=======
+			response = new GetPercentageCompleteResponse(200);
+>>>>>>> Stashed changes
 		} catch (Exception e) {
 			response = new GetPercentageCompleteResponse(400, e.getMessage(), 0);
 		}
