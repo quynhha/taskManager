@@ -147,11 +147,21 @@ public class TaskDAO {
 			PreparedStatement ps = conn.prepareStatement("UPDATE " + tb1name + " SET Complete = 1 WHERE taskName = ? and projectName = ?;");
 			ps.setString(1,  taskName);
 			ps.setString(2, projectName);
-//			PreparedStatement ps = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?"
+
 
 	
 			int num = ps.executeUpdate();
 			ps.close();
+			
+			ProjectsDAO projectsDAO = new ProjectsDAO();
+			int numComplete = projectsDAO.getPercentageComplete(projectName);
+			numComplete ++;
+			
+			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
+			pk.setString(1, projectName);
+			
+			
+			
 			return true;
 		}
 	  public boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
@@ -166,6 +176,14 @@ public class TaskDAO {
 	
 			int num = ps.executeUpdate();
 			ps.close();
+			
+			ProjectsDAO projectsDAO = new ProjectsDAO();
+			int numComplete = projectsDAO.getPercentageComplete(projectName);
+			numComplete --;
+			
+			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
+			pk.setString(1, projectName);
+			
 			return true;
 		}
 	
