@@ -83,10 +83,11 @@ public class ProjectsDAO {
 		int id = resultSet.getInt("projectID");
 		int numberOfTasks = resultSet.getInt("numberOfTasks");
 		int numberOfCompleteTasks = resultSet.getInt("Complete");
+		int percentageComplete = resultSet.getInt("percentageComplete");
 		int status = resultSet.getInt("status");
 		
 		
-		return new Project(name, id, numberOfTasks,numberOfCompleteTasks, status);
+		return new Project(name, id, numberOfTasks,numberOfCompleteTasks,percentageComplete, status);
 		
 	}
 

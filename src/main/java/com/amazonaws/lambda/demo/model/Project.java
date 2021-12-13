@@ -9,7 +9,7 @@ public class Project {
 	public int numTasks;
 	public int numCompleteTasks;
 	public int archived;
-	private int percentageComplete;
+	public int percentageComplete;
 	
 	
 	public Project(String name) {
@@ -57,14 +57,16 @@ public class Project {
 		this.id = r.nextInt(10000000);
 		numTasks = 0;
 		numCompleteTasks = 0;
+		
 
 	}
 
-	public Project(String name, int id, int numberOfTasks,int numCompleteTasks, int status) {
+	public Project(String name, int id, int numberOfTasks,int numCompleteTasks, int percentageComplete,int status) {
 		this.name = name;
 		this.id = id;
 		this.numTasks = numberOfTasks;
 		this.numCompleteTasks = numCompleteTasks;
+		this.percentageComplete = percentageComplete;
 		this.archived = status;
 	}
 	public int getNumCompleteTask() {
