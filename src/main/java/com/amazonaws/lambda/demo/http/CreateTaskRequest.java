@@ -22,10 +22,16 @@ public class CreateTaskRequest {
 		this.id = id; 
 	}
 	
+<<<<<<< Updated upstream
 	public CreateTaskRequest(String n , UUID id, String projectname) {
 		this.name = n; 
 		this.id = id;
 		this.projectName = projectname;
+=======
+	public CreateTaskRequest(String n , String p) {
+		this.name = n; 
+		this.projectName = p;
+>>>>>>> Stashed changes
 	}
 	
 	public String toString() {

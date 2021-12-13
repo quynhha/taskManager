@@ -10,12 +10,29 @@ import com.amazonaws.lambda.demo.model.Task;
 public class TestAddTask {
 
 	@Test
+<<<<<<< Updated upstream
 	public void testATask() throws Exception {
 		TaskDAO taskdao = new TaskDAO();
 		//TaskDAO  object= new TaskDAO();
 		Task task = new Task("Task03", "47be12e7-8c88-4120-ad61-f42ba538ca93");
 		taskdao.addTask(task);
 		assert(true);
+=======
+	public void testATask() {
+		TaskDAO  object= new TaskDAO();
+		UUID u = UUID.randomUUID();
+		String s = u.toString();
+		Task task = new Task();
+		boolean addedObject = false;
+		try {
+			addedObject  = object.addTask(task);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	assert(addedObject);
+>>>>>>> Stashed changes
 	}
 	
 	@Test
@@ -32,8 +49,8 @@ public class TestAddTask {
 		/*TaskDAO  object= new TaskDAO();
 		UUID u = UUID.randomUUID();
 		String s = u.toString();
-		Task task = new Task(s);
-		Task task2 = new Task(s);
+		Task task = new Task();
+		Task task2 = new Task();
 		boolean addedObject = false;
 		try {
 			 object.addTask(task);

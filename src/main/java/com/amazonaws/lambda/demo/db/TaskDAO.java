@@ -152,8 +152,8 @@ public class TaskDAO {
 			ps.close();
 			
 			ProjectsDAO projectsDAO = new ProjectsDAO();
-			int numComplete = projectsDAO.getPercentageComplete(projectName);
-			numComplete ++;
+			int numCompleteTasks = projectsDAO.getPercentageComplete(projectName);
+			numCompleteTasks ++;
 			
 			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
 			pk.setString(1, projectName);
@@ -179,8 +179,8 @@ public class TaskDAO {
 			ps.close();
 			
 			ProjectsDAO projectsDAO = new ProjectsDAO();
-			int numComplete = projectsDAO.getPercentageComplete(projectName);
-			numComplete --;
+			int numCompleteTasks = projectsDAO.getPercentageComplete(projectName);
+			numCompleteTasks --;
 			
 			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
 			pk.setString(1, projectName);
