@@ -96,9 +96,12 @@ public class TeammateDAO {
             		//Teammate t = new Teammate(resultSet.getString("teammateName"), resultSet.getString("projectName"));
             		Teammate t = generateTeammate(resultSet);
             		if(t.projectName.name.equals(projectName)) {
-                		System.out.println(t.name);
+                		//System.out.println(t.name);
             			allTeammate.add(t);
             	}
+            }
+            for(Teammate t: allTeammate) {
+            	System.out.println(t.name);
             }
             resultSet.close();
             statement.close();

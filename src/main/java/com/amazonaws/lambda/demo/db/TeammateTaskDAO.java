@@ -86,12 +86,33 @@ public class TeammateTaskDAO {
 		
 	}
 	
-	public List<TeammateTask> getAllTasks(String teammateName, String projectName) throws Exception {
+	public int getAllTasks(String teammateName, String projectName) throws Exception {
 		// TODO Auto-generated method stub	
 			List<TeammateTask> allTasks = new ArrayList<>();
 	        try {
 	            Statement statement = conn.createStatement();
 	            String query = "Select * from TeammateTask where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';";
+	            ResultSet resultSet = statement.executeQuery(query);
+	            while (resultSet.next()) {
+	            		TeammateTask t = generateTask(resultSet);
+	            		allTasks.add(t);
+	            }
+	            resultSet.close();
+	            statement.close();
+
+	        } catch (Exception e) {
+	            throw new Exception("Failed in getting tasks for teammate: " + e.getMessage());
+	        }
+	        System.out.println(allTasks.size());
+			return allTasks.size();
+	    }
+	
+	public List<TeammateTask> getTeammatesFromProject(String teammateName, String projectName) throws Exception {
+		// TODO Auto-generated method stub	
+			List<TeammateTask> allTasks = new ArrayList<>();
+	        try {
+	            Statement statement = conn.createStatement();
+	            String query = "Select * from TeammateTask where taskName = '" + teammateName + "' and projectName = '" + projectName + "';";
 	            ResultSet resultSet = statement.executeQuery(query);
 	            while (resultSet.next()) {
 	            		TeammateTask t = generateTask(resultSet);

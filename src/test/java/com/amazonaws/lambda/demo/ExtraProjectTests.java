@@ -2,13 +2,18 @@ package com.amazonaws.lambda.demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.lambda.demo.db.TaskDAO;
+import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
+import com.amazonaws.lambda.demo.model.TeammateTask;
 
 class ExtraProjectTests {
 
@@ -40,8 +45,8 @@ class ExtraProjectTests {
 
 	@Test
 	public void testArchiveProject() throws Exception{
-		TaskDAO dao = new TaskDAO();
-		dao.MarkTaskComplete("TestRenameTask0", "TestRenameTask");
+		
+		
 		assert(true);
 	}
 }
