@@ -220,7 +220,7 @@ public class ProjectsDAO {
 		}
 		
 	}
-public void PercentageComplete(String projectName) throws Exception{
+public int PercentageComplete(String projectName) throws Exception{
 		
 		
 		int PercentageComplete = this.getPercentageComplete(projectName);
@@ -240,11 +240,12 @@ public void PercentageComplete(String projectName) throws Exception{
 		
 		int num = ps.executeUpdate();
 		ps.close();
+		return PercentageComplete;
 	}
 
 public int getPercentageComplete(String projectName) {
 	// TODO Auto-generated method stub
-	return 0;
+	return 0 ;
 }
 
 
