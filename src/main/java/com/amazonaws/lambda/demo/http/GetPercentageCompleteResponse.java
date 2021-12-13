@@ -7,10 +7,11 @@ public class GetPercentageCompleteResponse {
 		public final String error;
 		public int percentageComplete;
 
-		public GetPercentageCompleteResponse (int code) {
-			this.statusCode = code;
-			this.error = "";
-		}
+//		public GetPercentageCompleteResponse (int code) {
+//			this.statusCode = code;
+//			this.error = "";
+//
+//		}
 		
 		public GetPercentageCompleteResponse (int code, String errorMessage , int percentageComplete) {
 			this.statusCode = code;
