@@ -3,6 +3,7 @@ package com.amazonaws.lambda.demo.http;
 
 
 public class GetPercentageCompleteResponse {
+		
 		public final int statusCode;
 		public final String error;
 		public int percentageComplete;
