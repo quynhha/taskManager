@@ -2,6 +2,7 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,7 @@ public class TeammateTaskDAO {
 		}
 	}
 	
+<<<<<<< Updated upstream
 	private TeammateTask generateTask(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("teammateName");
 		String projectName = resultSet.getString("projectName");
@@ -86,7 +88,7 @@ public class TeammateTaskDAO {
 		
 	}
 	
-	public List<TeammateTask> getAllTasks(String teammateName, String projectName) throws Exception {
+	public int getAllTasks(String teammateName, String projectName) throws Exception {
 		// TODO Auto-generated method stub	
 			List<TeammateTask> allTasks = new ArrayList<>();
 	        try {
@@ -103,7 +105,59 @@ public class TeammateTaskDAO {
 	        } catch (Exception e) {
 	            throw new Exception("Failed in getting tasks for teammate: " + e.getMessage());
 	        }
+	        System.out.println(allTasks.size());
+			return allTasks.size();
+	    }
+	
+	public List<TeammateTask> getTeammatesFromProject(String teammateName, String projectName) throws Exception {
+		// TODO Auto-generated method stub	
+			List<TeammateTask> allTasks = new ArrayList<>();
+	        try {
+	            Statement statement = conn.createStatement();
+	            String query = "Select * from TeammateTask where taskName = '" + teammateName + "' and projectName = '" + projectName + "';";
+	            ResultSet resultSet = statement.executeQuery(query);
+	            while (resultSet.next()) {
+	            		TeammateTask t = generateTask(resultSet);
+	            		allTasks.add(t);
+	            }
+	            resultSet.close();
+	            statement.close();
+
+	        } catch (Exception e) {
+	            throw new Exception("Failed in getting tasks for teammate: " + e.getMessage());
+	        }
 			return allTasks;
 	    }
 	
+=======
+	public ArrayList<String> getTasksByTeammate(String teammateName, String projectName) throws Exception {
+		
+		ArrayList<String> taskNames = new ArrayList<String>();
+		PreparedStatement ps = conn.prepareStatement("Select * from " + tb1name + " where teammateName = ? and projectName = ?;");
+        Statement statement = conn.createStatement(); 
+		ps.setString(1,  teammateName); // fix
+         ps.setString(2, projectName);
+         ps.executeQuery();
+         ResultSet resultSet = statement.executeQuery(query);
+
+
+         while (resultSet.next()) {
+         		TeammateTask t = generateTeammateTask(resultSet);
+         		
+             		System.out.println(t.name);
+         			taskNames.add(t.taskName);
+     
+         }
+         resultSet.close();
+         statement.close();
+         return taskNames;
+
+	}
+
+	private TeammateTask generateTeammateTask(ResultSet resultSet) throws Exception {
+		String teammateName = resultSet.getString("temmateName");
+		String projectName = resultSet.getString(columnIndex)
+		return null;
+	}
+>>>>>>> Stashed changes
 }

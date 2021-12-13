@@ -24,7 +24,7 @@ public class MarkTaskCompleteHandler implements RequestHandler<MarkTaskCompleteR
 		logger.log("MarkTaskComplete");
 		TaskDAO dao = new TaskDAO();
 		
-		return dao.MarkTaskComplete(taskName, projectName);
+		return dao.MarkTaskIncompleteOrComplete(taskName, projectName);
 
 	}
 	
