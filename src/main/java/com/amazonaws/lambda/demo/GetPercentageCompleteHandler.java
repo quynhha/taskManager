@@ -55,10 +55,10 @@ public class GetPercentageCompleteHandler implements RequestHandler<GetPercentag
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
 			@SuppressWarnings("unused")
-			int PercentageComplete = PercentageComplete(req.projectName);
+			int percentageComplete = GetPercentageComplete(req.projectName);
 
 			
-			response = new GetPercentageCompleteResponse(200, null, PercentageComplete);
+			response = new GetPercentageCompleteResponse(200, null, percentageComplete);
 		} catch (Exception e) {
 			response = new GetPercentageCompleteResponse(400, e.getMessage(), 0);
 		}
