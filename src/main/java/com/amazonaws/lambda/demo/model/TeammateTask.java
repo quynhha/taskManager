@@ -11,6 +11,7 @@ public class TeammateTask {
 	public final int id;
 	public Project projectName;
 	public Task taskName;
+	public String teammateName;
 	
 	public TeammateTask(String name, Project projectName, Task taskName) {
 		if(name == null) {
