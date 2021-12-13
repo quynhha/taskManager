@@ -88,9 +88,11 @@ public class TaskDAO {
 	private Task generateTask(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("taskName");
 		int id = resultSet.getInt("taskID");
+		int order = resultSet.getInt("order2");
+		int complete = resultSet.getInt("Complete");
 		String projectName = resultSet.getString("projectName");
 				
-		return new Task(name, id, projectName);
+		return new Task(name, id, projectName,order,complete);
 		
 	}
 

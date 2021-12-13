@@ -78,7 +78,6 @@ public class TeammateTaskDAO {
 		}
 	}
 	
-<<<<<<< Updated upstream
 	private TeammateTask generateTask(ResultSet resultSet) throws Exception {
 		String name = resultSet.getString("teammateName");
 		String projectName = resultSet.getString("projectName");
@@ -130,9 +129,7 @@ public class TeammateTaskDAO {
 	        }
 			return allTasks;
 	    }
-<<<<<<< Updated upstream
-	
-=======
+
 	public ArrayList<String> getTasksByTeammate(String teammateName, String projectName) throws Exception {
 		
 		ArrayList<String> taskNames = new ArrayList<String>();
@@ -162,7 +159,5 @@ public class TeammateTaskDAO {
 		String projectName = resultSet.getString(columnIndex)
 		return null;
 	}
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 }

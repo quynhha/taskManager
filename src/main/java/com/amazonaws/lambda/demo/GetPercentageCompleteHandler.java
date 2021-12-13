@@ -58,7 +58,7 @@ public class GetPercentageCompleteHandler implements RequestHandler<GetPercentag
 			int PercentageComplete = PercentageComplete(req.projectName);
 
 			
-			response = new GetPercentageCompleteResponse(200);
+			response = new GetPercentageCompleteResponse(200, null, PercentageComplete);
 		} catch (Exception e) {
 			response = new GetPercentageCompleteResponse(400, e.getMessage(), 0);
 		}

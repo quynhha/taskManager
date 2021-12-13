@@ -39,12 +39,12 @@ public class Task {
 		
 	}
 	
-	public Task(String name, int id, String projectName) {
+	public Task(String name, int id, String projectName,int order, int complete) {
 		this.name = name;
 		this.id = id;
 		this.projectName = projectName;
-		this.order = 0;
-		complete = 0;
+		this.order = order;
+		this.complete = complete;
 
 	}
 	
