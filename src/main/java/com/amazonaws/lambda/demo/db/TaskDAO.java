@@ -2,6 +2,7 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +10,6 @@ import java.util.List;
 import com.amazonaws.lambda.demo.model.Task;
 
 
-
-
-@SuppressWarnings({ "unused", "unused" })
 public class TaskDAO {
 	
 	java.sql.Connection conn;
@@ -34,7 +32,7 @@ public class TaskDAO {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE TaskName=?;");
 			ps.setString(1,  taskName);
 			ResultSet resultSet = ps.executeQuery();
-			
+            
 			  while (resultSet.next()) {
 	                task = generateTask(resultSet);
 	                if(task.projectName.equals(projectName)) {
@@ -137,8 +135,8 @@ public class TaskDAO {
 	            throw new Exception("Failed to update report: " + e.getMessage());
 	        }
 	    }
-	  public boolean MarkTaskComplete(String taskName, String projectName) throws Exception{
-			
+	  public boolean MarkTaskComplete(String taskName, String projectName) throws Exception{			
+		  
 			if(this.getTask(taskName, projectName) == null) {
 				return false;
 			}
@@ -152,6 +150,9 @@ public class TaskDAO {
 	
 			int num = ps.executeUpdate();
 			ps.close();
+			this.getTask(taskName, projectName).setComplete(1);
+			System.out.println(this.getTask(taskName, projectName).complete);
+
 			return true;
 		}
 	  public boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
@@ -166,8 +167,30 @@ public class TaskDAO {
 	
 			int num = ps.executeUpdate();
 			ps.close();
+			this.getTask(taskName, projectName).setComplete(0);
+			System.out.println(this.getTask(taskName, projectName).complete);
 			return true;
 		}
-	
+	  
+	  public boolean MarkTaskIncompleteOrComplete(String taskName, String projectName) throws Exception{
+		Task task = this.getTask(taskName, projectName);
+		  
+		  if(task == null) {
+				return false;
+			}
+		  
+		//  boolean complete = (task.complete == 1);
+		  System.out.println(task.complete);
+		  if(task.complete == 1) {
+			  MarkTaskIncomplete(taskName, projectName);
+		  }
+		  else {
+			  MarkTaskComplete(taskName, projectName);
+
+		  }
+		  
+		  return true;
+		  
+	  }
     
 }

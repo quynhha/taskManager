@@ -13,6 +13,7 @@ public class Task {
 	public final int id;
 	public final String projectName;
 	public final int order;
+	public int complete;
 	
 	public Task(String name, String projectName) throws Exception {
 		if(name == null) {
@@ -31,6 +32,7 @@ public class Task {
 		this.order = order.numTasks;
 		
 		projectdao.incrementNumberOfTasks(projectName);
+		complete = 0;
 		
 		
 		 
@@ -42,6 +44,8 @@ public class Task {
 		this.id = id;
 		this.projectName = projectName;
 		this.order = 0;
+		complete = 0;
+
 	}
 	
 	public Task() {
@@ -52,6 +56,11 @@ public class Task {
 		this.id = r.nextInt(10000000);
 		this.projectName = new Project().name;
 		this.order = -2;
+		complete = 0;
+
+	}
+	public void setComplete(int value) {
+		this.complete = value;
 	}
 	
 }
