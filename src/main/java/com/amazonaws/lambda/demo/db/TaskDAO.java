@@ -6,13 +6,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 
 
 
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "unused" })
 public class TaskDAO {
 	
 	java.sql.Connection conn;
@@ -144,9 +143,12 @@ public class TaskDAO {
 				return false;
 			}
 			Task p = getTask(taskName, projectName);
+
 			PreparedStatement ps = conn.prepareStatement("UPDATE " + tb1name + " SET Complete = 1 WHERE taskName = ? and projectName = ?;");
 			ps.setString(1,  taskName);
 			ps.setString(2, projectName);
+//			PreparedStatement ps = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?"
+
 	
 			int num = ps.executeUpdate();
 			ps.close();

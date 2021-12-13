@@ -82,9 +82,11 @@ public class ProjectsDAO {
 		String name = resultSet.getString("projectName");
 		int id = resultSet.getInt("projectID");
 		int numberOfTasks = resultSet.getInt("numberOfTasks");
+		int numberOfCompleteTasks = resultSet.getInt("Complete");
 		int status = resultSet.getInt("status");
 		
-		return new Project(name, id, numberOfTasks,status);
+		
+		return new Project(name, id, numberOfTasks,numberOfCompleteTasks, status);
 		
 	}
 
@@ -182,5 +184,69 @@ public class ProjectsDAO {
 		ps.close();
 		return true;
 	}
-    
+	public void incrementNumberOfCompleteTasks(String projectName) throws Exception{
+		
+		
+		int newNumOfCompleteTasks = this.getNumberOfCompleteTasks(projectName);
+		//System.out.println(newNumOfTasks);
+		newNumOfCompleteTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setNumCompleteTask(newNumOfCompleteTasks);
+		System.out.println(p.getNumCompleteTask());
+
+		
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set numberOfCompleteTasks = ? WHERE projectName = ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setInt(1,  newNumOfCompleteTasks);
+		ps.setString(2, projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+	}
+	public int getNumberOfCompleteTasks(String projectName) throws Exception {
+		try {
+				Project p = getProject(projectName);
+				System.out.println(p.name);
+				System.out.println(p.getNumCompleteTask());
+
+				return p.getNumCompleteTask();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+	}
+public void PercentageComplete(String projectName) throws Exception{
+		
+		
+		int PercentageComplete = this.getPercentageComplete(projectName);
+		//System.out.println(newNumOfTasks);
+//		newNumOfCompleteTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setPercentageComplete(PercentageComplete);
+		System.out.println(p.getPercentageComplete());
+
+		
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set percentageComplete = (numberOfCompleteTasks / numberOfTasks)*100 ? WHERE projectName = ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setInt(1,  PercentageComplete);
+		ps.setString(2, projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+	}
+
+public int getPercentageComplete(String projectName) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+
+
+
 }

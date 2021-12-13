@@ -1,22 +1,25 @@
 package com.amazonaws.lambda.demo.http;
 
-public class ArchiveProjectResponse {
+
+
+public class GetPercentageCompleteResponse {
 		public final int statusCode;
 		public final String error;
 
-		public ArchiveProjectResponse (int code) {
+		public GetPercentageCompleteResponse (int code) {
 			this.statusCode = code;
 			this.error = "";
 		}
 		
-		public ArchiveProjectResponse (int code, String errorMessage) {
+		public GetPercentageCompleteResponse (int code, String errorMessage) {
 			this.statusCode = code;
 			this.error = errorMessage;
 		}
 		
 		public String toString() {
 			
-			return "ArchivedProject" + statusCode;
+			return "PercentageComplete" + statusCode;
 		}
 
 }
+

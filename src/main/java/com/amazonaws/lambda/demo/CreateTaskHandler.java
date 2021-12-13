@@ -31,7 +31,7 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
         TaskDAO dao = new TaskDAO();
 
         // check if present
-        Task exist = dao.getTask(name);
+        Task exist = dao.getTask(name, projectName);
 
         Task task = new Task(name, projectName);
         if (exist == null) {
