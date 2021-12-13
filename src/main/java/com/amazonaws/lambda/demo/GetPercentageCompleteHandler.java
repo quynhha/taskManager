@@ -60,7 +60,7 @@ public class GetPercentageCompleteHandler implements RequestHandler<GetPercentag
 			
 			response = new GetPercentageCompleteResponse(200);
 		} catch (Exception e) {
-			response = new GetPercentageCompleteResponse(400, e.getMessage());
+			response = new GetPercentageCompleteResponse(400, e.getMessage(), 0);
 		}
 		
 		return response;
