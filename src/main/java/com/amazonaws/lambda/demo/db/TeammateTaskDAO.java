@@ -86,21 +86,16 @@ public class TeammateTaskDAO {
 		
 	}
 	
-	public List<TeammateTask> getAllTasks(String teammateName) throws Exception {
+	public List<TeammateTask> getAllTasks(String teammateName, String projectName) throws Exception {
 		// TODO Auto-generated method stub	
 			List<TeammateTask> allTasks = new ArrayList<>();
 	        try {
 	            Statement statement = conn.createStatement();
-	            String query = "SELECT * FROM " + tb1name+ " ORDER BY order2";// + "ORDER by order2";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
-	            //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
+	            String query = "Select * from TeammateTask where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';";
 	            ResultSet resultSet = statement.executeQuery(query);
-
 	            while (resultSet.next()) {
 	            		TeammateTask t = generateTask(resultSet);
-	            		if(t.teammateName.contentEquals(teammateName)) {
-	                		System.out.println(t.taskName);
-	            			allTasks.add(t);
-	            	}
+	            		allTasks.add(t);
 	            }
 	            resultSet.close();
 	            statement.close();

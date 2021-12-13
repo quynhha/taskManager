@@ -15,36 +15,32 @@ import com.google.gson.Gson;
  * A simple test harness for locally invoking your Lambda function handler.
  */
 public class ListTasksForTeammateHandlerTest extends LambdaTest {
-/*
-    @Test
+
+	/*
+    @Test		//check if list is empty
     public void testGetList() throws IOException {
     	ListTasksForTeammateHandler handler = new ListTasksForTeammateHandler();
-
-        ListTasksForTeammateResponse resp = handler.handleRequest(new ListTasksForTeammateRequest("Project3"), createContext("list"));
-        
-        boolean hasE = false;
-        for (TeammateTask p : resp.list) {
-        	System.out.println("found task " + p);
-        	if (p.name.equals("Task0")) { hasE = true; }
-        }
-        Assert.assertTrue("e Needs to exist in the constants table (from tutorial) for this test case to work.", hasE);
+        ListTasksForTeammateResponse resp = handler.handleRequest(new ListTasksForTeammateRequest("Anna","a"), createContext("list"));
+        boolean listCheck = resp.list.isEmpty() ? true : false;
+        Assert.assertFalse(listCheck);
         Assert.assertEquals(200, resp.statusCode);
     }
-
-    void testSuccessAddTeammateToTask(String input) throws IOException {
+    */
+    
+    void testSuccessListTasksForTeammate(String input) throws IOException {
 	 	ListTasksForTeammateHandler handler = new ListTasksForTeammateHandler(); 
 	 	ListTasksForTeammateRequest req = new Gson().fromJson(input, ListTasksForTeammateRequest.class);
     	
-	 	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("list task"));
+	 	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("list tasks"));
     	Assert.assertEquals(200, resp.httpCode );
     		
     }
  
-    void testFailAddTeammateToTask(String input, int failCode) throws IOException {
+    void testFailListTasksForTeammate(String input, int failCode) throws IOException {
     	ListTasksForTeammateHandler handler = new ListTasksForTeammateHandler(); 
     	ListTasksForTeammateRequest req = new Gson().fromJson(input, ListTasksForTeammateRequest.class);
     	
-    	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("list task"));
+    	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("list tasks"));
     	Assert.assertEquals(failCode, resp.httpCode );
     		
     }
@@ -64,11 +60,11 @@ public class ListTasksForTeammateHandlerTest extends LambdaTest {
     	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("create"));
         Assert.assertEquals(failureCode, resp.httpCode);
    }
-*/    
+	
     @Test
 	  public void ListTasksForTeammateTest() throws Exception{
 		   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-		   teammateTaskDAO.getAllTasks("Anna");
+		   teammateTaskDAO.getAllTasks("Anna", "a");
 		   assert true;
 	  }
 }

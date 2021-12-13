@@ -15,11 +15,11 @@ public class ListTasksForTeammateHandler implements RequestHandler<ListTasksForT
 	
 	public LambdaLogger logger;
 	
-	List<TeammateTask> getTask(String teammateName) throws Exception{
-		logger.log("get all tasks fro teammate");
+	List<TeammateTask> getTask(String teammateName, String projectName) throws Exception{
+		logger.log("get all tasks from teammate");
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
-		return dao.getAllTasks(teammateName);
+		return dao.getAllTasks(teammateName, projectName);
 
 	}
 	
@@ -32,7 +32,7 @@ public class ListTasksForTeammateHandler implements RequestHandler<ListTasksForT
 		try {
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
-			List<TeammateTask> list = getTask(req.teammateName);
+			List<TeammateTask> list = getTask(req.teammateName, req.projectName);
 			
 			response = new ListTasksForTeammateResponse(list, 200);
 		} catch (Exception e) {
