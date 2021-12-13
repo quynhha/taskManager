@@ -97,6 +97,8 @@ public class TeammateTaskDAO {
 	            ResultSet resultSet = statement.executeQuery(query);
 	            while (resultSet.next()) {
 	            		TeammateTask t = generateTask(resultSet);
+	            		System.out.println(teammateName + " " + projectName);
+	            		System.out.println(t.taskName);
 	            		allTasks.add(t);
 	            }
 	            resultSet.close();
@@ -128,6 +130,7 @@ public class TeammateTaskDAO {
 	        }
 			return allTasks;
 	    }
+<<<<<<< Updated upstream
 	
 =======
 	public ArrayList<String> getTasksByTeammate(String teammateName, String projectName) throws Exception {
@@ -159,5 +162,7 @@ public class TeammateTaskDAO {
 		String projectName = resultSet.getString(columnIndex)
 		return null;
 	}
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
