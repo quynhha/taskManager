@@ -43,9 +43,9 @@ public class AddTaskHandlerTest extends LambdaTest{
     @Test
     public void testShouldBeOk() {
     	int rndNum = (int)(990*(Math.random()));
-    	String var = "throwAway" + rndNum;
+    	String var = "ThrowAway" + rndNum;
     	
-    	CreateTaskRequest ccr = new CreateTaskRequest(var, (UUID.randomUUID()), "Project");
+    	CreateTaskRequest ccr = new CreateTaskRequest(var, (UUID.randomUUID()), "abc3");
         String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);  
         
         try {

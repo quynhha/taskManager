@@ -11,6 +11,7 @@ public class GetPercentageCompleteRequest {
 	public int  PercentageComplete;
 	public String projectName;
 	public GetPercentageCompleteRequest(String projectName) {
+		this.projectName = projectName;
 	}
 	
 	public GetPercentageCompleteRequest() {

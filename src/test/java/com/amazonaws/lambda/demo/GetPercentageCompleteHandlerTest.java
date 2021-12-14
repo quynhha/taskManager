@@ -18,7 +18,7 @@ public class GetPercentageCompleteHandlerTest extends LambdaTest {
 	public void testPercentageComplete() throws IOException {
 		GetPercentageCompleteHandler handler = new GetPercentageCompleteHandler();
 
-		 	String var = "Project";
+		 	String var = "abc4";
 		 	GetPercentageCompleteRequest req = new GetPercentageCompleteRequest(var);
 		 	
 		 	GetPercentageCompleteResponse resp = handler.handleRequest(req, createContext("list"));

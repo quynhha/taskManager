@@ -75,6 +75,9 @@ public class TaskDAO {
 	            ps.setInt(4, task.order);
 	            System.out.println();
 	            ps.execute();
+	            
+	            ProjectsDAO pdao = new ProjectsDAO();
+	            pdao.getPercentageComplete(task.projectName);
 	            return true;
 			}
 		catch (Exception e){
@@ -160,11 +163,14 @@ public class TaskDAO {
 			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
 			pk.setString(1, projectName);
 			
+			pk.executeUpdate();
 			
-			
-			this.getTask(taskName, projectName).setComplete(1);
+			this.getTask(taskName, projectName).setComplete(numCompleteTasks);
 			System.out.println(this.getTask(taskName, projectName).complete);
 
+			//projectsDAO.incrementNumberOfCompleteTasks(projectName);
+			projectsDAO.getPercentageComplete(projectName);
+			
 			return true;
 		}
 	  public boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
@@ -183,12 +189,14 @@ public class TaskDAO {
 			ProjectsDAO projectsDAO = new ProjectsDAO();
 			int numCompleteTasks = projectsDAO.getPercentageComplete(projectName);
 			numCompleteTasks --;
-			
-			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks+1 WHERE projectName = ?");
+
+			PreparedStatement pk = conn.prepareStatement("UPDATE " + "Project" + " SET numberOfCompleteTasks = numberOfCompleteTasks-1 WHERE projectName = ?");
 			pk.setString(1, projectName);
+			pk.executeUpdate();
 			
-			this.getTask(taskName, projectName).setComplete(0);
-			System.out.println(this.getTask(taskName, projectName).complete);
+			projectsDAO.getPercentageComplete(projectName);
+			//this.getTask(taskName, projectName).setComplete(0);
+			//System.out.println(this.getTask(taskName, projectName).complete);
 			return true;
 		}
 	  

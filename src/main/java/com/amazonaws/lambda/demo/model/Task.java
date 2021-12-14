@@ -32,7 +32,7 @@ public class Task {
 		this.order = order.numTasks;
 		
 		projectdao.incrementNumberOfTasks(projectName);
-		complete = 0;
+		this.complete = 0;
 		
 		
 		 
@@ -56,7 +56,7 @@ public class Task {
 		this.id = r.nextInt(10000000);
 		this.projectName = new Project().name;
 		this.order = -2;
-		complete = 0;
+		this.complete = 0;
 
 	}
 	public void setComplete(int value) {

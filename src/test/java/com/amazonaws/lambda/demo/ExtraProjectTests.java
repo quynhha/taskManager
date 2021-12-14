@@ -46,7 +46,12 @@ class ExtraProjectTests {
 	@Test
 	public void testArchiveProject() throws Exception{
 		
+		TaskDAO dao = new TaskDAO();
+		//ProjectsDAO pdao = new ProjectsDAO();
+		Task task = new Task("RandomName1002", "abc2");
+		//dao.MarkTaskComplete("RandomName2", "abc4");
 		
+		dao.addTask(task);
 		assert(true);
 	}
 }

@@ -41,7 +41,7 @@ public class AddProjectHandlerTest extends LambdaTest{
     @Test
     public void testShouldBeOk() {
     	int rndNum = (int)(990*(Math.random()));
-    	String var = "throwAway" + rndNum;
+    	String var = "abc";
     	
     	CreateProjectRequest ccr = new CreateProjectRequest(var, (UUID.randomUUID()));
         String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);  

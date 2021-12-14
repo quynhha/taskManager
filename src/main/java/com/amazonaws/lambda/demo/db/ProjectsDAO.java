@@ -185,6 +185,7 @@ public class ProjectsDAO {
 		ps.close();
 		return true;
 	}
+	
 	public void incrementNumberOfCompleteTasks(String projectName) throws Exception{
 		
 		
@@ -206,6 +207,7 @@ public class ProjectsDAO {
 		int num = ps.executeUpdate();
 		ps.close();
 	}
+	
 	public int getNumberOfCompleteTasks(String projectName) throws Exception {
 		try {
 				Project p = getProject(projectName);
@@ -220,10 +222,10 @@ public class ProjectsDAO {
 		}
 		
 	}
-public int PercentageComplete(String projectName) throws Exception{
+public int getPercentageComplete(String projectName) throws Exception{
 		
 		
-		int PercentageComplete = this.getPercentageComplete(projectName);
+		int PercentageComplete = 0;
 		//System.out.println(newNumOfTasks);
 //		newNumOfCompleteTasks++;
 		//System.out.println(newNumOfTasks);
@@ -233,20 +235,14 @@ public int PercentageComplete(String projectName) throws Exception{
 		System.out.println(p.getPercentageComplete());
 
 		
-		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set percentageComplete = (numberOfCompleteTasks / numberOfTasks)*100 ? WHERE projectName = ?;");
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set percentageComplete = (numberOfCompleteTasks / numberOfTasks)*100 WHERE projectName = ?;");
 		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
-		ps.setInt(1,  PercentageComplete);
-		ps.setString(2, projectName);
+		ps.setString(1, projectName);
 		
 		int num = ps.executeUpdate();
 		ps.close();
 		return PercentageComplete;
 	}
-
-public int getPercentageComplete(String projectName) {
-	// TODO Auto-generated method stub
-	return 0 ;
-}
 
 
 
