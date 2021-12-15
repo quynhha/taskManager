@@ -185,6 +185,7 @@ public class ProjectsDAO {
 		ps.close();
 		return true;
 	}
+	/*
 	
 	public void incrementNumberOfCompleteTasks(String projectName) throws Exception{
 		
@@ -222,6 +223,7 @@ public class ProjectsDAO {
 		}
 		
 	}
+	*/
 public int getPercentageComplete(String projectName) throws Exception{
 		
 		

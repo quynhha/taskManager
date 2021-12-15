@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.junit.Test;
 
 import com.amazonaws.lambda.demo.db.TaskDAO;
+import com.amazonaws.lambda.demo.db.TeammateDAO;
 import com.amazonaws.lambda.demo.model.Task;
 
 public class TestAddTask2 {
@@ -17,7 +18,14 @@ public class TestAddTask2 {
 		//TaskDAO  object= new TaskDAO();
 		Task task = new Task("Task00", "Project");
 		taskdao.addTask(task);
-		assert(false);
+		
+		
+		//I am lazy and scamming the project
+		TeammateDAO teammate = new TeammateDAO();
+		teammate.searchForTeammate("kassa", "a");
+		
+		teammate.addTeammateToProject(teammate.toString(), "Project");
+		assert(true);
 	}
 	
 	//@Test

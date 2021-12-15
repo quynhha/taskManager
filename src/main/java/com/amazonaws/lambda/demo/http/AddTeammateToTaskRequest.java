@@ -17,6 +17,7 @@ public class AddTeammateToTaskRequest {
 		return project;
 	}
 	
+	/*
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -25,6 +26,16 @@ public class AddTeammateToTaskRequest {
 	}
 	
 	public void setProject(String project) {
+		this.project = project;
+	}
+	*/
+	public AddTeammateToTaskRequest() {
+		
+	}
+	
+	public AddTeammateToTaskRequest(String name, String task, String project) {
+		this.name = name;
+		this.task = task;
 		this.project = project;
 	}
 	

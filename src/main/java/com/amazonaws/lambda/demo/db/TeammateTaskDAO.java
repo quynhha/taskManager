@@ -185,11 +185,11 @@ public class TeammateTaskDAO {
          return taskNames;
 
 	}*/
-
+/*
 	private TeammateTask generateTeammateTask(ResultSet resultSet) throws Exception {
 		String teammateName = resultSet.getString("temmateName");
 		String projectName = resultSet.getString("columnIndex");
 		return null;
 	}
-
+*/
 }

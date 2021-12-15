@@ -62,8 +62,17 @@ public class AddTeammateToTaskHandlerTest extends LambdaTest {
         
         @Test
 		  public void addTeammateToTaskTest() throws Exception{
-			   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-			   teammateTaskDAO.addTeammateToTask("Razan", "Task2", "Project");
+        		
+        	
+        	
+			//   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
+			//   teammateTaskDAO.addTeammateToTask("Razan", "Task2", "Project");
+			   
+			   AddTeammateToTaskRequest req = new AddTeammateToTaskRequest("Razan", "Task2", "Project");
+			   AddTeammateToTaskHandler handler = new AddTeammateToTaskHandler();
+			   AddTeammateToTaskResponse resp = handler.handleRequest(req, createContext("AddTeammateToTask"));
+			   
+			   
 			   assert true;
 		  }
    

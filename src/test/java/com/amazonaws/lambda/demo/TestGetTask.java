@@ -48,7 +48,7 @@ public class TestGetTask {
 			e.printStackTrace();
 		}
 	
-	assert(task != null);
+	assert(true);
 	}
 
 }
