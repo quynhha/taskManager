@@ -35,7 +35,7 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 		Task task = dao.getTask(name, projectName);
 		if (logger != null) { logger.log("retrieved Constant"); }
 		return task;
-	}*/
+	}
 	
 	List<Task> getTasks() throws Exception{
 		logger.log("get all Projects");
@@ -67,8 +67,5 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 
 		return response;
 	}
-
-
-
 	
 }
