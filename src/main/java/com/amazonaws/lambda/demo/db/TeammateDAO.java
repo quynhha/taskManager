@@ -2,7 +2,6 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-<<<<<<< Updated upstream
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +9,6 @@ import java.util.List;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
-=======
-
-import com.amazonaws.lambda.demo.utils.DatabaseUtil;
->>>>>>> Stashed changes
 
 public class TeammateDAO {
 	
@@ -93,20 +88,25 @@ public class TeammateDAO {
 		List<Teammate> allTeammate = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM sys.Teammate;";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
+            //String query = "SELECT * FROM sys.Teammate where projectName = ?;";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Teammate where projectName =?;");
+            ps.setString(1, projectName);
+            
+            
             //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
             		//Teammate t = new Teammate(resultSet.getString("teammateName"), resultSet.getString("projectName"));
             		Teammate t = generateTeammate(resultSet);
+            		//System.out.println(t.projectName.name);
             		if(t.projectName.name.equals(projectName)) {
                 		//System.out.println(t.name);
             			allTeammate.add(t);
             	}
             }
             for(Teammate t: allTeammate) {
-            	System.out.println(t.name);
+            	//System.out.println(t.name);
             }
             resultSet.close();
             statement.close();
@@ -118,7 +118,9 @@ public class TeammateDAO {
     }
 	public Teammate getTeammate(String teammatename, String projectName) throws Exception {
 		List<Teammate> allTeammate = getAllTeammate(projectName);
+		//System.out.println();
 				for(Teammate t : allTeammate) {
+					//System.out.println(t.name);
 					if(teammatename.equals(t.name)) {
 						return t;
 					}

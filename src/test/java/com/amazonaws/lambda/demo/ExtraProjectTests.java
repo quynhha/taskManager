@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.lambda.demo.db.TaskDAO;
+import com.amazonaws.lambda.demo.db.TeammateDAO;
 import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
@@ -45,13 +46,11 @@ class ExtraProjectTests {
 
 	@Test
 	public void testArchiveProject() throws Exception{
+		TeammateTaskDAO dao = new TeammateTaskDAO();
+		dao.getTeammatesFromTask("a", "Task 2");
+		//TeammateDAO tdao = new TeammateDAO();
+		//tdao.getAllTeammate("a");
 		
-		TaskDAO dao = new TaskDAO();
-		//ProjectsDAO pdao = new ProjectsDAO();
-		Task task = new Task("RandomName1002", "abc2");
-		//dao.MarkTaskComplete("RandomName2", "abc4");
-		
-		dao.addTask(task);
 		assert(true);
 	}
 }

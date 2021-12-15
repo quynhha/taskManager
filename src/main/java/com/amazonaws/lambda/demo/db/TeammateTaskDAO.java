@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
+import com.amazonaws.lambda.demo.model.Teammate;
 import com.amazonaws.lambda.demo.model.TeammateTask;
 
 
@@ -110,16 +111,19 @@ public class TeammateTaskDAO {
 			return allTasks.size();
 	    }
 	
-	public List<TeammateTask> getTeammatesFromProject(String teammateName, String projectName) throws Exception {
+	public List<Teammate> getTeammatesFromTask(String projectName, String taskName) throws Exception {
 		// TODO Auto-generated method stub	
-			List<TeammateTask> allTasks = new ArrayList<>();
+			List<Teammate> teammates = new ArrayList<>();
 	        try {
+	        	TeammateDAO taskdao = new TeammateDAO();
 	            Statement statement = conn.createStatement();
-	            String query = "Select * from TeammateTask where taskName = '" + teammateName + "' and projectName = '" + projectName + "';";
+	            String query = "Select * from TeammateTask where taskName = '" + taskName + "' and projectName = '" + projectName + "';";
 	            ResultSet resultSet = statement.executeQuery(query);
 	            while (resultSet.next()) {
 	            		TeammateTask t = generateTask(resultSet);
-	            		allTasks.add(t);
+	            		Teammate tmt = taskdao.getTeammate(t.name, projectName);
+	            		teammates.add(tmt);
+	            		System.out.println(t.name);
 	            }
 	            resultSet.close();
 	            statement.close();
@@ -127,9 +131,10 @@ public class TeammateTaskDAO {
 	        } catch (Exception e) {
 	            throw new Exception("Failed in getting tasks for teammate: " + e.getMessage());
 	        }
-			return allTasks;
+			return teammates;
 	    }
 
+	/*
 	public ArrayList<String> getTasksByTeammate(String teammateName, String projectName) throws Exception {
 		
 		ArrayList<String> taskNames = new ArrayList<String>();
@@ -152,11 +157,11 @@ public class TeammateTaskDAO {
          statement.close();
          return taskNames;
 
-	}
+	}*/
 
 	private TeammateTask generateTeammateTask(ResultSet resultSet) throws Exception {
 		String teammateName = resultSet.getString("temmateName");
-		String projectName = resultSet.getString(columnIndex)
+		String projectName = resultSet.getString("columnIndex");
 		return null;
 	}
 

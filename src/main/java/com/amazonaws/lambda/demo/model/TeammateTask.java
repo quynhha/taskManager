@@ -7,18 +7,13 @@ import com.amazonaws.lambda.demo.db.TaskDAO;
 
 public class TeammateTask {
 	
-<<<<<<< Updated upstream
+
 	public final String name; 
 	public final int id;
 	public Project projectName;
 	public Task taskName;
 	public String teammateName;
-=======
-	public  String name; 
-	public  int id;
-	public String projectName;
-	public String taskName;
->>>>>>> Stashed changes
+
 	
 	/*public TeammateTask(String name, String projectName, String taskName) {
 		if(name == null) {
@@ -35,7 +30,7 @@ public class TeammateTask {
 		this.id = r.nextInt(10000000);
 	}*/
 	
-	public TeammateTask(String name, int id, String projectName, String taskName) {
+	public TeammateTask(String name, int id, Project projectName, Task taskName) {
 		this.name = name;
 		this.id = id;
 		this.projectName = projectName;
@@ -48,13 +43,9 @@ public class TeammateTask {
 		TaskDAO taskDAO = new TaskDAO();
 		
 //		this.name = name;
-<<<<<<< Updated upstream
 		this.projectName = projectsDAO.getProject(projectName);
 		this.taskName = taskDAO.getTask(taskName, projectName);
-=======
-		this.projectName = projectsDAO.getProject(projectName).name;
-		this.taskName = taskDAO.getTask(taskName, projectName).name;
->>>>>>> Stashed changes
+
 		this.id = r.nextInt(10000000);
 //		this.id = 9099;
 		this.name=  name;

@@ -15,6 +15,7 @@ public class Teammate {
 	public final String name; 
 	public final int id;
 	public Project projectName;
+	//public String nameOfProject;
 	
 	public Teammate(String name, Project projectName) {
 		if(name == null) {
