@@ -13,7 +13,6 @@ import com.amazonaws.lambda.demo.ListTasksHandler;
 //import com.amazonaws.lambda.demo.utils.DatabaseUtil;
 
 
-
 public class TeammateDAO {
 	
 	public java.sql.Connection conn;
