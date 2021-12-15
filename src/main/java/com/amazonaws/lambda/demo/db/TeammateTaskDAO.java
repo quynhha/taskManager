@@ -134,6 +134,33 @@ public class TeammateTaskDAO {
 			return teammates;
 	    }
 
+	
+	public List<TeammateTask> listTeammateTasks(String teammateName, String projectName) throws Exception {
+		List<TeammateTask> allTasks = new ArrayList<>();
+		
+		try {
+		Statement statement = conn.createStatement();
+		PreparedStatement ps = conn.prepareStatement("Select * from TeammateTask where teammateName = ? and projectName = ?;");
+        ps.setString(1, teammateName);
+        ps.setString(2, projectName);
+        
+        
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()) {
+        		TeammateTask t = generateTask(resultSet);
+        		System.out.println(teammateName + " " + projectName);
+        		System.out.println(t.taskName);
+        		allTasks.add(t);
+        }
+        resultSet.close();
+        statement.close();
+
+    } catch (Exception e) {
+        throw new Exception("Failed in getting tasks for teammate: " + e.getMessage());
+    }
+		return allTasks;
+	}
+	
 	/*
 	public ArrayList<String> getTasksByTeammate(String teammateName, String projectName) throws Exception {
 		

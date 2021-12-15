@@ -46,11 +46,13 @@ class ExtraProjectTests {
 
 	@Test
 	public void testArchiveProject() throws Exception{
-		TeammateTaskDAO dao = new TeammateTaskDAO();
-		dao.getTeammatesFromTask("a", "Task 2");
+		TeammateDAO p = new TeammateDAO();
+		p.deleteTeammateFromProject("Razan", "a");
+		//TeammateTaskDAO dao = new TeammateTaskDAO();
+		//dao.removeTeammateFromTask("Josh", "Task 2", "a");
+		//dao.listTeammateTasks("Razan", "a");
 		//TeammateDAO tdao = new TeammateDAO();
 		//tdao.getAllTeammate("a");
-		
 		assert(true);
 	}
 }

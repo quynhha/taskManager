@@ -8,6 +8,7 @@ import java.util.List;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
+import com.amazonaws.lambda.demo.model.TeammateTask;
 import com.amazonaws.lambda.demo.RemoveTeammateFromTaskHandler;
 import com.amazonaws.lambda.demo.ListTasksHandler;
 //import com.amazonaws.lambda.demo.utils.DatabaseUtil;
@@ -67,6 +68,28 @@ public class TeammateDAO {
 				conn.prepareStatement("delete from sys.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
 				ps.execute();
 				ps.close();
+				
+				TaskDAO taskdao = new TaskDAO();
+				ProjectsDAO projectdao = new ProjectsDAO();
+
+				TeammateTaskDAO teammatetaskdao = new TeammateTaskDAO();
+
+				//Create list with teammateName and projectName
+				//List<Task> taskList = taskdao.getAllTasks(projectName);
+				List<TeammateTask> teammateTaskList = teammatetaskdao.listTeammateTasks(teammateName, projectName); 
+				
+				//for(Task t : taskList) {
+					//String taskName = t.name;
+					for(TeammateTask tmtsk : teammateTaskList) {
+						
+						Project project = projectdao.getProject(projectName);
+						Task task = taskdao.getTask(tmtsk.taskName.name, tmtsk.projectName.name);
+						teammatetaskdao.removeTeammateFromTask(tmtsk.name, tmtsk.taskName.name, tmtsk.projectName.name);
+				//	}
+				}
+				
+				//For each in list
+				//remove from project
 				
 				
 			return true;

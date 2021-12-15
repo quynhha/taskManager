@@ -47,7 +47,7 @@ public class GetTeammatesFromTaskHandler implements RequestHandler<GetTeammateFr
 			List<Teammate> markedComplete = MarkTaskComplete(req.taskName, req.projectName);
 
 			
-			response = new GetTeammatesFromTaskResponse(200,"TaskMarkedComplete");
+			response = new GetTeammatesFromTaskResponse(markedComplete,200);
 		} catch (Exception e) {
 			response = new GetTeammatesFromTaskResponse(400, e.getMessage());
 		}
