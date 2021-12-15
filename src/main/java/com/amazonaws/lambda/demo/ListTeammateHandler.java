@@ -23,13 +23,6 @@ import com.amazonaws.services.s3.model.S3Object;
 public class ListTeammateHandler implements RequestHandler<ListTeammatesRequest, ListTeammatesResponse> {
 	public LambdaLogger logger;
 	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
 	
 	List<Teammate> getTeammate(String projectName) throws Exception{
 		logger.log("get all teammates");

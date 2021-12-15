@@ -30,15 +30,15 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 	        
 			RemoveTeammateFromTaskResponse response;
 			try {
-				if (removeTeammateFromTask(req.getName(), req.getTask(), req.getProject())) {
-						response = new RemoveTeammateFromTaskResponse(req.getName(), 200);
+				if (removeTeammateFromTask(req.name, req.task, req.project)) {
+						response = new RemoveTeammateFromTaskResponse(req.name, 200);
 				} 
 				else {
-						response = new RemoveTeammateFromTaskResponse(req.getName(), 400);
+						response = new RemoveTeammateFromTaskResponse(req.name, 400);
 				}
 				
 			} catch (Exception e) {
-				response = new RemoveTeammateFromTaskResponse("Unable to remove teammate from task: " + req.getName() + "(" + e.getMessage() + ")", 400);
+				response = new RemoveTeammateFromTaskResponse("Unable to remove teammate from task: " + req.name + "(" + e.getMessage() + ")", 400);
 			}
 
 			return response;

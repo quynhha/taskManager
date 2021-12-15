@@ -11,17 +11,7 @@ import com.amazonaws.services.s3.AmazonS3;
 public class RemoveTeammateHandler implements RequestHandler<RemoveTeammateRequest, RemoveTeammateResponse> {
 
 	LambdaLogger logger;
-	
-	// To access S3 storage
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-	
-	public static final String REAL_BUCKET = "project/";
-	
-	/** Store into RDS.
-	 * 
-	 * @throws Exception 
-	 */
+
 	boolean removeTeammate(String teammateName, String projectName) throws Exception { 
 		if (logger != null) { logger.log("in createProject"); }
 		TeammateDAO dao = new TeammateDAO();

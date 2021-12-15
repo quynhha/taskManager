@@ -21,14 +21,6 @@ import com.amazonaws.services.s3.model.S3Object;
 public class ArchiveProjectHandler implements RequestHandler<ArchiveProjectRequest, ArchiveProjectResponse> {
 	public LambdaLogger logger;
 	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
-	
 	boolean archiveProject(String projectName) throws Exception{
 		logger.log("archiveProject");
 		ProjectsDAO dao = new ProjectsDAO();

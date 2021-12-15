@@ -16,16 +16,6 @@ public class CreateTaskHandler implements RequestHandler<CreateTaskRequest, Crea
 
     LambdaLogger logger;
 
-    // To access S3 storage
-    @SuppressWarnings("unused")
-    private AmazonS3 s3 = null;
-
-    public static final String REAL_BUCKET = "task/";
-
-    /** Store into RDS.
-     * 
-     * @throws Exception 
-     */
     boolean createTask(String name, String projectName) throws Exception { 
         if (logger != null) { logger.log("in createTask"); }
         TaskDAO dao = new TaskDAO();

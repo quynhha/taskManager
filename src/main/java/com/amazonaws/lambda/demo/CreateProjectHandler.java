@@ -13,16 +13,6 @@ public class CreateProjectHandler implements RequestHandler<CreateProjectRequest
 
 	LambdaLogger logger;
 	
-	// To access S3 storage
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-	
-	public static final String REAL_BUCKET = "project/";
-	
-	/** Store into RDS.
-	 * 
-	 * @throws Exception 
-	 */
 	boolean createProject(String name) throws Exception { 
 		if (logger != null) { logger.log("in createProject"); }
 		ProjectsDAO dao = new ProjectsDAO();

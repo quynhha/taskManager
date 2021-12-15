@@ -15,14 +15,7 @@ import com.amazonaws.services.s3.AmazonS3;
 
 public class MarkTaskIncompleteHandler implements RequestHandler<MarkTaskIncompleteRequest, MarkTaskIncompleteResponse> {
 	public LambdaLogger logger;
-	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
 
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
 	
 	boolean MarkTaskIncomplete(String taskName, String projectName) throws Exception{
 		logger.log("MarkTaskIncomplete");

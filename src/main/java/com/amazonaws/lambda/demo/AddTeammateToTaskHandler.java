@@ -32,15 +32,15 @@ public class AddTeammateToTaskHandler implements RequestHandler<AddTeammateToTas
         
 		AddTeammateToTaskResponse response;
 		try {
-			if (addTeammateToTask(req.getName(), req.getTask(), req.getProject())) {
-					response = new AddTeammateToTaskResponse(req.getName(), 200);
+			if (addTeammateToTask(req.name, req.task, req.project)) {
+					response = new AddTeammateToTaskResponse(req.name, 200);
 			} 
 			else {
-					response = new AddTeammateToTaskResponse(req.getName(), 400);
+					response = new AddTeammateToTaskResponse(req.name, 400);
 			}
 			
 		} catch (Exception e) {
-			response = new AddTeammateToTaskResponse("Unable to add teammate to task: " + req.getName() + "(" + e.getMessage() + ")", 400);
+			response = new AddTeammateToTaskResponse("Unable to add teammate to task: " + req.name + "(" + e.getMessage() + ")", 400);
 		}
 
 		return response;

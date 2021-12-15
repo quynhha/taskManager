@@ -27,14 +27,6 @@ import com.amazonaws.services.s3.model.S3Object;
 public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskResponse> {
 	public LambdaLogger logger;
 	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
-	
 	Task getTask(String name, String projectName) throws Exception{
 		if (logger != null) { logger.log("in loadValue"); }
 		TaskDAO dao = new TaskDAO();
@@ -60,10 +52,10 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 		try {
 			 list = getTasks();
 			 System.out.println(list);
-			 System.out.println(req.getName());
+			 System.out.println(req.name);
 			for (Task c : list) {
 				System.out.println(c.name);
-				if (c.name.equals(req.getName())) {
+				if (c.name.equals(req.name)) {
 					response = new GetTaskResponse(c,list,200, "Successfully got tasks!");
 				}
 			}

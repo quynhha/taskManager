@@ -18,13 +18,6 @@ import com.amazonaws.services.s3.AmazonS3;
 public class ListTeammatesForTaskHandler implements RequestHandler<ListTeammatesForTaskRequest, ListTeammatesForTaskResponse> {
 	public LambdaLogger logger;
 	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
 	
 	List<Teammate> ListTeammatesForTask(String projectName,String taskName) throws Exception{
 		logger.log("ListTeammatesForTask, Task:  " + taskName + ", Project:" );

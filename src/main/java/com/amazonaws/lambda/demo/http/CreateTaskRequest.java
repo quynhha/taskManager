@@ -7,21 +7,6 @@ public class CreateTaskRequest {
 	public UUID id;
 	public String projectName;
 	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public UUID getID() {
-		return id;
-	}
-	public void setID(UUID id) {
-		this.id = id; 
-	}
-	
 	public CreateTaskRequest(String n , UUID id, String projectname) {
 		this.name = n; 
 		this.id = id;

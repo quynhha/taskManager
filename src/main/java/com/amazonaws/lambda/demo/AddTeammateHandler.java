@@ -11,19 +11,9 @@ import com.amazonaws.services.s3.AmazonS3;
 public class AddTeammateHandler implements RequestHandler<AddTeammateRequest, AddTeammateResponse> {
 
 	LambdaLogger logger;
-	
-	// To access S3 storage
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-	
-	public static final String REAL_BUCKET = "project/";
-	
-	/** Store into RDS.
-	 * 
-	 * @throws Exception 
-	 */
+
 	boolean addTeammate(String teammateName, String projectName) throws Exception { 
-		if (logger != null) { logger.log("in createProject"); }
+		if (logger != null) { logger.log("in add teammate handler"); }
 		TeammateDAO dao = new TeammateDAO();
 		
 		// check if present

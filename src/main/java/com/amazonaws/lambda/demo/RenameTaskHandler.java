@@ -14,13 +14,6 @@ import com.amazonaws.services.s3.AmazonS3;
 public class RenameTaskHandler implements RequestHandler<RenameTaskRequest, RenameTaskResponse> {
 	public LambdaLogger logger;
 
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
 	
 	boolean renameTask(String taskName, String projectName, String newName) throws Exception{
 		logger.log("renameTask");

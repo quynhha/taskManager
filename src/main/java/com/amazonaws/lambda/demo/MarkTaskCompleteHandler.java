@@ -12,14 +12,6 @@ import com.amazonaws.services.s3.AmazonS3;
 public class MarkTaskCompleteHandler implements RequestHandler<MarkTaskCompleteRequest, MarkTaskCompleteResponse> {
 	public LambdaLogger logger;
 	
-	@SuppressWarnings("unused")
-	private AmazonS3 s3 = null;
-
-	public static final String REAL_BUCKET = "projects";
-
-	public static final String TOP_LEVEL_BUCKET = "admins";
-	
-	
 	boolean MarkTaskComplete(String taskName, String projectName) throws Exception{
 		logger.log("MarkTaskComplete");
 		TaskDAO dao = new TaskDAO();
