@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.http.AddTeammateToTaskRequest;
+import com.amazonaws.lambda.demo.http.CreateTaskRequest;
 import com.amazonaws.lambda.demo.http.ListTasksForTeammateResponse;
 import com.amazonaws.lambda.demo.http.ListTasksForTeammateRequest;
 import com.amazonaws.lambda.demo.http.ListTasksForTeammateResponse;
@@ -26,6 +27,8 @@ public class ListTasksForTeammateHandlerTest extends LambdaTest {
         Assert.assertEquals(200, resp.statusCode);
     }
     */
+	
+	
     
     void testSuccessListTasksForTeammate(String input) throws IOException {
 	 	ListTasksForTeammateHandler handler = new ListTasksForTeammateHandler(); 
@@ -60,11 +63,21 @@ public class ListTasksForTeammateHandlerTest extends LambdaTest {
     	ListTasksForTeammateResponse resp = handler.handleRequest(req, createContext("create"));
         Assert.assertEquals(failureCode, resp.httpCode);
    }
+    
+    
 	
     @Test
 	  public void ListTasksForTeammateTest() throws Exception{
 		   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
 		   teammateTaskDAO.getAllTasks("Anna", "a");
+		   
+		   CreateTaskHandler handler = new CreateTaskHandler();
+		   CreateTaskRequest req = new CreateTaskRequest(teammateTaskDAO.toString(), "Project");
+		   handler.handleRequest(req, createContext("ListTasksForTeammate"));
+	        
+	        
+
+		   
 		   assert true;
 	  }
 }

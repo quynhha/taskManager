@@ -27,6 +27,7 @@ import com.amazonaws.services.s3.model.S3Object;
 public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskResponse> {
 	public LambdaLogger logger;
 	
+
 	Task getTask(String name, String projectName) throws Exception{
 		if (logger != null) { logger.log("in loadValue"); }
 		TaskDAO dao = new TaskDAO();
@@ -34,7 +35,7 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 		Task task = dao.getTask(name, projectName);
 		if (logger != null) { logger.log("retrieved Constant"); }
 		return task;
-	}
+	}*/
 	
 	List<Task> getTasks() throws Exception{
 		logger.log("get all Projects");
