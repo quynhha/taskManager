@@ -6,6 +6,8 @@ import java.util.List;
 import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
 import com.amazonaws.lambda.demo.http.ListTasksForTeammateRequest;
 import com.amazonaws.lambda.demo.http.ListTasksForTeammateResponse;
+import com.amazonaws.lambda.demo.model.Task;
+import com.amazonaws.lambda.demo.model.Teammate;
 import com.amazonaws.lambda.demo.model.TeammateTask;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
@@ -15,11 +17,11 @@ public class ListTasksForTeammateHandler implements RequestHandler<ListTasksForT
 	
 	public LambdaLogger logger;
 	
-	int getTask(String teammateName, String projectName) throws Exception{
+	List<Teammate> getTask(String teammateName, String projectName) throws Exception{
 		logger.log("get all tasks from teammate");
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
-		return dao.getAllTasks(teammateName, projectName);
+		return dao.getTeammatesFromTask(teammateName, projectName);
 
 	}
 	
@@ -32,7 +34,7 @@ public class ListTasksForTeammateHandler implements RequestHandler<ListTasksForT
 		try {
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
-			int list = getTask(req.teammateName, req.projectName);
+			List<Teammate> list = getTask(req.teammateName, req.projectName);
 			
 			response = new ListTasksForTeammateResponse(list, 200);
 		} catch (Exception e) {

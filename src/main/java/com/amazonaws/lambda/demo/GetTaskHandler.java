@@ -35,11 +35,11 @@ public class GetTaskHandler implements RequestHandler<GetTaskRequest, GetTaskRes
 	public static final String TOP_LEVEL_BUCKET = "admins";
 	
 	
-	Task getTask(String name) throws Exception{
+	Task getTask(String name, String projectName) throws Exception{
 		if (logger != null) { logger.log("in loadValue"); }
 		TaskDAO dao = new TaskDAO();
 		if (logger != null) { logger.log("retrieved DAO"); }
-		Task task = dao.getTask(name);
+		Task task = dao.getTask(name, projectName);
 		if (logger != null) { logger.log("retrieved Constant"); }
 		return task;
 	}

@@ -8,15 +8,9 @@ import java.util.List;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 import com.amazonaws.lambda.demo.model.TeammateTask;
-=======
 
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
 import com.amazonaws.lambda.demo.RemoveTeammateFromTaskHandler;
 import com.amazonaws.lambda.demo.ListTasksHandler;
 //import com.amazonaws.lambda.demo.utils.DatabaseUtil;
