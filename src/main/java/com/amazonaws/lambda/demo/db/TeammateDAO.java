@@ -5,10 +5,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
+<<<<<<< Updated upstream
+=======
+import com.amazonaws.lambda.demo.RemoveTeammateFromTaskHandler;
+import com.amazonaws.lambda.demo.ListTasksHandler;
+//import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+
+>>>>>>> Stashed changes
 
 public class TeammateDAO {
 	
@@ -64,6 +70,8 @@ public class TeammateDAO {
 				conn.prepareStatement("delete from sys.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
 				ps.execute();
 				ps.close();
+				
+				
 			return true;
 		} catch (Exception ex) {
 			throw new Exception("Failed to delete teammate." + ex.getMessage());
