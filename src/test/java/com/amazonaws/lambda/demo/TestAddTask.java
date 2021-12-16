@@ -13,7 +13,7 @@ public class TestAddTask {
 	public void testATask() throws Exception {
 		TaskDAO taskdao = new TaskDAO();
 		//TaskDAO  object= new TaskDAO();
-		Task task = new Task(taskdao.toString(), "a");
+		Task task = new Task(taskdao.toString(), "TestProject");
 		taskdao.addTask(task);
 		assert(true);}
 	
@@ -22,7 +22,7 @@ public class TestAddTask {
 	public void testListTask() throws Exception {
 		TaskDAO taskdao = new TaskDAO();
 		//TaskDAO  object= new TaskDAO();
-		List<Task> tasks = taskdao.getAllTasks("47be12e7-8c88-4120-ad61-f42ba538ca93");
+		List<Task> tasks = taskdao.getAllTasks("TestProject");
 		assert(true);
 	}
 	

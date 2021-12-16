@@ -20,7 +20,7 @@ public class TeammateDAOTest {
     public void test() throws Exception {
         
     		   TeammateDAO teammateDAO = new TeammateDAO();
-    		   teammateDAO.getAllTeammate("a");
+    		   teammateDAO.getAllTeammate("TestProject");
     		   assert true;
     }
 }

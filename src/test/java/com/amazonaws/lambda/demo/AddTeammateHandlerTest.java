@@ -8,7 +8,7 @@ public class AddTeammateHandlerTest extends LambdaTest{
 
     @Test
     public void Test() {
-    	AddTeammateRequest incoming = new AddTeammateRequest("Akim", "a");
+    	AddTeammateRequest incoming = new AddTeammateRequest("Akim", "TestProject");
     	AddTeammateHandler handler = new AddTeammateHandler();
     	Assert.assertEquals(200, handler.handleRequest(incoming, createContext("add teammate")).httpCode);
     }

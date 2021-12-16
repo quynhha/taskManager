@@ -35,7 +35,7 @@ class TestListTeammates extends LambdaTest {
 	@Test
     public void testShouldBeOk() {
 
-        ListTeammatesRequest ccr = new ListTeammatesRequest("a");
+        ListTeammatesRequest ccr = new ListTeammatesRequest("TestProject");
         String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);
 
         try {

@@ -69,7 +69,7 @@ public class ListTasksForTeammateHandlerTest extends LambdaTest {
     @Test
 	  public void ListTasksForTeammateTest() throws Exception{
 		   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
-		   teammateTaskDAO.getAllTasks("Anna", "a");
+		   teammateTaskDAO.getAllTasks("Bob", "TestProject");
 		   
 		   CreateTaskHandler handler = new CreateTaskHandler();
 		   CreateTaskRequest req = new CreateTaskRequest(teammateTaskDAO.toString(), "Project");
