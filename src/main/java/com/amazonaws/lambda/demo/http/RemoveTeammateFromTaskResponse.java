@@ -8,8 +8,8 @@ public class RemoveTeammateFromTaskResponse {
 		this.response = s;
 		this.httpCode = code;
 	}
-	
+	/*
 	public String toString() {
-		return "Response(" + this.response + ")";
-	}	
+		//return "Response(" + this.response + ")";
+	}	*/
 }

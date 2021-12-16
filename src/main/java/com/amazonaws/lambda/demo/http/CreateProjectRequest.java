@@ -11,9 +11,10 @@ public class CreateProjectRequest {
 		this.id = id;
 	}
 	
+	/*
 	public String toString() {
-		return "CreateProject(" + name + "," + id + ")";
-	}
+		//return "CreateProject(" + name + "," + id + ")";
+	}*/
 	
 	public CreateProjectRequest() {}
 }

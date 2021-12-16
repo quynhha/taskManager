@@ -63,6 +63,12 @@ public class RemoveTeammateFromTaskHandlerTest extends LambdaTest {
 		  public void removeTeammateFromTaskTest() throws Exception{
 			   TeammateTaskDAO teammateTaskDAO = new TeammateTaskDAO();
 			   teammateTaskDAO.removeTeammateFromTask("Artwell", "Go Jogging", "Workout");
+			   
+			   RemoveTeammateFromTaskHandler handler = new RemoveTeammateFromTaskHandler();
+			   RemoveTeammateFromTaskRequest req = new RemoveTeammateFromTaskRequest("Luna", "a", "Task 2");
+			   
+			   handler.handleRequest(req, createContext("remomeTeammateFromTask"));
+			   
 			   assert true;
 		  }
        

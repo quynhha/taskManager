@@ -9,5 +9,13 @@ public class GetTeammateFromTaskRequest {
 		this.projectName = projectName;
 		System.out.println(this.taskName);
 	}
+	
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
 	public GetTeammateFromTaskRequest() {}
 }

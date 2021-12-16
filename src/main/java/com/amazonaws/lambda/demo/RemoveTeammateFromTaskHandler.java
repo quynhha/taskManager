@@ -11,12 +11,12 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 
 		LambdaLogger logger;
 
-		boolean removeTeammateFromTask(String teammateName, String taskName, String projectName) throws Exception { 
+		boolean removeTeammateFromTask(String teammateName, String projectName,String taskName) throws Exception { 
 			if (logger != null) { logger.log(" in removeTeammateFromTask"); }
 			TeammateTaskDAO dao = new TeammateTaskDAO();
 			
 			// check if present
-			if (dao.removeTeammateFromTask(teammateName, taskName, projectName) == false) {
+			if (dao.removeTeammateFromTask(teammateName,  projectName, taskName) == false) {
 				return false;
 			} else {
 				return true;
@@ -30,8 +30,13 @@ public class RemoveTeammateFromTaskHandler implements RequestHandler<RemoveTeamm
 	        
 			RemoveTeammateFromTaskResponse response;
 			try {
+<<<<<<< Updated upstream
 				if (removeTeammateFromTask(req.name, req.task, req.project)) {
 						response = new RemoveTeammateFromTaskResponse(req.name, 200);
+=======
+				if (removeTeammateFromTask(req.getName(), req.getProject(),  req.getTask())) {
+						response = new RemoveTeammateFromTaskResponse(req.getName(), 200);
+>>>>>>> Stashed changes
 				} 
 				else {
 						response = new RemoveTeammateFromTaskResponse(req.name, 400);

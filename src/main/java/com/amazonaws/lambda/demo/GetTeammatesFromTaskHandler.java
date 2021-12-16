@@ -19,7 +19,7 @@ public class GetTeammatesFromTaskHandler implements RequestHandler<GetTeammateFr
 	public LambdaLogger logger;
 
 	
-	List<Teammate> MarkTaskComplete(String taskName, String projectName) throws Exception{
+	List<Teammate> GetTeammatesFromTask(String taskName, String projectName) throws Exception{
 		logger.log("MarkTaskComplete");
 		TeammateTaskDAO dao = new TeammateTaskDAO();
 		
@@ -37,10 +37,10 @@ public class GetTeammatesFromTaskHandler implements RequestHandler<GetTeammateFr
 		try {
 			// get all user defined constants AND system-defined constants.
 			// Note that user defined constants override system-defined constants.
-			List<Teammate> markedComplete = MarkTaskComplete(req.taskName, req.projectName);
+			List<Teammate> teammates = GetTeammatesFromTask(req.taskName, req.projectName);
 
 			
-			response = new GetTeammatesFromTaskResponse(markedComplete,200);
+			response = new GetTeammatesFromTaskResponse(teammates,200);
 		} catch (Exception e) {
 			response = new GetTeammatesFromTaskResponse(400, e.getMessage());
 		}

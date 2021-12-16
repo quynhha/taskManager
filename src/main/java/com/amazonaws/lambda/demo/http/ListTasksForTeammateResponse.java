@@ -7,12 +7,12 @@ import com.amazonaws.lambda.demo.model.Teammate;
 import com.amazonaws.lambda.demo.model.TeammateTask;
 
 public class ListTasksForTeammateResponse {
-	public final List<Teammate> list;
+	public final List<String> list;
 	public final int statusCode;
 	public final String error;
 	public Object httpCode;
 
-	public ListTasksForTeammateResponse (List<Teammate> list, int code) {
+	public ListTasksForTeammateResponse (List<String> list, int code) {
 		this.list = list;
 		this.statusCode = code;
 		this.error = "";

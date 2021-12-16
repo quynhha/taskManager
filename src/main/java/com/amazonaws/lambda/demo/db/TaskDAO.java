@@ -135,6 +135,16 @@ public class TaskDAO {
 	            int numAffected = ps.executeUpdate();
 	            ps.close();
 	            
+	            String query2 = "UPDATE TeammateTask SET taskName=? "
+	            		+ "WHERE taskName=? AND projectName=?;";
+	        	PreparedStatement ps2 = conn.prepareStatement(query2);
+	        	ps2.setString(1, newName);
+	            ps2.setString(2, taskName);
+	            ps2.setString(3, projectName);
+	            System.out.println(query2);
+	            System.out.println(ps2.executeUpdate());
+	            
+	            ps2.close();
 	            return (numAffected == 1);
 	        } catch (Exception e) {
 	            throw new Exception("Failed to update report: " + e.getMessage());

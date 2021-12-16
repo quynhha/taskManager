@@ -12,11 +12,19 @@ import com.amazonaws.lambda.demo.db.ProjectsDAO;
 import com.amazonaws.lambda.demo.db.TaskDAO;
 import com.amazonaws.lambda.demo.db.TeammateDAO;
 import com.amazonaws.lambda.demo.db.TeammateTaskDAO;
+import com.amazonaws.lambda.demo.http.AddTeammateToTaskRequest;
+import com.amazonaws.lambda.demo.http.GetTeammateFromTaskRequest;
+import com.amazonaws.lambda.demo.http.GetTeammatesFromTaskResponse;
+import com.amazonaws.lambda.demo.http.ListTasksForTeammateRequest;
+import com.amazonaws.lambda.demo.http.ListTasksForTeammateResponse;
+import com.amazonaws.lambda.demo.http.ListTeammatesForTaskRequest;
+import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskRequest;
+import com.amazonaws.lambda.demo.http.RemoveTeammateFromTaskResponse;
 import com.amazonaws.lambda.demo.model.Project;
 import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.TeammateTask;
 
-class ExtraProjectTests {
+class ExtraProjectTests2 extends LambdaTest {
 
 	/*@Test
 	public void testIncrement() throws Exception {
@@ -46,13 +54,22 @@ class ExtraProjectTests {
 
 	@Test
 	public void testArchiveProject() throws Exception{
-		TeammateDAO p = new TeammateDAO();
-		p.deleteTeammateFromProject("Razan", "a");
+		
+		TaskDAO dao2 = new TaskDAO();
+		dao2.RenameTask("RENAMED2", "G4Test3", "RENAMED");
+		
+		
+		
+		
+		
 		//TeammateTaskDAO dao = new TeammateTaskDAO();
-		//dao.removeTeammateFromTask("Josh", "Task 2", "a");
-		//dao.listTeammateTasks("Razan", "a");
-		//TeammateDAO tdao = new TeammateDAO();
-		//tdao.getAllTeammate("a");
+		
+		//dao.getAllTasks("TestAlice", "G4Test3");
+		
+		//ListTasksForTeammateHandler handler = new ListTasksForTeammateHandler();
+		//ListTasksForTeammateRequest req = new ListTasksForTeammateRequest("TestAlice", "G4Test3" );
+		//ListTasksForTeammateResponse r = handler.handleRequest(req, createContext("Test"));
+		
 		assert(true);
 	}
 }

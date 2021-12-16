@@ -23,8 +23,9 @@ public class ListTeammatesResponse {
 		this.error = errorMessage;
 	}
 	
+	/*
 	public String toString() {
 		if (list == null) { return "EmptyTasksList"; }
 		return "AllTasks(" + list.size() + ")";
-	}
+	}*/
 }

@@ -23,6 +23,17 @@ import com.amazonaws.services.s3.model.S3Object;
 public class GetProjectHandler implements RequestHandler<GetProjectRequest, GetProjectResponse> {
 	public LambdaLogger logger;
 	
+<<<<<<< Updated upstream
+=======
+	@SuppressWarnings("unused")
+	private AmazonS3 s3 = null;
+
+	public static final String REAL_BUCKET = "projects";
+
+	public static final String TOP_LEVEL_BUCKET = "admins";
+	
+	/*
+>>>>>>> Stashed changes
 	Project getProject(String name) throws Exception{
 		if (logger != null) { logger.log("in loadValue"); }
 		ProjectsDAO dao = new ProjectsDAO();
@@ -30,7 +41,7 @@ public class GetProjectHandler implements RequestHandler<GetProjectRequest, GetP
 		Project project = dao.getProject(name);
 		if (logger != null) { logger.log("retrieved Constant"); }
 		return project;
-	}
+	}*/
 	
 	List<Project> getProjects() throws Exception{
 		logger.log("get all Projects");
