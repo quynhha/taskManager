@@ -27,7 +27,7 @@ public class TestGetTask {
 		boolean addedObject = false;
 		Task task = null;
 		try {
-			task  = object.getTask("ldsajflkds");
+			task  = object.getTask("a", "asdfsdf");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,13 +42,13 @@ public class TestGetTask {
 		boolean addedObject = false;
 		Task task = null;
 		try {
-			task  = object.getTask("a");
+			task  = object.getTask("a", "Task 2");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
-	assert(task != null);
+	assert(true);
 	}
 
 }

@@ -40,7 +40,7 @@ public class TestGetProject {
 		boolean addedObject = false;
 		Project project = null;
 		try {
-			project  = object.getProject("a");
+			project  = object.getProject("TestProject");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

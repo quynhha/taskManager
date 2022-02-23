@@ -2,26 +2,23 @@ package com.amazonaws.lambda.demo.db;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.amazonaws.lambda.demo.model.Project;
+import com.amazonaws.lambda.demo.model.Task;
 import com.amazonaws.lambda.demo.model.Teammate;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.S3Event;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
+
+import com.amazonaws.lambda.demo.model.TeammateTask;
+
+import com.amazonaws.lambda.demo.RemoveTeammateFromTaskHandler;
+import com.amazonaws.lambda.demo.ListTasksHandler;
+//import com.amazonaws.lambda.demo.utils.DatabaseUtil;
+
 
 public class TeammateDAO {
 	
-	java.sql.Connection conn;
-	final String tb1name = "Teammate";
-	private AmazonS3 s3;
+	public java.sql.Connection conn;
 	
 	public TeammateDAO() {
 		try {
@@ -29,134 +26,139 @@ public class TeammateDAO {
 		} catch (Exception e) {
 			conn = null;
 		}
-	}
-
-	public Teammate getTeammate(String id) throws Exception{
-		
-		try {
-			Teammate teammate = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName=?;");
-			ps.setString(1,  id);
-			ResultSet resultSet = ps.executeQuery();
-			
-			  while (resultSet.next()) {
-	                teammate = generateTeammate(resultSet);
-	            }
-			resultSet.close();
-			ps.close();
-			return teammate;
-			  
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in getting teammate: " + e.getMessage());
-		}
 		
 	}
 
-	public boolean addTeammate(Teammate teammate) throws Exception {
-		// TODO Auto-generated method stub
+	public int searchForTeammate(String teammateName, String projectName) throws Exception {
+		  int teammateID = 0;
+		  try {
+			  PreparedStatement ps = 
+		       conn.prepareStatement("SELECT teammateID FROM sys.Teammate where teammateName = '" + teammateName + "' and projectName = '" + projectName + "';");	    
+		      ResultSet resultSet = ps.executeQuery();	
+		      while (resultSet.next()) {
+		        	teammateID = resultSet.getInt("teammateID");
+		      }
+		      resultSet.close();
+		      ps.close();
+	      } catch (Exception e) {
+	    	  throw new Exception("Something went wrong: " + e.getMessage());
+	      }
+	      return teammateID;
+	}
+	
+	public int addTeammateToProject(String teammateName, String projectName) throws Exception {
 		try {
-			
-			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName = ?;");
-	            ps.setString(1, teammate.name);
-	            ResultSet resultSet = ps.executeQuery();
-	            
-	            // already present?
-	            while (resultSet.next()) {
-	                Teammate t = generateTeammate(resultSet);
-	                resultSet.close();
-	                return false;
-	            }
-	            
-			 // = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE teammateName = ?;");
-			
-			 ps = conn.prepareStatement("INSERT INTO " + tb1name + " (teammateName, teammateID) values(?,?);");
-	            ps.setString(1,  teammate.name); // fix
-	            ps.setInt(2,  teammate.id); 
-	            System.out.println();
+			if (searchForTeammate(teammateName, projectName) == 0) {
+				PreparedStatement ps = conn.prepareStatement("Insert into sys.Teammate (teammateName, projectName) values(?, ?);");
+	            ps.setString(1,  teammateName); 
+	            ps.setString(2, projectName);
 	            ps.execute();
-	            return true;
+	            ps.close();
+	         } else {
+	        	 return 0;
+	         }
 			}
 		catch (Exception e){
-            throw new Exception("Failed to add teammate: " + e.getMessage());
-
-			}
+            throw new Exception("Failed to add teammate to project: " + e.getMessage());
 		}
-		
+			return searchForTeammate(teammateName, projectName);
+		}
 
 	
-	private Teammate generateTeammate(ResultSet resultSet) throws SQLException {
-		String name = resultSet.getString("teammateName");
-		int id = resultSet.getInt("teammateID");
+	public boolean deleteTeammateFromProject(String teammateName, String projectName) throws Exception {
+		try {
+			PreparedStatement ps = 
+				conn.prepareStatement("delete from sys.Teammate where projectName = '" + projectName + "' and teammateName = '" + teammateName + "';");
+				ps.execute();
+				ps.close();
 				
-		return new Teammate(name);
+				TaskDAO taskdao = new TaskDAO();
+				ProjectsDAO projectdao = new ProjectsDAO();
+
+				TeammateTaskDAO teammatetaskdao = new TeammateTaskDAO();
+
+				//Create list with teammateName and projectName
+				//List<Task> taskList = taskdao.getAllTasks(projectName);
+				List<TeammateTask> teammateTaskList = teammatetaskdao.listTeammateTasks(teammateName, projectName); 
+				
+				//for(Task t : taskList) {
+					//String taskName = t.name;
+					for(TeammateTask tmtsk : teammateTaskList) {
+						
+						Project project = projectdao.getProject(projectName);
+						Task task = taskdao.getTask(tmtsk.taskName.name, tmtsk.projectName.name);
+						teammatetaskdao.removeTeammateFromTask(tmtsk.name, tmtsk.taskName.name, tmtsk.projectName.name);
+				//	}
+				}
+				
+				//For each in list
+				//remove from project
+				
+				
+			return true;
+		} catch (Exception ex) {
+			throw new Exception("Failed to delete teammate." + ex.getMessage());
+		}
+	}
+	
+	
+	private Teammate generateTeammate(ResultSet resultSet) throws Exception {
+		String name = resultSet.getString("teammateName");
+		String projectName = resultSet.getString("projectName");
+//		
+//		ProjectsDAO projectsDAO = new ProjectsDAO();
+//		Project project = projectsDAO.getProject(projectName);
+//		
+//		
+		return new Teammate(name, projectName);
 		
 	}
-
-	public List<Teammate> getAllTeammates() throws Exception {
+	
+	public List<Teammate> getAllTeammate(String projectName) throws Exception {
 	// TODO Auto-generated method stub	
-		List<Teammate> allTeammates = new ArrayList<>();
+		List<Teammate> allTeammate = new ArrayList<>();
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT * FROM " + tb1name + ";";
-            ResultSet resultSet = statement.executeQuery(query);
+            //String query = "SELECT * FROM sys.Teammate where projectName = ?;";//+ "where projectname = "+ projectName + ";";// + "ORDER BY order2;"
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Teammate where projectName =?;");
+            ps.setString(1, projectName);
+            
+            
+            //SELECT * FROM  Task where projectname ="47be12e7-8c88-4120-ad61-f42ba538ca93";
+            ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
-                Teammate m = generateTeammate(resultSet);
-                allTeammates.add(m);
+            		//Teammate t = new Teammate(resultSet.getString("teammateName"), resultSet.getString("projectName"));
+            		Teammate t = generateTeammate(resultSet);
+            		//System.out.println(t.projectName.name);
+            		if(t.projectName.name.equals(projectName)) {
+                		//System.out.println(t.name);
+            			allTeammate.add(t);
+            	}
+            }
+            for(Teammate t: allTeammate) {
+            	//System.out.println(t.name);
             }
             resultSet.close();
             statement.close();
-            return allTeammates;
 
         } catch (Exception e) {
-            throw new Exception("Failed in getting teammates: " + e.getMessage());
+            throw new Exception("Failed in getting tasks: " + e.getMessage());
         }
+		return allTeammate;
     }
+	public Teammate getTeammate(String teammatename, String projectName) throws Exception {
+		List<Teammate> allTeammate = getAllTeammate(projectName);
+		//System.out.println();
+				for(Teammate t : allTeammate) {
+					//System.out.println(t.name);
+					if(teammatename.equals(t.name)) {
+						return t;
+					}
+				}
+			return null;
+	}
 	
-	public boolean removeTeammate(String name) throws Exception {
-		try {
-			Teammate teammate = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE teammateName=?;");
-			ps.setString(1,  name);
-			int deleteCode = ps.executeUpdate();
-			return deleteCode != 0;
-			  
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed to delete teammate: " + e.getMessage());
-		}	
-	}   
+	
 
-    //private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
-
-    //public TeammateDAO() {}
-
-    // Test purpose only.
-    public TeammateDAO(AmazonS3 s3) {
-        this.s3 = s3;
-    }
-
-		
-    public String handleRequest(S3Event event, Context context) {
-        context.getLogger().log("Received event: " + event);
-
-        // Get the object from the event and show its content type
-        String bucket = event.getRecords().get(0).getS3().getBucket().getName();
-        String key = event.getRecords().get(0).getS3().getObject().getKey();
-        try {
-            S3Object response = s3.getObject(new GetObjectRequest(bucket, key));
-            String contentType = response.getObjectMetadata().getContentType();
-            context.getLogger().log("CONTENT TYPE: " + contentType);
-            return contentType;
-        } catch (Exception e) {
-            e.printStackTrace();
-            context.getLogger().log(String.format(
-                "Error getting object %s from bucket %s. Make sure they exist and"
-                + " your bucket is in the same region as this function.", key, bucket));
-            throw e;
-        }
-    }
 }

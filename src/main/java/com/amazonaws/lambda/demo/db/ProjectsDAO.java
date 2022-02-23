@@ -30,17 +30,13 @@ public class ProjectsDAO {
 	public Project getProject(String name) throws Exception{
 		
 		try {
-			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + tb1name + " WHERE projectName=?;");
-			ps.setString(1,  name);
-			ResultSet resultSet = ps.executeQuery();
-			
-			  while (resultSet.next()) {
-	                project = generateProject(resultSet);
-	            }
-			resultSet.close();
-			ps.close();
-			return project;
+			List<Project> ProjectList1 = getAllProjects();
+			for(Project p : ProjectList1) {
+				if(p.name.equals(name)) {
+					return p;
+				}
+			}
+			return null;
 			  
 		}
 		catch (Exception e) {
@@ -85,8 +81,13 @@ public class ProjectsDAO {
 	private Project generateProject(ResultSet resultSet) throws SQLException {
 		String name = resultSet.getString("projectName");
 		int id = resultSet.getInt("projectID");
-				
-		return new Project(name, id);
+		int numberOfTasks = resultSet.getInt("numberOfTasks");
+		int numberOfCompleteTasks = resultSet.getInt("Complete");
+		int percentageComplete = resultSet.getInt("percentageComplete");
+		int status = resultSet.getInt("status");
+		
+		
+		return new Project(name, id, numberOfTasks,numberOfCompleteTasks,percentageComplete, status);
 		
 	}
 
@@ -114,11 +115,14 @@ public class ProjectsDAO {
 	public boolean deleteProject(String name) throws Exception {
 		try {
 			Project project = null;
-			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName=?;");
+			PreparedStatement ps = conn.prepareStatement("Delete FROM " + tb1name + " WHERE projectName = ?;");
 			ps.setString(1,  name);
 			int deleteCode = ps.executeUpdate();
-			return deleteCode != 0;
-			  
+			System.out.println(deleteCode);
+			if (deleteCode == 0)
+					return true;
+			else
+					return false;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -127,5 +131,122 @@ public class ProjectsDAO {
 		
 		
 	}
-    
+	
+	public int getNumberOfTasks(String projectName) throws Exception {
+		try {
+				Project p = getProject(projectName);
+				System.out.println(p.name);
+				System.out.println(p.getNumTask());
+
+				return p.getNumTask();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+	}
+	
+	public void incrementNumberOfTasks(String projectName) throws Exception{
+		//int currentNumTasks = this.getProject(projectName).numTasks ++;
+		//System.out.println("Tasks from local object:" + currentNumTasks );
+		//currentNumTasks++;
+		
+		
+		int newNumOfTasks = this.getNumberOfTasks(projectName);
+		//System.out.println(newNumOfTasks);
+		newNumOfTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setNumTask(newNumOfTasks);
+		System.out.println(p.getNumTask());
+
+		
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set numberOfTasks = ? WHERE projectName = ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setInt(1,  newNumOfTasks);
+		ps.setString(2, projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+	}
+	
+	public boolean archiveProject(String projectName) throws Exception{
+		
+		if(this.getProject(projectName) == null) {
+			return false;
+		}
+		Project p = getProject(projectName);
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set status = 1 WHERE projectName = ?;");
+		ps.setString(1,  projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+		return true;
+	}
+	/*
+	
+	public void incrementNumberOfCompleteTasks(String projectName) throws Exception{
+		
+		
+		int newNumOfCompleteTasks = this.getNumberOfCompleteTasks(projectName);
+		//System.out.println(newNumOfTasks);
+		newNumOfCompleteTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setNumCompleteTask(newNumOfCompleteTasks);
+		System.out.println(p.getNumCompleteTask());
+
+		
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set numberOfCompleteTasks = ? WHERE projectName = ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setInt(1,  newNumOfCompleteTasks);
+		ps.setString(2, projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+	}
+	
+	public int getNumberOfCompleteTasks(String projectName) throws Exception {
+		try {
+				Project p = getProject(projectName);
+				System.out.println(p.name);
+				System.out.println(p.getNumCompleteTask());
+
+				return p.getNumCompleteTask();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed to delete project: " + e.getMessage());
+		}
+		
+	}
+	*/
+public int getPercentageComplete(String projectName) throws Exception{
+		
+		
+		int PercentageComplete = 0;
+		//System.out.println(newNumOfTasks);
+//		newNumOfCompleteTasks++;
+		//System.out.println(newNumOfTasks);
+
+		Project p = getProject(projectName);
+		p.setPercentageComplete(PercentageComplete);
+		System.out.println(p.getPercentageComplete());
+
+		
+		PreparedStatement ps = conn.prepareStatement("Update " + tb1name + " Set percentageComplete = (numberOfCompleteTasks / numberOfTasks)*100 WHERE projectName = ?;");
+		//PreparedStatement ps = conn.prepareStatement("update Project Set numberOfTasks = 0 where projectName = Project2 ;");
+		ps.setString(1, projectName);
+		
+		int num = ps.executeUpdate();
+		ps.close();
+		return PercentageComplete;
+	}
+
+
+
+
 }

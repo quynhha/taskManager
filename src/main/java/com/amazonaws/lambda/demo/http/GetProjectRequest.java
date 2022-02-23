@@ -3,14 +3,6 @@ package com.amazonaws.lambda.demo.http;
 public class GetProjectRequest {
 	public String name; 
 	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	
 	public GetProjectRequest(String n) {
 		this.name = n; 

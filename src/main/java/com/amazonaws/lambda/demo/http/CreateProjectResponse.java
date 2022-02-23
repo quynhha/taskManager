@@ -15,9 +15,9 @@ public class CreateProjectResponse {
 		this.response = s;
 		this.httpCode = 200;
 	}
-	
+	/*
 	public String toString() {
-		return "Response(" + response + ")";
-	}
+		//return "Response(" + response + ")";
+	}*/
 	
 }

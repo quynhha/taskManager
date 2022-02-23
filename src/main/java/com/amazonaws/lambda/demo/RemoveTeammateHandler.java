@@ -3,51 +3,47 @@ package com.amazonaws.lambda.demo;
 import com.amazonaws.lambda.demo.db.TeammateDAO;
 import com.amazonaws.lambda.demo.http.RemoveTeammateRequest;
 import com.amazonaws.lambda.demo.http.RemoveTeammateResponse;
-import com.amazonaws.lambda.demo.model.Teammate;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.s3.AmazonS3;
 
 public class RemoveTeammateHandler implements RequestHandler<RemoveTeammateRequest, RemoveTeammateResponse> {
 
-	LambdaLogger logger; 
-	
-	boolean removeTeammate(String name) throws Exception{
-		if(logger != null ) {
-			logger.log("Removin a Teammate ... ");
-		}
-		
-		boolean result; 
+	LambdaLogger logger;
+
+	boolean removeTeammate(String teammateName, String projectName) throws Exception { 
+		if (logger != null) { logger.log("in createProject"); }
 		TeammateDAO dao = new TeammateDAO();
 		
-		Teammate exist = dao.getTeammate(name); 
-		
-		if(exist != null ) {
-			result = dao.removeTeammate(name); 
+		// check if present
+		if (dao.deleteTeammateFromProject(teammateName, projectName) == false) {
+			return false;
 		} else {
-			result = false; 
+			return true;
 		}
-		return result;
+
 	}
 	
-	
-    @Override
-    public RemoveTeammateResponse handleRequest(RemoveTeammateRequest req, Context context) {
-        logger = context.getLogger();
-        logger.log(req.toString());
-        
-        RemoveTeammateResponse resp;
-        try {
-        	if(removeTeammate(req.name)) {
-        		resp = new RemoveTeammateResponse(req.name);
-        	}
-        	else {
-        		resp = new RemoveTeammateResponse(req.name , 400);
-        	}
-        }catch (Exception e) {
-        	resp = new RemoveTeammateResponse("Unable to remove the teammate: " + req.name + "(" + e.getMessage() + ")", 400);
-        }
-        return resp; 
-    }
+	@Override 
+	public RemoveTeammateResponse handleRequest(RemoveTeammateRequest req, Context context)  {
+		logger = context.getLogger();
+		logger.log(req.toString());
+
+		RemoveTeammateResponse response;
+		try {
+			if (removeTeammate(req.name, req.project)) {
+					response = new RemoveTeammateResponse(req.name);
+			} 
+			else {
+					response = new RemoveTeammateResponse(req.name, 400);
+			}
+			
+		} catch (Exception e) {
+			response = new RemoveTeammateResponse("Unable to delete teammate: " + req.name + "(" + e.getMessage() + ")", 400);
+		}
+
+		return response;
+	}
 
 }

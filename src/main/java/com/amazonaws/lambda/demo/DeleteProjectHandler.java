@@ -24,22 +24,16 @@ public class DeleteProjectHandler implements RequestHandler<DeleteProjectRequest
 	
 	
 	boolean deleteProject(String name) throws Exception{
+		boolean deleted = false;
 		if(logger != null ) {
 			logger.log("Delete a project ... ");
 		}
-		boolean result;
+		
 		ProjectsDAO dao = new ProjectsDAO();
 		
-		boolean deleted = dao.deleteProject(name);
-		
-		Project exist = dao.getProject(name);
-		
-		if(exist != null ) {
-			result = false; 
-		} else {
-			result = true; 
-		}
-		return result;
+		deleted = dao.deleteProject(name);
+		System.out.println("Deleted:" + deleted);
+		return deleted;
 	}
 	
 	
@@ -66,5 +60,7 @@ public class DeleteProjectHandler implements RequestHandler<DeleteProjectRequest
 
 		return response;
 	}
+	
+
 	
 }

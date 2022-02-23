@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 public class AddTaskHandlerTest extends LambdaTest{
 
 	
+	
 	 void testSuccessInput(String incoming) throws IOException {
     	CreateTaskHandler handler = new CreateTaskHandler();
     	CreateTaskRequest req = new Gson().fromJson(incoming, CreateTaskRequest.class);
@@ -42,9 +43,9 @@ public class AddTaskHandlerTest extends LambdaTest{
     @Test
     public void testShouldBeOk() {
     	int rndNum = (int)(990*(Math.random()));
-    	String var = "throwAway" + rndNum;
+    	String var = "ThrowAway" + rndNum;
     	
-    	CreateTaskRequest ccr = new CreateTaskRequest(var, (UUID.randomUUID()));
+    	CreateTaskRequest ccr = new CreateTaskRequest(var, (UUID.randomUUID()), "TestProject");
         String SAMPLE_INPUT_STRING = new Gson().toJson(ccr);  
         
         try {

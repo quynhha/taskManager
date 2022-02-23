@@ -22,7 +22,7 @@ import com.amazonaws.services.s3.model.S3Object;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
- */
+ *//*
 @RunWith(MockitoJUnitRunner.class)
 public class TeammateDAOTest {
 
@@ -55,8 +55,9 @@ public class TeammateDAOTest {
         ctx.setFunctionName("Your Function Name");
 
         return ctx;
-    }
-
+    }/*
+}
+/*
     @Test
     public void testTeammateDAO() {
         TeammateDAO handler = new TeammateDAO(s3Client);
@@ -68,3 +69,4 @@ public class TeammateDAOTest {
         Assert.assertEquals(CONTENT_TYPE, output);
     }
 }
+*/
